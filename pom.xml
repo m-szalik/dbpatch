@@ -1,0 +1,61 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.jsoftware</groupId>
+	<artifactId>dbpatch</artifactId>
+	<packaging>maven-plugin</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>Database patch Maven Mojo</name>
+	<url>http://jsoftware.org/maven-dbpatch-plugin</url>
+	<description>Manage your database patches whith maven.</description>
+	<inceptionYear>2011</inceptionYear>
+	<licenses>
+		<license>
+			<name>GPL</name>
+		</license>
+	</licenses>
+	<organization>
+		<name>Jsoftware.org</name>
+		<url>http://www.jsoftware.org</url>
+	</organization>
+	<developers>
+		<developer>
+			<name>Marek Szalik</name>
+			<email>marek.szalik@jsoftware.org</email>
+		</developer>
+	</developers>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<scm>
+		<url>svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</url>
+		<connection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</connection>
+		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</developerConnection>
+	</scm>
+
+</project>

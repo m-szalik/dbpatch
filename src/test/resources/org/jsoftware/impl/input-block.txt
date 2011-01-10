@@ -1,0 +1,9 @@
+code 1;
+-- block 1
+code 2a;
+code 2b;
+-- block 2
+code 3a;
+code 3b;
+-- end of statement
+code 4;

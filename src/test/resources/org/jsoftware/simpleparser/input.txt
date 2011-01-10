@@ -1,0 +1,9 @@
+code 1;
+code 2a 
+code 2b;
+/* comment block
+--
+*/
+code 3;
+code 4 -- comment line
+// command
