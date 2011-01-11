@@ -4,8 +4,8 @@ import java.util.List;
 
 public interface PatchScaner {
 	
-	public interface DirectoryInjectionScaner extends PatchScaner {
-		void setPatchDirs(String patchDirs);
+	public interface ConfigurationEntryAware extends PatchScaner {
+		void setConfigurationEntry(ConfigurationEntry ce);
 	}
 	
 	List<Patch> scan();

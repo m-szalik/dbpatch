@@ -7,13 +7,14 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.PatchScaner;
 import org.jsoftware.impl.commons.FilenameUtils;
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
 
-public class SimplePatchScaner implements PatchScaner, PatchScaner.DirectoryInjectionScaner {
+public class SimplePatchScaner implements PatchScaner, PatchScaner.ConfigurationEntryAware {
 	private List<DirMask> dirMasks;
 	private Log log = LogFactory.getInstance();
 	
@@ -41,7 +42,7 @@ public class SimplePatchScaner implements PatchScaner, PatchScaner.DirectoryInje
 	}
 
 	
-	public void setPatchDirs(String patchDirs) {
+	private void parsePatchDirs(String patchDirs) {
 		List<DirMask> dirMasks = new LinkedList<DirMask>();
 		for(String s : patchDirs.split(",")) {
 			s = s.trim();
@@ -59,6 +60,11 @@ public class SimplePatchScaner implements PatchScaner, PatchScaner.DirectoryInje
 			dm.validate();
 		}
 		this.dirMasks = dirMasks;
+	}
+	
+	
+	public void setConfigurationEntry(ConfigurationEntry ce) {
+		parsePatchDirs(ce.getPatchDirs());
 	}
 	
 	class WildchardMaskFileFilter implements FileFilter {
