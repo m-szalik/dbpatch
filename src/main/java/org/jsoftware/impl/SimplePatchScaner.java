@@ -60,6 +60,12 @@ public class SimplePatchScaner implements PatchScaner, PatchScaner.Configuration
 			dm.validate();
 		}
 		this.dirMasks = dirMasks;
+		StringBuilder sb = new StringBuilder();
+		for(DirMask dm : dirMasks) {
+			sb.append(dm.getDir().getAbsolutePath()).append(" with ").append(dm.getMask());
+			sb.append(", ");
+		}
+		log.debug("ScanDirs configValue is " + patchDirs + " that creates " + sb.toString().trim());
 	}
 	
 	
