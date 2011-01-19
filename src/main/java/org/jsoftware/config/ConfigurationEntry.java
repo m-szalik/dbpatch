@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
-import org.jsoftware.config.PatchScaner.ConfigurationEntryAware;
 import org.jsoftware.config.dialect.DefaultDialect;
 import org.jsoftware.config.dialect.Dialect;
 import org.jsoftware.impl.DefaultPatchParser;
@@ -142,11 +141,7 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 		checkNull(dialect, "dialect");
 		checkNull(jdbcUri, "jdbcUri");
 		checkNull(driverClass, "driverClass");
-		if (patchScaner instanceof ConfigurationEntryAware) {
-			checkNull(patchDirs, "patchDirs");
-			ConfigurationEntryAware ceAware = (ConfigurationEntryAware) patchScaner;
-			ceAware.setConfigurationEntry(this);
-		}
+		checkNull(patchDirs, "patchDirs");
 	}
 
 	private void checkNull(Object what, String key) throws ParseException {
