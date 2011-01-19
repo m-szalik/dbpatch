@@ -2,6 +2,7 @@ package org.jsoftware.impl;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 	public DbPatchInternalFrame(final ConfigurationEntry ce) throws SQLException, IOException {
 		super("DbPatch - " + ce.getId(), true, true, true);
 		dbManager = new DbManager(ce);
-		patches = ce.getPatchScaner().scan();
+		patches = ce.getPatchScaner().scan(new File("."), ce.getPatchDirs().split(","));
 		final String[] columnModel = new String[] { "patch name", "patch date", "patch statements", "patch size", "state" };
 		AbstractTableModel tableModel = new AbstractTableModel() {
 			DateFormat df = DateFormat.getInstance();

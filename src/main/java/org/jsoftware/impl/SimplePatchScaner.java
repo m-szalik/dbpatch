@@ -7,18 +7,17 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.PatchScaner;
 import org.jsoftware.impl.commons.FilenameUtils;
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
 
-public class SimplePatchScaner implements PatchScaner, PatchScaner.ConfigurationEntryAware {
-	private List<DirMask> dirMasks;
+public class SimplePatchScaner implements PatchScaner {
 	private Log log = LogFactory.getInstance();
 	
-	public List<Patch> scan() {	
+	public List<Patch> scan(File baseDir, String[] paths) {	
+		List<DirMask> dirMasks = parsePatchDirs(baseDir, paths);
 		LinkedList<Patch> list = new LinkedList<Patch>();
 		for(DirMask dm : dirMasks) {
 			log.debug("Scan " + dm.getDir().getAbsolutePath() + " for " + dm.getMask());
@@ -42,31 +41,36 @@ public class SimplePatchScaner implements PatchScaner, PatchScaner.Configuration
 	}
 
 	
-	private void parsePatchDirs(String patchDirs) {
+	private List<DirMask> parsePatchDirs(File basePath, String[] dirs) {
 		List<DirMask> dirMasks = new LinkedList<DirMask>();
-		for(String s : patchDirs.split(",")) {
+		for(String s : dirs) {
 			s = s.trim();
-			if (s.length() == 0) continue;
+			if (s.length() == 0) {
+				log.debug(" - entry skipped");
+				continue;
+			}
 			File f = new File(s);
+			if (! f.isAbsolute()) {
+				f = new File(basePath, s);
+			}
 			if (f.isDirectory()) {
-				dirMasks.add(new DirMask(f));
+				DirMask dm = new DirMask(f);
+				dirMasks.add(dm);
+				log.debug(" + entry directory " + dm);
 			} else {
 				String wch = f.getName();
 				DirMask dm = new DirMask(f.getParentFile());
 				dm.setMask(wch);
+				log.debug(" + entry single file " + dm);
 			}
 		}
 		for(DirMask dm : dirMasks) {
 			dm.validate();
 		}
-		this.dirMasks = dirMasks;
+		return dirMasks;
 	}
 	
-	
-	public void setConfigurationEntry(ConfigurationEntry ce) {
-		parsePatchDirs(ce.getPatchDirs());
-	}
-	
+		
 	class WildchardMaskFileFilter implements FileFilter {
 		private String mask;
 		public WildchardMaskFileFilter(String mask) {
@@ -107,6 +111,11 @@ class DirMask {
 	
 	public String getMask() {
 		return mask;
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + dir.getAbsolutePath() + ":" + getMask() + ")";
 	}
 	
 }

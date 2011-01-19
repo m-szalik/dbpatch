@@ -1,11 +1,13 @@
 package org.jsoftware;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.jsoftware.config.ApplyStrategy;
 import org.jsoftware.config.Patch;
-import org.jsoftware.config.Patch.DbState;
 import org.jsoftware.config.PatchScaner;
+import org.jsoftware.config.Patch.DbState;
 import org.jsoftware.maven.AbstractSingleConfDbPatchMojo;
 
 
@@ -15,13 +17,18 @@ import org.jsoftware.maven.AbstractSingleConfDbPatchMojo;
  */
 public class ListMojo extends AbstractSingleConfDbPatchMojo {
 	
-	@Override
-	protected void executeInternal() throws Exception {
+	/**
+	 * 
+	 * @return patches to apply
+	 * @throws IOException 
+	 * @throws SQLException 
+	 */
+	List<Patch> generatePatchList() throws IOException, SQLException {
 		PatchScaner scaner = configurationEntry.getPatchScaner();
-		List<Patch> patches = scaner.scan();
+		List<Patch> patches = scaner.scan(directory, configurationEntry.getPatchDirs().split(","));
 		manager.updateStateObjectAll(patches);
 		ApplyStrategy strategy = configurationEntry.getApplayStartegy();
-		log.debug("Apply strategy is " + strategy.getClass().getSimpleName());
+		log.debug("Apply strategy is " + strategy.getClass().getSimpleName() + ", configurationId:" + configurationEntry.getId());
 		List<Patch> patchesToApply = strategy.filter(manager.getConnection(), patches);
 		StringBuilder sb = new StringBuilder("Patch list:\n");
 		for(Patch p : patches) {
@@ -41,7 +48,13 @@ public class ListMojo extends AbstractSingleConfDbPatchMojo {
 			sb.append('\n');
 		};
 		log.info(sb.toString().trim());
-		log.info("Patches to apply: " + patchesToApply.size());
+		log.info("Patches to apply: " + patchesToApply.size() + " using configuration:" + configurationEntry.getId());
+		return patchesToApply;
+	}
+	
+	@Override
+	protected void executeInternal() throws Exception {
+		generatePatchList();
 	}
     
 }
