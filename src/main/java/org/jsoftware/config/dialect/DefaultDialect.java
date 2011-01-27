@@ -50,12 +50,21 @@ public class DefaultDialect implements Dialect {
 //		con.commit();
 	}
 
-	public void savePatchInfoPrepare(Connection con, Patch patch) throws SQLException {	
-		PreparedStatement ps = con.prepareStatement("INSERT INTO " + DBPATCH_TABLENAME + " (patch_name,patch_date,patch_db_date) VALUES (?,?,NULL)");
+	public void savePatchInfoPrepare(Connection con, Patch patch) throws SQLException {
+		PreparedStatement ps;
+		ps = con.prepareStatement("SELECT * FROM " + DBPATCH_TABLENAME + " WHERE patch_name=? AND patch_db_date IS NULL");
 		ps.setString(1, patch.getName());
-		ps.setTimestamp(2, new java.sql.Timestamp(patch.getFile().lastModified()));
-		ps.execute();
+		ResultSet rs = ps.executeQuery();
+		boolean addRow = rs.next();
+		rs.close();
 		ps.close();
+		if (addRow) {
+			ps = con.prepareStatement("INSERT INTO " + DBPATCH_TABLENAME + " (patch_name,patch_date,patch_db_date) VALUES (?,?,NULL)");
+			ps.setString(1, patch.getName());
+			ps.setTimestamp(2, new java.sql.Timestamp(patch.getFile().lastModified()));
+			ps.execute();
+			ps.close();
+		}
 		con.commit();
 	}
 	
