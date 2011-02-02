@@ -55,7 +55,7 @@ public class DefaultDialect implements Dialect {
 		ps = con.prepareStatement("SELECT * FROM " + DBPATCH_TABLENAME + " WHERE patch_name=? AND patch_db_date IS NULL");
 		ps.setString(1, patch.getName());
 		ResultSet rs = ps.executeQuery();
-		boolean addRow = rs.next();
+		boolean addRow = ! rs.next();
 		rs.close();
 		ps.close();
 		if (addRow) {
