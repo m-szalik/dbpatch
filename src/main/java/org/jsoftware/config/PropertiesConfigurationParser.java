@@ -53,6 +53,9 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 			if ("extensions".equalsIgnoreCase(keys[1])) {
 				ce.setExtensions(value);
 			}
+			if ("encoding".equalsIgnoreCase(keys[1])) {
+				ce.setPatchEncoding(value);
+			}
 		}
 		return confs.values();
 	}

@@ -5,11 +5,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
 import org.jsoftware.impl.statements.CommentPatchStatement;
 import org.jsoftware.impl.statements.SqlPatchStatement;
@@ -28,8 +30,10 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 		super("--", "//", DEFAULT_DELIMITER, "\n", "/\\*", "\\*/");
 	}
 	
-	public ParseResult parse(InputStream inputStream) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+	public ParseResult parse(InputStream inputStream, ConfigurationEntry ce) throws IOException {
+		Charset charset = ce == null ? Charset.defaultCharset() : ce.getPatchEncoding();
+		LogFactory.getInstance().debug("Patch encoding set to " + charset.displayName() + (ce == null ? " (system default)" : ""));
+		BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, charset));
 		StringBuilder sb = new StringBuilder();
 		String l;
 		while ((l = br.readLine()) != null) {
@@ -55,8 +59,8 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 		};
 	}
 	
-	public ParseResult parse(Patch p) throws IOException {
-		ParseResult pr = parse(new FileInputStream(p.getFile()));
+	public ParseResult parse(Patch p, ConfigurationEntry ce) throws IOException {
+		ParseResult pr = parse(new FileInputStream(p.getFile()), ce);
 		p.setStatementCount(pr.executableCount());
 		return pr;
 	}

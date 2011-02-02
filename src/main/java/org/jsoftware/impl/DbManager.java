@@ -68,7 +68,7 @@ public class DbManager {
 					extension.beforePatch(c, p);
 				}
 			});
-			for(final PatchStatement ps : ce.getPatchParser().parse(p).getStatements()) {
+			for(final PatchStatement ps : ce.getPatchParser().parse(p, ce).getStatements()) {
 				if (ps.isDisplayable()) {
 					log.debug(ps.toString());
 				}

@@ -8,8 +8,8 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.jsoftware.impl.DefaultPatchParser;
-import org.jsoftware.impl.PatchParser.ParseResult;
 import org.jsoftware.impl.PatchStatement;
+import org.jsoftware.impl.PatchParser.ParseResult;
 
 
 
@@ -31,7 +31,7 @@ public class HelpParseMojo extends AbstractMojo {
 		}
 		DefaultPatchParser parser = new DefaultPatchParser();
 		try {
-			ParseResult pr = parser.parse(new FileInputStream(f));
+			ParseResult pr = parser.parse(new FileInputStream(f), null);
 			log.info("Statements count: " + pr.executableCount());
 			for(PatchStatement ps : pr.getStatements()) {
 				log.info("{ " + ps +" }");

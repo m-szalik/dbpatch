@@ -78,7 +78,7 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 		for(int i=0; i<patches.size(); i++) {
 			Patch p = patches.get(i);
 			try {
-				int executableCount = ce.getPatchParser().parse(new FileInputStream(p.getFile())).executableCount();
+				int executableCount = ce.getPatchParser().parse(new FileInputStream(p.getFile()), ce).executableCount();
 				p.setStatementCount(executableCount);
 				dbManager.updateStateObject(p);
 				table.setValueAt(p, i, 4);

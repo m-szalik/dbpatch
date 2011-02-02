@@ -24,7 +24,7 @@ public class DefaultPatchParserTest {
 	@Test @Ignore
 	public void parse() throws IOException {
 		DefaultPatchParser parser = new DefaultPatchParser();
-		List<PatchStatement> list = parser.parse(getClass().getResourceAsStream("input.txt")).getStatements();
+		List<PatchStatement> list = parser.parse(getClass().getResourceAsStream("input.txt"), null).getStatements();
 		for(PatchStatement ps : list) {
 			System.out.println(ps.isExecutable() + "  " + ps.toString());
 		}
@@ -37,7 +37,7 @@ public class DefaultPatchParserTest {
 	@Test 
 	public void parseBlock() throws IOException {
 		DefaultPatchParser parser = new DefaultPatchParser();
-		List<PatchStatement> list = parser.parse(getClass().getResourceAsStream("input-block.txt")).getStatements();
+		List<PatchStatement> list = parser.parse(getClass().getResourceAsStream("input-block.txt"), null).getStatements();
 		for(PatchStatement ps : list) {
 			System.out.println(ps.isExecutable() + "  " + ps.toString());
 		}
