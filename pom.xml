@@ -3,7 +3,7 @@
 	<groupId>org.jsoftware</groupId>
 	<artifactId>dbpatch</artifactId>
 	<packaging>maven-plugin</packaging>
-	<version>1.2</version>
+	<version>1.1-SNAPSHOT</version>
 	<name>Database patch Maven Mojo</name>
 	<url>http://jsoftware.org/maven-dbpatch-plugin</url>
 	<description>Manage your database patches whith maven.</description>
