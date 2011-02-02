@@ -56,5 +56,13 @@
 		<connection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</connection>
 		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</developerConnection>
 	</scm>
-
+	
+	 <distributionManagement>
+	     <repository>
+	           <id>jsLocal<id>
+		    <name>myCompanyReporsitory</name>
+	            <url>file:///home/maven-repo/maven-repo-public/</url>
+	    </repository>
+	</distributionManagement>
+	                             
 </project>
