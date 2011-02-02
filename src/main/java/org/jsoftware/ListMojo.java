@@ -32,7 +32,7 @@ public class ListMojo extends AbstractSingleConfDbPatchMojo {
 		List<Patch> patchesToApply = strategy.filter(manager.getConnection(), patches);
 		StringBuilder sb = new StringBuilder("Patch list:\n");
 		for(Patch p : patches) {
-			configurationEntry.getPatchParser().parse(p);
+			configurationEntry.getPatchParser().parse(p, configurationEntry);
 			sb.append('\t');
 			if (p.getDbState() == DbState.COMMITED) sb.append('*');
 			if (p.getDbState() == DbState.IN_PROGRES) sb.append('P');

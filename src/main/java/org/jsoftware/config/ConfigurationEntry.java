@@ -1,6 +1,7 @@
 package org.jsoftware.config;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.Collection;
 import java.util.Collections;
@@ -41,6 +42,7 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 	private PatchParser patchParser;
 	private ApplyStrategy applayStartegy;
 	private Collection<Extension> extensions;
+	private Charset patchEncoding;
 	
 	ConfigurationEntry(String id) {
 		this.id = id;
@@ -49,6 +51,15 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 		patchParser = new DefaultPatchParser();
 		applayStartegy = new MissingApplyStrategy();
 		extensions = Collections.emptySet();
+		patchEncoding = Charset.defaultCharset();
+	}
+	
+	public Charset getPatchEncoding() {
+		return patchEncoding;
+	}
+	
+	public void setPatchEncoding(String patchEncoding) {
+		this.patchEncoding = Charset.forName(patchEncoding);
 	}
 	
 	public ApplyStrategy getApplayStartegy() {
