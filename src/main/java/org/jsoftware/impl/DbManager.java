@@ -13,6 +13,7 @@ import org.jsoftware.config.Patch;
 import org.jsoftware.config.Patch.DbState;
 import org.jsoftware.config.dialect.Dialect;
 import org.jsoftware.impl.extension.Extension;
+import org.jsoftware.impl.statements.DisallowedSqlPatchStatement;
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
 
@@ -86,7 +87,10 @@ public class DbManager {
 						}
 					});
 				}
-			}
+				if (ps instanceof DisallowedSqlPatchStatement) {
+					log.warn("Skip disallowed statement " + ps.getCode());
+				}
+			} // for
 			psErr = null;
 			dialect.savePatchInfoFinal(c, p);
 			invokeExtensions("afterPatchComplete", new ExtensionMethodInvokeCallback() {
