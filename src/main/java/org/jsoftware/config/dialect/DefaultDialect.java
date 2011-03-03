@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.jsoftware.config.Patch;
+import org.jsoftware.config.dialect.PatchExecutionResult.DML_TYPE;
 import org.jsoftware.impl.PatchStatement;
 
 public class DefaultDialect implements Dialect {
@@ -16,11 +17,32 @@ public class DefaultDialect implements Dialect {
 		return DBPATCH_TABLENAME;
 	}
 	
-	public boolean executeStatement(Connection c, PatchStatement ps) throws SQLException {
-		Statement stm = c.createStatement();
-		stm.execute(ps.getCode());
-		stm.close();
-		return true;
+	public PatchExecutionResult executeStatement(Connection c, PatchStatement ps) {
+		PatchExecutionResultImpl result = new PatchExecutionResultImpl(ps);
+		try {
+			c.clearWarnings();
+			Statement stm = c.createStatement();
+			executeSql(stm, ps.getCode(), result);
+			stm.close();
+		} catch (SQLException e) {
+			result.setCause(e);
+			try { 
+				result.setSqlWarning(c.getWarnings());
+			} catch (SQLException ex) {		}
+		}
+		return result;
+	}
+
+	private void executeSql(Statement stm, String sql, PatchExecutionResultImpl result) throws SQLException {
+		String sqlLC = sql.toLowerCase().trim();
+		if (sqlLC.startsWith("insert ") || sqlLC.startsWith("update ") || sqlLC.startsWith("delete ")) {
+			int duiCount = stm.executeUpdate(sql);
+			result.setDmlCount(duiCount);
+			String type = sqlLC.substring(0, sqlLC.indexOf(' ')).toUpperCase();
+			result.setDmlType(DML_TYPE.valueOf(type));
+		} else {
+			stm.execute(sql);
+		}
 	}
 
 	public void lock(Connection con, long timeout) throws SQLException {

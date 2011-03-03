@@ -7,11 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.Patch.DbState;
 import org.jsoftware.config.dialect.Dialect;
+import org.jsoftware.config.dialect.PatchExecutionResult;
 import org.jsoftware.impl.extension.Extension;
 import org.jsoftware.impl.statements.DisallowedSqlPatchStatement;
 import org.jsoftware.log.Log;
@@ -22,10 +25,12 @@ public class DbManager {
 	private Dialect dialect;
 	private Connection c;
 	private final Log log = LogFactory.getInstance();
+	private List<Extension> extensions;
 
 	
 	public DbManager(ConfigurationEntry ce) throws SQLException {
 		this.ce = ce;
+		this.extensions = new LinkedList(ce.getExtensions());
 		this.dialect = ce.getDialect();
 		try {
 			Class.forName(ce.getDriverClass()).newInstance();
@@ -80,12 +85,15 @@ public class DbManager {
 							extension.beforePatchStatement(c, p, ps);
 						}
 					});
-					dialect.executeStatement(c, ps);
+					final PatchExecutionResult result = dialect.executeStatement(c, ps);
 					invokeExtensions("afterPatchStatement", new ExtensionMethodInvokeCallback() {
 						public void invokeOn(Extension extension) throws Exception {
-							extension.afterPatchStatement(c, p, ps);
+							extension.afterPatchStatement(c, p, result);
 						}
 					});
+					if (result.getCause() != null) {
+						throw result.getCause();
+					}
 				}
 				if (ps instanceof DisallowedSqlPatchStatement) {
 					log.warn("Skip disallowed statement " + ps.getCode());
@@ -95,7 +103,7 @@ public class DbManager {
 			dialect.savePatchInfoFinal(c, p);
 			invokeExtensions("afterPatchComplete", new ExtensionMethodInvokeCallback() {
 				public void invokeOn(Extension extension) throws Exception {
-					extension.afterPatchComplete(c, p);
+					extension.afterPatch(c, p, null);
 				}
 			});
 			c.commit();
@@ -110,7 +118,7 @@ public class DbManager {
 			ex.initCause(e);
 			invokeExtensions("afterPatchError", new ExtensionMethodInvokeCallback() {
 				public void invokeOn(Extension extension) throws Exception {
-					extension.afterPatchError(c, p, ex.getNextException());
+					extension.afterPatch(c, p, ex);
 				}
 			});
 			throw ex;
@@ -154,7 +162,7 @@ public class DbManager {
 	}
 	
 	private void invokeExtensions(String method, ExtensionMethodInvokeCallback cb) {
-		for(Extension extension : ce.getExtensions()) {
+		for(Extension extension : extensions) {
 			log.debug("Invoke method (" + method + ") on " + extension.getClass());
 			try {
 				cb.invokeOn(extension);
@@ -162,6 +170,10 @@ public class DbManager {
 				log.warn("Invoke method (" + method + ") on " + extension.getClass() + " throws " + e, e);
 			}
 		}
+	}
+	
+	public void addExtension(Extension extension) {
+		extensions.add(extension);
 	}
 }
 

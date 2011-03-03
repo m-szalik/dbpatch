@@ -1,5 +1,6 @@
 package org.jsoftware.impl;
 
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -12,23 +13,34 @@ import java.util.List;
 
 import javax.swing.JInternalFrame;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
 import javax.swing.table.AbstractTableModel;
 
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
 
 @SuppressWarnings("serial")
-public class DbPatchInternalFrame extends JInternalFrame implements MouseListener {
+public class DbPatchInternalFrame extends JInternalFrame implements MouseListener, InternalFrameListener {
 
 	private List<Patch> patches;
 	private DbManager dbManager;
+	private ResultDisplay resultDisplay = new ResultDisplay();
+	private JTable table;
 	
 	public DbPatchInternalFrame(final ConfigurationEntry ce) throws SQLException, IOException {
 		super("DbPatch - " + ce.getId(), true, true, true);
 		dbManager = new DbManager(ce);
+		dbManager.addExtension(resultDisplay);
 		patches = ce.getPatchScaner().scan(new File("."), ce.getPatchDirs().split(","));
-		final String[] columnModel = new String[] { "patch name", "patch date", "patch statements", "patch size", "state" };
+		addInternalFrameListener(this);
+		final String[] columnModelKeys = new String[] { "patchName", "patchDate", "patchStatements", "patchSize", "state" };
+		final String[] columnModel = new String[columnModelKeys.length];
+		for(int i=0; i<columnModel.length; i++) {
+			columnModel[i] = Messages.msg("table.patches." + columnModelKeys[i]);
+		}
 		AbstractTableModel tableModel = new AbstractTableModel() {
 			DateFormat df = DateFormat.getInstance();
 			public Object getValueAt(int rowIndex, int columnIndex) {
@@ -66,12 +78,12 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 				return columnIndex == 4;
 			}
 		};
-		final JTable table = new JTable(tableModel);
+		table = new JTable(tableModel);
 //		table.setFillsViewportHeight(true);
 		table.setDefaultRenderer(Patch.class, new JTablePatchStateRenderer());
 		table.addMouseListener(this);
-		JScrollPane scrollPane = new JScrollPane(table);
-		setContentPane(scrollPane);
+		resultDisplay.setMinimumSize(new Dimension(getWidth(), 40));
+		setContentPane(new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(table), new JScrollPane(resultDisplay)));
 		pack();
 		setVisible(true);
 		
@@ -87,7 +99,7 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 			}
 		}
 		table.repaint();
-
+		resultDisplay.addInfo("com.patching.connection", new Object[]{ ce.getId(), ce.getJdbcUri() });
 	}
 	
 	public void mouseClicked(MouseEvent e) {
@@ -106,11 +118,9 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 				} finally {
 					try {	dbManager.endExecution();	} catch (SQLException e1) {	}
 				}
+				table.updateUI();
 				return;
 			}
-		}
-		if (e.getClickCount() == 2) {
-			// TODO invoke sql text editor
 		}
 	}
 	public void mousePressed(MouseEvent e) {
@@ -120,5 +130,25 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 	public void mouseEntered(MouseEvent e) {
 	}
 	public void mouseExited(MouseEvent e) {	
+	}
+
+	// interface InternalFrameListener
+	public void internalFrameActivated(InternalFrameEvent e) {	
+	}
+	public void internalFrameClosed(InternalFrameEvent e) {
+		if (dbManager != null) {
+			dbManager.dispose();
+		}
+	}
+	public void internalFrameClosing(InternalFrameEvent e) {	
+	}
+	public void internalFrameDeactivated(InternalFrameEvent e) {	
+	}
+	public void internalFrameDeiconified(InternalFrameEvent e) {	
+	}
+	public void internalFrameIconified(InternalFrameEvent e) {	
+	}
+
+	public void internalFrameOpened(InternalFrameEvent e) {
 	}
 }
