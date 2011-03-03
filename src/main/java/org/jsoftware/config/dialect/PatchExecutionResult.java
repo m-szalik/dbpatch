@@ -8,8 +8,6 @@ import org.jsoftware.impl.PatchStatement;
 
 public interface PatchExecutionResult {
 	
-	public enum DML_TYPE { UPDATE, INSERT, DELETE }
-	
 	boolean isSuccess();
 	
 	SQLWarning getSqlWarnings();
