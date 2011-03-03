@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.jsoftware.config.Patch;
-import org.jsoftware.config.dialect.PatchExecutionResult.DML_TYPE;
 import org.jsoftware.impl.PatchStatement;
 
 public class DefaultDialect implements Dialect {
