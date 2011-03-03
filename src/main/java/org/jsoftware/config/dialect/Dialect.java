@@ -21,7 +21,7 @@ public interface Dialect {
 		
 	void checkAndCreateStruct(Connection con) throws SQLException;
 
-	boolean executeStatement(Connection con, PatchStatement ps) throws SQLException;
+	PatchExecutionResult executeStatement(Connection con, PatchStatement ps);
 
 	void savePatchInfoFinal(Connection con, Patch patch) throws SQLException;
 	

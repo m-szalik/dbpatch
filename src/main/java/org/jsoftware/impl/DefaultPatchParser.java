@@ -8,12 +8,14 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
 import org.jsoftware.impl.statements.CommentPatchStatement;
+import org.jsoftware.impl.statements.DisallowedSqlPatchStatement;
 import org.jsoftware.impl.statements.SqlPatchStatement;
 import org.jsoftware.log.LogFactory;
 import org.jsoftware.simpleparser.SimpleParser;
@@ -25,9 +27,24 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 	private enum PSTATE { sql, comment_line, comment_block, sql_block };
 	private static final String DEFAULT_DELIMITER = ";";
 	private String delimiter = DEFAULT_DELIMITER;
+	private Collection<String> disallowed;
 	
 	public DefaultPatchParser() {
 		super("--", "//", DEFAULT_DELIMITER, "\n", "/\\*", "\\*/");
+		disallowed = new HashSet<String>();
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/dbpatch-disallowedStatements.txt")));
+			String s;
+			while((s = br.readLine()) != null) {
+				s = s.trim();
+				if (s.length() > 0) {
+					disallowed.add(s);
+				}
+			}
+		} catch (IOException e) {
+			throw new RuntimeException("Can not load disallowed statements.", e);
+		}
+		LogFactory.getInstance().debug("Disallowed statements " + disallowed);
 	}
 	
 	public ParseResult parse(InputStream inputStream, ConfigurationEntry ce) throws IOException {
@@ -116,7 +133,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 					throw new RuntimeException("Illegal sql statement - " + sql);
 				}
 				if (sql.length() > 2) {
-					stm = new SqlPatchStatement(sql);
+					stm = isAllowedStatement(sql) ? new SqlPatchStatement(sql) : new DisallowedSqlPatchStatement(sql);
 				} else if (sql.length() > 0) {
 					LogFactory.getInstance().warn("Statement \"" + sql + "\" too short. Skiped.");
 				}
@@ -129,9 +146,18 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 			buf = new StringBuilder();
 			current = newState;
 		}
+	
 		public void documentEnds(SimpleParserCallbackContext ctx) {
 			changeTo(null);
 		}
+	}
+	
+	private boolean isAllowedStatement(String sql) {
+		sql = sql.trim().toLowerCase();
+		if (sql.length() > 1) {
+			return ! disallowed.contains(sql);
+		}
+		return true;
 	}
 }
 

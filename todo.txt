@@ -1,0 +1,5 @@
+DONE * Dodac ze jak zamyka sie (swing) okn z polaczeniem to zwalniane jest tez java.sql.Connection 
+DONE * Dodac help
+DONE * Dodac okno wynikow
+DONE * Dodac wersje jezykowe
+DONE * Poprawic tryb interactive

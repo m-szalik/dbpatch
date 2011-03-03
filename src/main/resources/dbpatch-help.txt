@@ -1,0 +1,18 @@
+Goals:
+	dbpatch:help 		- this help message
+	dbpatch:help-parse 	- parse sql (see dbpatch.file system property)
+	dbpatch:list 		- display list of patches (see patch statuses section)
+	dbpatch:patch 		- patch database 
+	dbpatch:interactive	- interactive mode
+	
+System properties:
+	dbpatch.file		- file to parse for help-parse goal
+	dbpatch.selectedConfiguration - selected configuration from properties file (see documentation)
+	
+Patch statuses:
+	* = patch is available in database
+	P = patch in progress
+	- = patch not available in database and should not be added
+	+ = patch not available in database and should be added
+	
+More information at http://jsoftware.org/maven-dbpatch-plugin

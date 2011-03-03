@@ -19,19 +19,19 @@ public class JTablePatchStateRenderer implements TableCellRenderer {
 			JLabel o = new JLabel("?");
 			o.setBackground(Color.LIGHT_GRAY);
 			if (p.getDbState() == DbState.IN_PROGRES) {
-				o = new JLabel("in progress");
+				o = new JLabel(Messages.msg("table.patches.state.inProgress"));
 				o.setBackground(Color.YELLOW);
 			}
 			if (p.getDbState() == DbState.COMMITED) {
-				o = new JLabel("commited");
+				o = new JLabel(Messages.msg("table.patches.state.commited"));
 				o.setBackground(Color.GREEN);
 			}
 			if (p.getDbState() == DbState.NOT_AVAILABLE) {
 				if (p.canApply()) {
-					JButton jb = new JButton("patch it");
+					JButton jb = new JButton(Messages.msg("table.patches.state.patchItBtn"));
 					return jb;
 				} else {
-					o.setText("EMPTY");
+					o.setText(Messages.msg("table.patches.state.empty"));
 				}
 			}
 			return o;

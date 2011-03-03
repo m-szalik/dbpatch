@@ -10,6 +10,7 @@ import java.util.Set;
 
 import org.jsoftware.config.ApplyStrategy;
 import org.jsoftware.config.Patch;
+import org.jsoftware.config.dialect.PatchExecutionResult;
 import org.jsoftware.impl.PatchStatement;
 
 public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
@@ -73,17 +74,17 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
 	public void beforePatch(Connection connection, Patch patch) {
 	}
 
-	public void afterPatchComplete(Connection connection, Patch patch) throws SQLException {
-		connection.createStatement().executeUpdate("UPDATE " + detectTkTableName(connection) + " SET patch_level=" + patchLevel(patch));
-	}
-
-	public void afterPatchError(Connection connection, Patch patch, Exception ex) {
-	}
-
 	public void beforePatchStatement(Connection connection, Patch patch, PatchStatement statement) {
 	}
 
-	public void afterPatchStatement(Connection connection, Patch patch, PatchStatement statement) {
-	}	
+	public void afterPatch(Connection connection, Patch patch, Exception ex) throws SQLException {
+		if (ex == null) {
+			connection.createStatement().executeUpdate("UPDATE " + detectTkTableName(connection) + " SET patch_level=" + patchLevel(patch));
+		}
+	}
+
+	public void afterPatchStatement(Connection connection, Patch patch, PatchExecutionResult result) {
+	}
+
 
 }
