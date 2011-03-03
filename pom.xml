@@ -59,9 +59,9 @@
 	
 	 <distributionManagement>
 	     <repository>
-	           <id>jsLocal</id>
+	        <id>jsLocal</id>
 		    <name>myCompanyReporsitory</name>
-	            <url>file:///home/maven-repo/maven-repo-public/</url>
+	        <url>file:///home/maven-repo/maven-repo-public/</url>
 	    </repository>
 	</distributionManagement>
 	
