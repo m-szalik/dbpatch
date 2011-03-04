@@ -3,3 +3,9 @@ DONE * Dodac help
 DONE * Dodac okno wynikow
 DONE * Dodac wersje jezykowe
 DONE * Poprawic tryb interactive
+1.2 RELEASED
+
+* Dodac detekcje duplikacji nazw patch (jesli skanujemy dwa katalogi to zeby sie nazwy patch nie pokrywały)
+* Sortowac patche tak aby byly zgodnie z listą skanowanych katalogow
+* Dodac obsluge patch rollback'ujacych
+
