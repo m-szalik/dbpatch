@@ -21,9 +21,9 @@ public class HelpParseMojo extends AbstractMojo {
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		Log log = getLog();
-		String file = System.getProperty("dbpatch.file");
+		String file = System.getProperty("maven.dbpatch.file");
 		if (file == null) {
-			throw new MojoFailureException("Set stsyem property \"dbpatch.file\" to file you want to parse.");
+			throw new MojoFailureException("Set stsyem property \"maven.dbpatch.file\" to file you want to parse.");
 		}
 		File f = new File(file);
 		if (! f.exists()) {

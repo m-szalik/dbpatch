@@ -8,4 +8,6 @@ DONE * Poprawic tryb interactive
 * Dodac detekcje duplikacji nazw patch (jesli skanujemy dwa katalogi to zeby sie nazwy patch nie pokrywały)
 * Sortowac patche tak aby byly zgodnie z listą skanowanych katalogow
 * Dodac obsluge patch rollback'ujacych
-
+DONE * Dodać maven.dbpatch.skip 																						
+* Dodać progressBar w interactive mode
+ 

@@ -6,8 +6,9 @@ Goals:
 	dbpatch:interactive	- interactive mode
 	
 System properties:
-	dbpatch.file		- file to parse for help-parse goal
-	dbpatch.selectedConfiguration - selected configuration from properties file (see documentation)
+	maven.dbpatch.file		- file to parse for help-parse goal
+	maven.dbpatch.configuration - selected configuration from properties file (see documentation)
+	maven.dbpatch.skip		- skip dbpatch operations 
 	
 Patch statuses:
 	* = patch is available in database

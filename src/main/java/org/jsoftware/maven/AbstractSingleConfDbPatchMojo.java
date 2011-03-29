@@ -25,13 +25,17 @@ public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo 
 	}
 	
 	public void execute() throws MojoExecutionException, MojoFailureException {
+		if (System.getProperty("maven.dbpatch.skip") != null) {
+			log.debug("dbpatch skiped");
+			return;
+		}
 		try {
 			Collection<ConfigurationEntry> conf = AbstractConfigurationParser.discoverConfiguration(getConfigFile());
 			if (selectedConfiguration == null) {
-				selectedConfiguration = System.getProperty("dbpatch.selectedConfiguration");
+				selectedConfiguration = System.getProperty("maven.dbpatch.configuration");
 			}
 			if (selectedConfiguration == null) {
-				throw new MojoFailureException(this, "configuration missing - selectedConfiguration not set", "Please set selectedConfiguration property.");
+				throw new MojoFailureException(this, "configuration missing - selectedConfiguration not set", "Please set maven.dbpatch.configuration property.");
 			}
 			ConfigurationEntry confEntry = null;
 			for(ConfigurationEntry ce : conf) {
