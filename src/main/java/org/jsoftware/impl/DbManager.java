@@ -175,6 +175,10 @@ public class DbManager {
 	public void addExtension(Extension extension) {
 		extensions.add(extension);
 	}
+
+	public String getTableName() {
+		return dialect.getDbPatchTableName();
+	}
 }
 
 interface ExtensionMethodInvokeCallback {

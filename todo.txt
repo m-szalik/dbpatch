@@ -10,4 +10,4 @@ DONE * Poprawic tryb interactive
 * Dodac obsluge patch rollback'ujacych
 DONE * Dodać maven.dbpatch.skip 																						
 * Dodać progressBar w interactive mode
- 
+DONE * dodac goal dbpatch:skipErrors 
