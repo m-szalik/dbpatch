@@ -110,7 +110,6 @@ public class DbManager {
 			c.commit();
 			log.debug("Patch " + p.getName() + " commited.");
 		} catch (Exception e) {
-			
 			if (psErr != null) {
 				log.warn("Query execution problem \"" + psErr + "\" - " + e);
 			}
