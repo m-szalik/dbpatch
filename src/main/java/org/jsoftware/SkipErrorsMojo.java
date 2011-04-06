@@ -24,11 +24,8 @@ public class SkipErrorsMojo extends AbstractSingleConfDbPatchMojo {
 		ps.setDate(1, new Date(0));
 		while (rs.next()) {
 			ps.setString(2, rs.getString(1));
-			if (ps.execute()) {
-				log.info("Mark to skip " + rs.getString(1));
-			} else {
-				log.warn("Mark to skip " + rs.getString(1) + " ERROR");
-			}
+			ps.execute();
+			log.info("Mark to skip " + rs.getString(1));
 		}
 		connection.commit();
 	}

@@ -2,6 +2,7 @@ package org.jsoftware.config.dialect;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import org.jsoftware.config.Patch;
 import org.jsoftware.impl.PatchStatement;
@@ -30,5 +31,6 @@ public interface Dialect {
 //	boolean checkStatementDelimiterChange(PatchStatement statement);
 //
 //	String getDelimiter();
-	
+
+	Timestamp getNow(Connection con) throws SQLException;
 }

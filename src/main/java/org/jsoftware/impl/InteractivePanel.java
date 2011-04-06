@@ -54,7 +54,7 @@ public class InteractivePanel {
 		}
 	}
 
-	private void open(String id) throws SQLException, IOException {
+	private void open(String id) throws SQLException, IOException, DuplicatePatchNameException {
 		JInternalFrame fr = null;
 		if (frames.get(id) != null) {
 			fr = frames.get(id);

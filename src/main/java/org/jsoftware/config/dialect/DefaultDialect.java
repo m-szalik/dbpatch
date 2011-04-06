@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import org.jsoftware.config.Patch;
 import org.jsoftware.impl.PatchStatement;
@@ -91,7 +92,7 @@ public class DefaultDialect implements Dialect {
 	
 	public void savePatchInfoFinal(Connection con, Patch patch) throws SQLException {
 		PreparedStatement ps = con.prepareStatement("UPDATE " + DBPATCH_TABLENAME + " SET patch_db_date=? WHERE patch_name=?");
-		ps.setTimestamp(1, new java.sql.Timestamp(patch.getFile().lastModified()));
+		ps.setTimestamp(1, getNow(con));
 		ps.setString(2, patch.getName());
 		ps.execute();
 		ps.close();
@@ -123,4 +124,11 @@ public class DefaultDialect implements Dialect {
 //		con.commit();
 	}
 	
+	public Timestamp getNow(Connection con) throws SQLException {
+		ResultSet rs = con.createStatement().executeQuery("SELECT now()");
+		rs.next();
+		Timestamp ts = rs.getTimestamp(1);
+		rs.close();
+		return ts;
+	}
 }

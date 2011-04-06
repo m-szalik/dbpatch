@@ -30,7 +30,8 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 	private ResultDisplay resultDisplay = new ResultDisplay();
 	private JTable table;
 	
-	public DbPatchInternalFrame(final ConfigurationEntry ce) throws SQLException, IOException {
+	
+	public DbPatchInternalFrame(final ConfigurationEntry ce) throws SQLException, IOException, DuplicatePatchNameException {
 		super("DbPatch - " + ce.getId(), true, true, true);
 		dbManager = new DbManager(ce);
 		dbManager.addExtension(resultDisplay);
@@ -100,6 +101,8 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 		}
 		table.repaint();
 		resultDisplay.addInfo("com.patching.connection", new Object[]{ ce.getId(), ce.getJdbcUri() });
+		Date dbNow = dbManager.getNow();
+		resultDisplay.addInfo("com.patching.database.time", new Object[] { dbNow });
 	}
 	
 	public void mouseClicked(MouseEvent e) {

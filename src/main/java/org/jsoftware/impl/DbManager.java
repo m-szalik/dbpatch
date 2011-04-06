@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
@@ -26,7 +27,7 @@ public class DbManager {
 	private Connection c;
 	private final Log log = LogFactory.getInstance();
 	private List<Extension> extensions;
-
+	
 	
 	public DbManager(ConfigurationEntry ce) throws SQLException {
 		this.ce = ce;
@@ -109,6 +110,7 @@ public class DbManager {
 			c.commit();
 			log.debug("Patch " + p.getName() + " commited.");
 		} catch (Exception e) {
+			
 			if (psErr != null) {
 				log.warn("Query execution problem \"" + psErr + "\" - " + e);
 			}
@@ -126,7 +128,7 @@ public class DbManager {
 			updateStateObject(p);
 		}
 	}
-
+	
 
 	public void updateStateObjectAll(Collection<Patch> patches) throws SQLException {
 		for(Patch p : patches) {
@@ -178,6 +180,11 @@ public class DbManager {
 
 	public String getTableName() {
 		return dialect.getDbPatchTableName();
+	}
+
+	public Date getNow() throws SQLException {
+		Timestamp ts = dialect.getNow(c);
+		return new Date(ts.getTime());
 	}
 }
 

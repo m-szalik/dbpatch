@@ -16,7 +16,7 @@ import org.jsoftware.log.LogFactory;
 public class SimplePatchScaner implements PatchScaner {
 	private Log log = LogFactory.getInstance();
 	
-	public List<Patch> scan(File baseDir, String[] paths) {	
+	public List<Patch> scan(File baseDir, String[] paths) throws DuplicatePatchNameException {	
 		List<DirMask> dirMasks = parsePatchDirs(baseDir, paths);
 		LinkedList<Patch> list = new LinkedList<Patch>();
 		for(DirMask dm : dirMasks) {
@@ -34,10 +34,16 @@ public class SimplePatchScaner implements PatchScaner {
 					return o1.getName().compareTo(o2.getName());
 				}
 			});
-			list.addAll(dirList);
+			for(Patch patch1 : dirList) {
+				for(Patch patch2 : list) {
+					if (patch1.getName().equals(patch2.getName())) {
+						throw new DuplicatePatchNameException(this, patch1, patch2);
+					}
+				}
+				list.add(patch1);
+			}
 		}
 		return list;
-
 	}
 
 	

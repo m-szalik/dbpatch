@@ -5,9 +5,9 @@ DONE * Dodac wersje jezykowe
 DONE * Poprawic tryb interactive
 1.2 RELEASED
 
-* Dodac detekcje duplikacji nazw patch (jesli skanujemy dwa katalogi to zeby sie nazwy patch nie pokrywały)
-* Sortowac patche tak aby byly zgodnie z listą skanowanych katalogow
-* Dodac obsluge patch rollback'ujacych
+DONE * Dodac detekcje duplikacji nazw patch (jesli skanujemy dwa katalogi to zeby sie nazwy patch nie pokrywały)
 DONE * Dodać maven.dbpatch.skip 																						
-* Dodać progressBar w interactive mode
 DONE * dodac goal dbpatch:skipErrors 
+DONE * dodac obsługę daty z poziomu bazy
+
+* Dodac obsluge patch rollback'ujacych

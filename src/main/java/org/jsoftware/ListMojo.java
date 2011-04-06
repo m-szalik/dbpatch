@@ -8,6 +8,7 @@ import org.jsoftware.config.ApplyStrategy;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.PatchScaner;
 import org.jsoftware.config.Patch.DbState;
+import org.jsoftware.impl.DuplicatePatchNameException;
 import org.jsoftware.maven.AbstractSingleConfDbPatchMojo;
 
 
@@ -22,8 +23,9 @@ public class ListMojo extends AbstractSingleConfDbPatchMojo {
 	 * @return patches to apply
 	 * @throws IOException 
 	 * @throws SQLException 
+	 * @throws DuplicatePatchNameException 
 	 */
-	List<Patch> generatePatchList() throws IOException, SQLException {
+	List<Patch> generatePatchList() throws IOException, SQLException, DuplicatePatchNameException {
 		PatchScaner scaner = configurationEntry.getPatchScaner();
 		List<Patch> patches = scaner.scan(directory, configurationEntry.getPatchDirs().split(","));
 		manager.updateStateObjectAll(patches);
