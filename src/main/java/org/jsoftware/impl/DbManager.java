@@ -50,18 +50,21 @@ public class DbManager {
 		PreparedStatement ps = c.prepareStatement("SELECT patch_db_date FROM "+ dialect.getDbPatchTableName() +" WHERE patch_name=?");
 		ps.setString(1, p.getName());
 		ResultSet rs = ps.executeQuery();
-		if (rs.next()) {
-			Date d = rs.getDate(1);
+		try {
+			if (rs.next()) {
+				Date d = rs.getDate(1);
+				if (d != null) {
+					p.setDbState(DbState.COMMITED);
+					p.setDbDate(d);
+				} else {
+					p.setDbState(DbState.IN_PROGRES);
+				}
+			} else {
+				p.setDbState(DbState.NOT_AVAILABLE);		
+			}
+		} finally {
 			rs.close();
 			ps.close();
-			if (d != null) {
-				p.setDbState(DbState.COMMITED);
-				p.setDbDate(d);
-			} else {
-				p.setDbState(DbState.IN_PROGRES);
-			}
-		} else {
-			p.setDbState(DbState.NOT_AVAILABLE);		
 		}
 	}
 

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
+import java.sql.Statement;
 import java.sql.Timestamp;
 
 import org.jsoftware.impl.PatchStatement;
@@ -40,10 +41,17 @@ public class OracleDialect extends DefaultDialect {
 	
 	
 	public Timestamp getNow(Connection con) throws SQLException {
-		ResultSet rs = con.createStatement().executeQuery("SELECT sysdate FROM dual");
-		rs.next();
-		Timestamp ts = rs.getTimestamp(1);
-		rs.close();
+		Statement stm = con.createStatement();
+		ResultSet rs = stm.executeQuery("SELECT sysdate FROM dual");
+		Timestamp ts = null;
+		try {
+			rs.next();
+			ts = rs.getTimestamp(1);
+			rs.close();
+		} finally {
+			stm.close();
+			rs.close();
+		}
 		return ts;
 	}
 
