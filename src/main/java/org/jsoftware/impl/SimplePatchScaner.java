@@ -2,8 +2,6 @@ package org.jsoftware.impl;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +11,7 @@ import org.jsoftware.impl.commons.FilenameUtils;
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
 
-public class SimplePatchScaner implements PatchScaner {
+public abstract class SimplePatchScaner implements PatchScaner {
 	private Log log = LogFactory.getInstance();
 	
 	public List<Patch> scan(File baseDir, String[] paths) throws DuplicatePatchNameException {	
@@ -29,11 +27,7 @@ public class SimplePatchScaner implements PatchScaner {
 				p.setName(f.getName().substring(0, f.getName().length() - 4));
 				dirList.add(p);
 			}
-			Collections.sort(dirList, new Comparator<Patch>() {
-				public int compare(Patch o1, Patch o2) {
-					return o1.getName().compareTo(o2.getName());
-				}
-			});
+			sortDirectory(dirList);
 			for(Patch patch1 : dirList) {
 				for(Patch patch2 : list) {
 					if (patch1.getName().equals(patch2.getName())) {
@@ -43,10 +37,16 @@ public class SimplePatchScaner implements PatchScaner {
 				list.add(patch1);
 			}
 		}
+		sortAll(list);
 		return list;
 	}
 
 	
+	protected abstract void sortDirectory(List<Patch> dirPatchList);
+	
+	protected abstract void sortAll(List<Patch> allPatchList);
+
+
 	private List<DirMask> parsePatchDirs(File basePath, String[] dirs) {
 		List<DirMask> dirMasks = new LinkedList<DirMask>();
 		for(String s : dirs) {

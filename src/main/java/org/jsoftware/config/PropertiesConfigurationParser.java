@@ -10,6 +10,8 @@ import java.util.Properties;
 
 import org.jsoftware.config.dialect.DefaultDialect;
 import org.jsoftware.config.dialect.DialectFinder;
+import org.jsoftware.impl.DirectoryPatchScaner;
+import org.jsoftware.impl.NamePatchScaner;
 
 
 public class PropertiesConfigurationParser extends AbstractConfigurationParser {
@@ -55,6 +57,16 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 			}
 			if ("encoding".equalsIgnoreCase(keys[1])) {
 				ce.setPatchEncoding(value);
+			}
+			if ("scaner".equalsIgnoreCase(keys[1])) {
+				PatchScaner scaner = null;
+				value = value.toLowerCase().trim();
+				if (value.startsWith("dir")) scaner = new DirectoryPatchScaner();
+				if (value.startsWith("name")) scaner = new NamePatchScaner();
+				if (scaner == null) {
+					throw new ParseException("Unknow scaner type - " + value, 0);
+				} 
+				ce.setPatchScaner(scaner);
 			}
 		}
 		return confs.values();

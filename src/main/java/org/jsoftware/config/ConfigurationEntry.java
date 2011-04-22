@@ -12,8 +12,8 @@ import java.util.Map;
 import org.jsoftware.config.dialect.DefaultDialect;
 import org.jsoftware.config.dialect.Dialect;
 import org.jsoftware.impl.DefaultPatchParser;
+import org.jsoftware.impl.DirectoryPatchScaner;
 import org.jsoftware.impl.PatchParser;
-import org.jsoftware.impl.SimplePatchScaner;
 import org.jsoftware.impl.extension.Extension;
 import org.jsoftware.impl.extension.TkExtensionAndStrategy;
 
@@ -47,7 +47,7 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 	ConfigurationEntry(String id) {
 		this.id = id;
 		dialect = new DefaultDialect();
-		patchScaner = new SimplePatchScaner();
+		patchScaner = new DirectoryPatchScaner();
 		patchParser = new DefaultPatchParser();
 		applayStartegy = new MissingApplyStrategy();
 		extensions = Collections.emptySet();
@@ -145,6 +145,10 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 	public PatchScaner getPatchScaner() {
 		return patchScaner;
 	}
+	
+	public void setPatchScaner(PatchScaner patchScaner) {
+		this.patchScaner = patchScaner;
+	}
 
 	public void validate() throws ParseException {
 		checkNull(user, "username");
@@ -165,4 +169,5 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 		return patchDirs;
 	}
 
+	
 }

@@ -9,5 +9,6 @@ DONE * Dodac detekcje duplikacji nazw patch (jesli skanujemy dwa katalogi to zeb
 DONE * Dodać maven.dbpatch.skip 																						
 DONE * dodac goal dbpatch:skipErrors 
 DONE * dodac obsługę daty z poziomu bazy
+DONE * dodac skaner globalny po nazwach, i taki jak byl czyli katalog->nazwa
 
 * Dodac obsluge patch rollback'ujacych
