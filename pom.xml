@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jsoftware</groupId>
 	<artifactId>dbpatch</artifactId>
@@ -48,6 +49,21 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<Author>Marek Szalik &lt;szalik@jsoftware.org&gt;</Author>
+							<Homepage>http://jsoftware.org/maven-dbpatch-plugin</Homepage>
+							<Licence>GNU GPL - http://www.gnu.org/licenses/gpl-3.0.txt</Licence>
+							<Version>${project.version}</Version>
+							<Build.date>${maven.build.timestamp}</Build.date> <!-- see property maven.build.timestamp.format -->
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -56,16 +72,17 @@
 		<connection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</connection>
 		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</developerConnection>
 	</scm>
-	
-	 <distributionManagement>
-	     <repository>
-	        <id>jsLocal</id>
-		    <name>myCompanyReporsitory</name>
-	        <url>file:///home/maven-repo/maven-repo-public/</url>
-	    </repository>
+
+	<distributionManagement>
+		<repository>
+			<id>jsLocal</id>
+			<name>myCompanyReporsitory</name>
+			<url>file:///home/maven-repo/maven-repo-public/</url>
+		</repository>
 	</distributionManagement>
-	
+
 	<properties>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
 	</properties>
 </project>
