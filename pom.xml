@@ -1,10 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jsoftware</groupId>
 	<artifactId>dbpatch</artifactId>
 	<packaging>maven-plugin</packaging>
-	<version>1.4-SNAPSHOT</version>
+	<version>1.4</version>
 	<name>Database patch Maven Mojo</name>
 	<url>http://jsoftware.org/maven-dbpatch-plugin</url>
 	<description>Manage your database patches whith maven.</description>
@@ -68,9 +67,9 @@
 	</build>
 
 	<scm>
-		<url>svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</url>
-		<connection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</connection>
-		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</developerConnection>
+		<url>svn://jsoftware.org/grucha/dbpatch-maven-plugin/tags/dbpatch-1.4</url>
+		<connection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/tags/dbpatch-1.4</connection>
+		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/tags/dbpatch-1.4</developerConnection>
 	</scm>
 
 	<distributionManagement>
