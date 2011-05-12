@@ -10,7 +10,12 @@ import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.impl.DbManager;
 
 
-
+/**
+ * 
+ * @author mgruszecki
+ * @execute phase="process-resources"
+ */
+//see http://maven.apache.org/developers/mojo-api-specification.html
 public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo {
 	
 	/**
