@@ -11,6 +11,7 @@ DONE * dodac goal dbpatch:skipErrors
 DONE * dodac obsługę daty z poziomu bazy
 DONE * dodac skaner globalny po nazwach, i taki jak byl czyli katalog->nazwa
 DONE * konfiguracja tylko w pom.xml
+1.4 RELEASED
 
 * Dodac obsluge patch rollback'ujacych
 * Dodac obsluge występowania ; w takstach (parametrach query)
