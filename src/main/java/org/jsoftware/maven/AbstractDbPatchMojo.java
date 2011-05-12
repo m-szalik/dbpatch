@@ -4,15 +4,23 @@ import java.io.File;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.logging.Log;
+import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.log.LogFactory;
 
 public abstract class AbstractDbPatchMojo extends AbstractMojo {
+	
 	/**
 	 * Configuration file
-	 * 
 	 * @parameter
 	 */
 	private File configFile;
+	
+	/**
+	 * Daatabase and patch configuration
+	 * @see ConfigurationEntry's fields 
+	 * @parameter 
+	 */
+	private ConfigurationEntry conf;
 
 	/**
 	 * Project directory
@@ -37,6 +45,10 @@ public abstract class AbstractDbPatchMojo extends AbstractMojo {
 		} else {
 			return null;
 		}
+	}
+	
+	public ConfigurationEntry getConf() {
+		return conf;
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 			ConfigurationEntry ce = confs.get(keys[0]);
 			if (ce == null) {
 				ce = new ConfigurationEntry(keys[0]);
-				ce.setDialect(new DefaultDialect());
+				ce.setDialectInstance(new DefaultDialect());
 				confs.put(keys[0], ce);
 			}
 			String value = p.get(key1).toString();
@@ -41,7 +41,7 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 				ce.setPassword(value);
 			}
 			if ("dialect".equalsIgnoreCase(keys[1])) {
-				ce.setDialect(DialectFinder.find(value));
+				ce.setDialectInstance(DialectFinder.find(value));
 			}
 			if ("dirs".equalsIgnoreCase(keys[1]) || "patchDirs".equalsIgnoreCase(keys[1])) {
 				ce.setPatchDirs(value);

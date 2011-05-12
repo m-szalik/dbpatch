@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.jsoftware.config.dialect.DefaultDialect;
 import org.jsoftware.config.dialect.Dialect;
+import org.jsoftware.config.dialect.DialectFinder;
 import org.jsoftware.impl.DefaultPatchParser;
 import org.jsoftware.impl.DirectoryPatchScaner;
 import org.jsoftware.impl.PatchParser;
@@ -44,6 +45,11 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 	private Collection<Extension> extensions;
 	private Charset patchEncoding;
 	
+	
+	public ConfigurationEntry() {
+		this("maven:pom.xml");
+	}
+	
 	ConfigurationEntry(String id) {
 		this.id = id;
 		dialect = new DefaultDialect();
@@ -62,6 +68,10 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 		this.patchEncoding = Charset.forName(patchEncoding);
 	}
 	
+	public void setEncoding(String patchEncoding) {
+		setPatchEncoding(patchEncoding);
+	}
+	
 	public ApplyStrategy getApplayStartegy() {
 		return applayStartegy;
 	}
@@ -72,6 +82,10 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 		if (this.applayStartegy == null) {
 			throw new IllegalArgumentException("Can not find applyStrategy for \"" + applayStartegy + "\"");
 		}
+	}
+	
+	public void setStrategy(String startegy) {
+		setApplayStartegy(startegy);
 	}
 	
 	public Collection<Extension> getExtensions() {
@@ -110,6 +124,10 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 		this.user = user;
 	}
 
+	public void setUsername(String username) {
+		setUser(username);
+	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -122,8 +140,13 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 		return dialect;
 	}
 
-	public void setDialect(Dialect dialect) {
+	public void setDialectInstance(Dialect dialect) {
 		this.dialect = dialect;
+	}
+	
+	public void setDialect(String dialect) {
+		Dialect dialect2 = DialectFinder.find(dialect);
+		setDialectInstance(dialect2);
 	}
 
 	public void setPatchDirs(String patchDir) {
@@ -169,5 +192,14 @@ public class ConfigurationEntry implements Serializable, Cloneable {
 		return patchDirs;
 	}
 
-	
+	@Override
+	public String toString() {
+		ToStringBuilder tsb = new ToStringBuilder();
+		tsb.add("id", id);
+		tsb.add("driverClass", driverClass).add("jdbcUri", jdbcUri);
+		tsb.add("user", user).add("password", "****");
+		tsb.add("patchDirs", patchDirs).add("encoding", patchEncoding);
+		tsb.add("strategy", applayStartegy);
+		return tsb.toString();
+	}
 }
