@@ -54,11 +54,12 @@
 				<configuration>
 					<archive>
 						<manifestEntries>
-							<Author>Marek Szalik &lt;szalik@jsoftware.org&gt;</Author>
+							<Author-Name>Marek Szalik</Author-Name>
+							<Author-Email>szalik@jsoftware.org</Author-Email>
 							<Homepage>http://jsoftware.org/maven-dbpatch-plugin</Homepage>
 							<Licence>GNU GPL - http://www.gnu.org/licenses/gpl-3.0.txt</Licence>
 							<Version>${project.version}</Version>
-							<Build.date>${maven.build.timestamp}</Build.date> <!-- see property maven.build.timestamp.format -->
+							<Build-Date>${maven.build.timestamp}</Build-Date> <!-- see property maven.build.timestamp.format -->
 						</manifestEntries>
 					</archive>
 				</configuration>
