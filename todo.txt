@@ -14,4 +14,4 @@ DONE * konfiguracja tylko w pom.xml
 1.4 RELEASED
 
 * Dodac obsluge patch rollback'ujacych
-* Dodac obsluge występowania ; w takstach (parametrach query)
+DONE w 1.4 * Dodac obsluge występowania ; w takstach (parametrach query)
