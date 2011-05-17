@@ -24,13 +24,13 @@ import org.jsoftware.simpleparser.SimpleParserCallbackContext;
 
 
 public class DefaultPatchParser extends SimpleParser implements PatchParser {
-	private enum PSTATE { sql, comment_line, comment_block, sql_block };
+	private enum PSTATE { sql, comment_line, comment_block, sql_block, inside_singlequot, inside_doublequot };
 	private static final String DEFAULT_DELIMITER = ";";
 	private String delimiter = DEFAULT_DELIMITER;
 	private Collection<String> disallowed;
 	
 	public DefaultPatchParser() {
-		super("--", "//", DEFAULT_DELIMITER, "\n", "/\\*", "\\*/");
+		super("--", "//", DEFAULT_DELIMITER, "\n", "/\\*", "\\*/", "\"", "'");
 		disallowed = new HashSet<String>();
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/dbpatch-disallowedStatements.txt")));
@@ -92,8 +92,10 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 			this.statements = statements;
 			buf = new StringBuilder();
 		}
+		
 		public void documentStarts() {
 		}
+		
 		public void tokenFound(SimpleParserCallbackContext ctx, String token) {
 			String text = ctx.getTextBefore();
 			buf.append(text);
@@ -118,6 +120,24 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 			if (token.equals("//") && current == PSTATE.sql) changeTo(PSTATE.comment_line);
 			if (token.equals("/*") && current == PSTATE.sql) changeTo(PSTATE.comment_block);
 			if (token.equals(delimiter) && current == PSTATE.sql) changeTo(PSTATE.sql);
+			
+			if (token.equals("\"") || token.equals("'")) {
+				boolean bslash = ctx.getTextBefore().endsWith("\\");
+				if (token.equals("\"")) {
+					if (current == PSTATE.sql) current = PSTATE.inside_doublequot;
+					else if (current == PSTATE.inside_doublequot && ! bslash) current = PSTATE.sql;
+				}
+				if (token.equals("'")) {
+					if (current == PSTATE.sql) current = PSTATE.inside_singlequot;
+					else if (current == PSTATE.inside_singlequot && ! bslash) current = PSTATE.sql;
+				}
+				if (current == PSTATE.sql) {
+					buf.append(token);
+				}
+			}
+			if (current == PSTATE.inside_singlequot || current == PSTATE.inside_doublequot) {
+				buf.append(token);
+			}
 		}
 		private void changeTo(PSTATE newState) {
 			PatchStatement stm = null;

@@ -13,4 +13,4 @@ DONE * dodac skaner globalny po nazwach, i taki jak byl czyli katalog->nazwa
 DONE * konfiguracja tylko w pom.xml
 
 * Dodac obsluge patch rollback'ujacych
-* Dodac obsluge występowania ; w takstach (parametrach query)
+DONE w 1.4 * Dodac obsluge występowania ; w takstach (parametrach query)
