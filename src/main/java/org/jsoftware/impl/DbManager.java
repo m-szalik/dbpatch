@@ -149,7 +149,7 @@ public class DbManager {
 	}
 	
 	public void endExecution() throws SQLException {
-		try { c.rollback(); } catch (SQLException e) {	}
+		try { c.rollback(); } catch (SQLException e) { /* ignore */	}
 		invokeExtensions("afterPatching", new ExtensionMethodInvokeCallback() {
 			public void invokeOn(Extension extension) throws Exception {
 				extension.afterPatching(c);
@@ -160,9 +160,7 @@ public class DbManager {
 
 
 	public void dispose() {
-		try {
-			c.close();
-		} catch (SQLException e) {	}
+		CloseUtil.close(c);
 	}
 	
 	private void invokeExtensions(String method, ExtensionMethodInvokeCallback cb) {

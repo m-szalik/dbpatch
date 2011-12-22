@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.jsoftware.impl.CloseUtil;
 
 
 
@@ -18,8 +19,9 @@ public class HelpMojo extends AbstractMojo {
 
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		InputStream in = getClass().getResourceAsStream("/dbpatch-help.txt");
+		BufferedReader br = null;
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+			br = new BufferedReader(new InputStreamReader(in));
 			String s;
 			while((s = br.readLine()) != null) {
 				System.out.println(s);
@@ -27,9 +29,8 @@ public class HelpMojo extends AbstractMojo {
 		} catch (IOException e) {
 			throw new MojoExecutionException(e.getMessage(), e);
 		} finally {
-			try {
-				in.close();
-			} catch(Exception e) { /* ignore */ }
+			CloseUtil.close(br);
+			CloseUtil.close(in);
 		}
 	}
 	

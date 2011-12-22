@@ -21,16 +21,16 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 		Properties p = new Properties();
 		p.load(input);
 		Map<String,ConfigurationEntry> confs = new HashMap<String,ConfigurationEntry>();
-		for(Object key1 : p.keySet()) {
-			String[] keys = key1.toString().toLowerCase().split("\\.");
-			if (keys.length != 2) throw new ParseException("Invalid key " + key1, 0);
+		for(Map.Entry<Object,Object> me : p.entrySet()) {
+			String[] keys = me.getKey().toString().toLowerCase().split("\\.");
+			if (keys.length != 2) throw new ParseException("Invalid key " + me.getKey(), 0);
 			ConfigurationEntry ce = confs.get(keys[0]);
 			if (ce == null) {
 				ce = new ConfigurationEntry(keys[0]);
 				ce.setDialectInstance(new DefaultDialect());
 				confs.put(keys[0], ce);
 			}
-			String value = p.get(key1).toString();
+			String value = me.getValue().toString();
 			if ("jdbcUrl".equalsIgnoreCase(keys[1]) || "jdbcUri".equalsIgnoreCase(keys[1])) {
 				ce.setJdbcUri(value);
 			}

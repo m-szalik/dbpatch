@@ -1,12 +1,14 @@
 package org.jsoftware.impl;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
 import org.jsoftware.config.Patch;
 
-public class DirectoryPatchScaner extends SimplePatchScaner {
+public class DirectoryPatchScaner extends SimplePatchScaner implements Serializable {
+	private static final long serialVersionUID = 2156150612939870399L;
 
 	@Override
 	protected void sortAll(List<Patch> allPatchList) {

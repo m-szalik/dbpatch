@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.Collections;
@@ -23,7 +24,8 @@ import org.jsoftware.simpleparser.SimpleParserCallback;
 import org.jsoftware.simpleparser.SimpleParserCallbackContext;
 
 
-public class DefaultPatchParser extends SimpleParser implements PatchParser {
+public class DefaultPatchParser extends SimpleParser implements PatchParser, Serializable {
+	private static final long serialVersionUID = 1L;
 	private enum PSTATE { sql, comment_line, comment_block, sql_block, inside_singlequot, inside_doublequot };
 	private static final String DEFAULT_DELIMITER = ";";
 	private String delimiter = DEFAULT_DELIMITER;
@@ -32,8 +34,9 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 	public DefaultPatchParser() {
 		super("--", "//", DEFAULT_DELIMITER, "\n", "/\\*", "\\*/", "\"", "'");
 		disallowed = new HashSet<String>();
+		BufferedReader br = null;
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/dbpatch-disallowedStatements.txt")));
+			br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/dbpatch-disallowedStatements.txt")));
 			String s;
 			while((s = br.readLine()) != null) {
 				s = s.trim();
@@ -43,6 +46,8 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 			}
 		} catch (IOException e) {
 			throw new RuntimeException("Can not load disallowed statements.", e);
+		} finally {
+			CloseUtil.close(br);
 		}
 		LogFactory.getInstance().debug("Disallowed statements " + disallowed);
 	}

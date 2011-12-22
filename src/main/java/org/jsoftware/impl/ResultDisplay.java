@@ -50,6 +50,7 @@ public class ResultDisplay extends JEditorPane implements Extension {
 			while(warn != null) {
 				addText(warn.getLocalizedMessage(), "#f4850d");
 				addText("<br />", null);
+				warn = warn.getNextWarning();
 			}
 			if (result.getDmlType() != null) {
 				addText(Messages.msg("com.patch." + result.getDmlType().name().toLowerCase(), new Object[] { Integer.valueOf(result.getDmlCount())}), "#18f40d");

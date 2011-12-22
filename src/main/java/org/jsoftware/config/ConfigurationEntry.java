@@ -18,7 +18,7 @@ import org.jsoftware.impl.PatchParser;
 import org.jsoftware.impl.extension.Extension;
 import org.jsoftware.impl.extension.TkExtensionAndStrategy;
 
-public class ConfigurationEntry implements Serializable, Cloneable {
+public class ConfigurationEntry implements Serializable {
 	private static Map<String, ApplyStrategy> applayStartegies;
 	private static Map<String, Extension> availableExtensions;
 	

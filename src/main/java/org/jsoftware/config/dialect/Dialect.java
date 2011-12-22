@@ -1,5 +1,6 @@
 package org.jsoftware.config.dialect;
 
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -7,7 +8,7 @@ import java.sql.Timestamp;
 import org.jsoftware.config.Patch;
 import org.jsoftware.impl.PatchStatement;
 
-public interface Dialect {
+public interface Dialect extends Serializable {
 	
 	public interface DelimiterChangeEvent {
 		boolean isChanged();

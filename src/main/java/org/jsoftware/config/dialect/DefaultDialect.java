@@ -11,6 +11,7 @@ import org.jsoftware.config.Patch;
 import org.jsoftware.impl.PatchStatement;
 
 public class DefaultDialect implements Dialect {
+	private static final long serialVersionUID = 1L;
 	public static final String DBPATCH_TABLENAME = "db_patches";
 
 	public String getDbPatchTableName() {
