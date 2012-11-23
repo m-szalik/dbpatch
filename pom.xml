@@ -3,7 +3,7 @@
 	<groupId>org.jsoftware</groupId>
 	<artifactId>dbpatch</artifactId>
 	<packaging>maven-plugin</packaging>
-	<version>1.6-SNAPSHOT</version>
+	<version>1.6</version>
 	<name>Database patch Maven Mojo</name>
 	<url>http://jsoftware.org/maven-dbpatch-plugin</url>
 	<description>Manage your database patches whith maven.</description>
@@ -68,9 +68,9 @@
 	</build>
 
 	<scm>
-		<url>svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</url>
-		<connection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</connection>
-		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</developerConnection>
+		<url>svn://jsoftware.org/grucha/dbpatch-maven-plugin/tags/dbpatch-1.6</url>
+		<connection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/tags/dbpatch-1.6</connection>
+		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/tags/dbpatch-1.6</developerConnection>
 	</scm>
 
 	<distributionManagement>
