@@ -31,18 +31,39 @@ public class DbManager {
 	
 	public DbManager(ConfigurationEntry ce) throws SQLException {
 		this.ce = ce;
-		this.extensions = new LinkedList(ce.getExtensions());
+		this.extensions = new LinkedList<Extension>(ce.getExtensions());
 		this.dialect = ce.getDialect();
 		try {
 			Class.forName(ce.getDriverClass()).newInstance();
 		} catch(Exception ex) {
 			throw new SQLException("Could not load driver class - " + ce.getDriverClass());
 		}
-	    c = DriverManager.getConnection(ce.getJdbcUri(), ce.getUser(), ce.getPassword());
-	    dialect.checkAndCreateStruct(c);
+	}
+	
+	public void init(DbManagerPasswordCallback dbManagerPasswordCallback) throws SQLException {
+		Connection con = null;
+		int tryNo = 0;
+		String password = ce.getPassword();
+		do {
+			try {
+				con = DriverManager.getConnection(ce.getJdbcUri(), ce.getUser(), password);
+			} catch (SQLException e) {
+				password = dbManagerPasswordCallback.getPassword(e, tryNo, ce);
+				tryNo++;
+				continue;
+			}
+			break;
+		} while (true);
+		if (con != null) {			
+			dialect.checkAndCreateStruct(con);
+			c = con;
+		}
 	}
 	
 	public Connection getConnection() {
+		if (c == null) {
+			throw new IllegalStateException("Invoke init method first.");
+		}
 		return c;
 	}
 
@@ -186,6 +207,7 @@ public class DbManager {
 		Timestamp ts = dialect.getNow(c);
 		return new Date(ts.getTime());
 	}
+
 }
 
 interface ExtensionMethodInvokeCallback {
