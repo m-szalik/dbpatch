@@ -8,6 +8,7 @@ import org.jsoftware.config.Patch.DbState;
 
 public class LastApplyStrategy implements ApplyStrategy {
 
+	@SuppressWarnings("unchecked")
 	public List<Patch> filter(Connection con, List<Patch> patches) {
 		int last = 0;
 		for(int i=0; i<patches.size(); i++) {

@@ -28,7 +28,7 @@ import org.jsoftware.config.ConfigurationEntry;
 public class InteractivePanel {
 	private Collection<ConfigurationEntry> conf;
 	private JDesktopPane desktop;
-	private Map<String, JInternalFrame> frames = new HashMap();
+	private Map<String, JInternalFrame> frames = new HashMap<String, JInternalFrame>();
 	private boolean active;
 	private Image defaultIcon;
 	

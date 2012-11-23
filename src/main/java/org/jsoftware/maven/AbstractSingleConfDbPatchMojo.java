@@ -7,6 +7,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.jsoftware.config.AbstractConfigurationParser;
 import org.jsoftware.config.ConfigurationEntry;
+import org.jsoftware.impl.ConsoleDbManagerPasswordCallback;
 import org.jsoftware.impl.DbManager;
 
 
@@ -73,6 +74,7 @@ public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo 
 			log.debug("Configuration:\n\t" + configurationEntry.toString().replace("\n", "\n\t").trim());
 			// do work
 			DbManager manager = new DbManager(configurationEntry);
+			manager.init(new ConsoleDbManagerPasswordCallback());
 			this.manager = manager;
 			log.info("Configuration: " + configurationEntry.getId());
 			executeInternal();

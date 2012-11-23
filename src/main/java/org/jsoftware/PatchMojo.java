@@ -11,6 +11,7 @@ import org.jsoftware.config.Patch;
  */
 public class PatchMojo extends ListMojo {
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void executeInternal() throws Exception {
 		List<Patch> patchesToApply = generatePatchList();

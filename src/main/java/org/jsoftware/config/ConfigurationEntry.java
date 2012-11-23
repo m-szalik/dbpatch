@@ -202,4 +202,8 @@ public class ConfigurationEntry implements Serializable {
 		tsb.add("strategy", applayStartegy);
 		return tsb.toString();
 	}
+
+	public boolean isInteractivePasswordAllowed() {
+		return true; // TODO move it into configuration ????
+	}
 }
