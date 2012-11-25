@@ -56,6 +56,7 @@ public class DbManager {
 		} while (true);
 		if (con != null) {			
 			dialect.checkAndCreateStruct(con);
+			con.setAutoCommit(false); // just for sure
 			c = con;
 		}
 	}
