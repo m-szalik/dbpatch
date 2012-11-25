@@ -100,7 +100,6 @@ public class DefaultDialect implements Dialect {
 	}
 
 	public void checkAndCreateStruct(Connection con) throws SQLException {
-		con.setAutoCommit(true);
 		ResultSet rs = con.getMetaData().getTables(null, null, DBPATCH_TABLENAME, null);
 		boolean tableFound = rs.next();
 		rs.close();
@@ -115,7 +114,6 @@ public class DefaultDialect implements Dialect {
 			insertEmptyRow(con);
 		}
 		rs.close();
-		con.setAutoCommit(false);
 	}
 
 	private void insertEmptyRow(Connection con) throws SQLException {
