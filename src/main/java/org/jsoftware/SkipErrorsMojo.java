@@ -12,7 +12,7 @@ import org.jsoftware.maven.AbstractSingleConfDbPatchMojo;
 /**
  * Mark patches &quot;in progress&quot; as commited.
  * 
- * @goal skipErrors
+ * @goal skip-errors
  */
 public class SkipErrorsMojo extends AbstractSingleConfDbPatchMojo {
 

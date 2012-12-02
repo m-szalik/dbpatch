@@ -4,7 +4,7 @@ Goals:
 	dbpatch:list 		- display list of patches (see patch statuses section)
 	dbpatch:patch 		- patch database 
 	dbpatch:interactive	- interactive mode
-	dbpatch:skipErrors  - mark patches "in progress" as comited
+	dbpatch:skip-errors	- mark patches "in progress" as comited
 	
 System properties:
 	maven.dbpatch.file		- file to parse for help-parse goal
