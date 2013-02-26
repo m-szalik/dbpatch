@@ -8,21 +8,12 @@
 	<url>http://jsoftware.org/maven-dbpatch-plugin</url>
 	<description>Manage your database patches whith maven.</description>
 	<inceptionYear>2011</inceptionYear>
-	<licenses>
-		<license>
-			<name>LGPL</name>
-		</license>
-	</licenses>
-	<organization>
-		<name>Jsoftware.org</name>
-		<url>http://www.jsoftware.org</url>
-	</organization>
-	<developers>
-		<developer>
-			<name>Marek Szalik</name>
-			<email>marek.szalik@jsoftware.org</email>
-		</developer>
-	</developers>
+	
+	<parent>
+	    <groupId>org.jsoftware</groupId>
+	    <artifactId>jsoftware</artifactId>
+	    <version>1.5</version>
+	</parent>
 
 	<dependencies>
 		<dependency>
@@ -42,22 +33,14 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
+				<inherited/>
 				<configuration>
 					<archive>
 						<manifestEntries>
 							<Author-Name>Marek Szalik</Author-Name>
-							<Author-Email>szalik@jsoftware.org</Author-Email>
+							<Author-Email>marek.szalik@jsoftware.org</Author-Email>
 							<Homepage>http://jsoftware.org/maven-dbpatch-plugin</Homepage>
-							<Licence>GNU GPL - http://www.gnu.org/licenses/gpl-3.0.txt</Licence>
 							<Version>${project.version}</Version>
 							<Build-Date>${maven.build.timestamp}</Build-Date> <!-- see property maven.build.timestamp.format -->
 						</manifestEntries>
@@ -73,16 +56,7 @@
 		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</developerConnection>
 	</scm>
 
-	<distributionManagement>
-		<repository>
-			<id>jsLocal</id>
-			<name>myCompanyReporsitory</name>
-			<url>file:///home/maven-repo/maven-repo-public/</url>
-		</repository>
-	</distributionManagement>
-
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
 	</properties>
 </project>
