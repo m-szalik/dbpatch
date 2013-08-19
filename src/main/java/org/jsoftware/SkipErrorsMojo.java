@@ -19,10 +19,11 @@ public class SkipErrorsMojo extends AbstractSingleConfDbPatchMojo {
 	@Override
 	protected void executeInternal() throws Exception {
 		Connection connection = manager.getConnection();
-		Statement statement = connection.createStatement();
+		Statement statement = null;
 		ResultSet rs = null;
 		PreparedStatement ps = null;
 		try {
+			statement = connection.createStatement();
 			rs = statement.executeQuery("SELECT patch_name FROM " + manager.getTableName() + " WHERE patch_db_date IS NULL");
 			ps = connection.prepareStatement("UPDATE " + manager.getTableName() + " SET patch_db_date=? WHERE patch_name=?");
 			ps.setDate(1, new Date(0));
@@ -33,6 +34,7 @@ public class SkipErrorsMojo extends AbstractSingleConfDbPatchMojo {
 			}
 			connection.commit();
 		} finally {
+			CloseUtil.close(statement);
 			CloseUtil.close(rs);
 			CloseUtil.close(ps);
 		}

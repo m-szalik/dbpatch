@@ -14,7 +14,7 @@ public class CloseUtil {
 			if (closeable != null) {
 				closeable.close();
 			}
-		} catch (Exception e) {	}
+		} catch (Exception e) {	/* firebug ok */ }
 	}
 	
 	public static void close(Statement statement) {
@@ -22,7 +22,7 @@ public class CloseUtil {
 			if (statement != null) {
 				statement.close();
 			}
-		} catch (Exception e) {	}
+		} catch (Exception e) {	/* firebug ok */ }
 	}
 	
 	public static void close(Connection conn) {
@@ -30,7 +30,7 @@ public class CloseUtil {
 			if (conn != null) {
 				conn.close();
 			}
-		} catch (Exception e) {	}
+		} catch (Exception e) {	/* firebug ok */ }
 	}
 	
 	public static void close(ResultSet rs) {
@@ -38,7 +38,7 @@ public class CloseUtil {
 			if (rs != null) {
 				rs.close();
 			}
-		} catch (Exception e) {	}
+		} catch (Exception e) {	/* firebug ok */ }
 	}
 	
 }

@@ -1,11 +1,13 @@
 package org.jsoftware.simpleparser;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SimpleParser {
+public class SimpleParser implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private List<String> tokens;
 	
 	public SimpleParser(String... tokens){

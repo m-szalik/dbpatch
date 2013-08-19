@@ -120,7 +120,11 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 				} catch (SQLException e1) {
 					throw new RuntimeException(e1);
 				} finally {
-					try {	dbManager.endExecution();	} catch (SQLException e1) {	}
+					try {	
+						dbManager.endExecution();	
+					} catch (SQLException e1) {	
+						e1.printStackTrace(); // FIXME
+					}
 				}
 				table.updateUI();
 				return;

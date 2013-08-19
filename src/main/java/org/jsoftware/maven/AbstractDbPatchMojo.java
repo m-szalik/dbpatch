@@ -48,7 +48,7 @@ public abstract class AbstractDbPatchMojo extends AbstractMojo {
 	}
 	
 	public ConfigurationEntry getConf() {
-		return conf;
+		return conf;	/* firebug ok - unwritten field (maven writes it) */
 	}
 
 	@Override

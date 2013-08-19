@@ -171,13 +171,16 @@ public class DbManager {
 	}
 	
 	public void endExecution() throws SQLException {
-		try { c.rollback(); } catch (SQLException e) { /* ignore */	}
-		invokeExtensions("afterPatching", new ExtensionMethodInvokeCallback() {
-			public void invokeOn(Extension extension) throws Exception {
-				extension.afterPatching(c);
-			}
-		});
-		dialect.releaseLock(c);
+		try { 
+			c.rollback(); 
+		} finally {
+			invokeExtensions("afterPatching", new ExtensionMethodInvokeCallback() {
+				public void invokeOn(Extension extension) throws Exception {
+					extension.afterPatching(c);
+				}
+			});
+			dialect.releaseLock(c);
+		}
 	}
 
 

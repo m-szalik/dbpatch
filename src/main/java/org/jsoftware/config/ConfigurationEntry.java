@@ -43,7 +43,7 @@ public class ConfigurationEntry implements Serializable {
 	private PatchParser patchParser;
 	private ApplyStrategy applayStartegy;
 	private Collection<Extension> extensions;
-	private Charset patchEncoding;
+	private String patchEncoding;
 	
 	
 	public ConfigurationEntry() {
@@ -57,15 +57,15 @@ public class ConfigurationEntry implements Serializable {
 		patchParser = new DefaultPatchParser();
 		applayStartegy = new MissingApplyStrategy();
 		extensions = Collections.emptySet();
-		patchEncoding = Charset.defaultCharset();
+		patchEncoding = Charset.defaultCharset().name();
 	}
 	
 	public Charset getPatchEncoding() {
-		return patchEncoding;
+		return Charset.forName(patchEncoding);
 	}
 	
 	public void setPatchEncoding(String patchEncoding) {
-		this.patchEncoding = Charset.forName(patchEncoding);
+		this.patchEncoding = Charset.forName(patchEncoding).name();
 	}
 	
 	public void setEncoding(String patchEncoding) {

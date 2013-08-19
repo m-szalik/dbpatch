@@ -41,7 +41,7 @@ public class InteractivePanel {
 		}
 		try { 
 			defaultIcon = ImageIO.read(getClass().getResource("/icon.png")); 
-		} catch (IOException e) { }
+		} catch (IOException e) { /* firebug ok */ }
 		this.conf = conf;
 	}
 
