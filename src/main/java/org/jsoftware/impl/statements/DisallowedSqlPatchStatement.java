@@ -4,7 +4,7 @@ import org.jsoftware.impl.PatchStatement;
 
 /**
  * Disallowed statements
- * @author mgruszecki
+ * @author szalik
  */
 public class DisallowedSqlPatchStatement implements PatchStatement {
 	protected final String sql;

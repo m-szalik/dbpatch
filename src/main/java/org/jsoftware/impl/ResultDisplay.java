@@ -10,7 +10,7 @@ import java.sql.SQLWarning;
 
 /**
  * Bottom bar with patching results.
- * @author mgruszecki
+ * @author szalik
  */
 public class ResultDisplay extends JEditorPane implements Extension {
 	private static final long serialVersionUID = -6937849129583028112L;

@@ -13,7 +13,7 @@ import java.util.Collection;
 
 /**
  * 
- * @author mgruszecki
+ * @author szalik
  * @execute phase="process-resources"
  */
 //see http://maven.apache.org/developers/mojo-api-specification.html
