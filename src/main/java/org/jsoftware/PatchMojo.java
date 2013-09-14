@@ -1,12 +1,12 @@
 package org.jsoftware;
 
-import java.util.List;
-
 import org.jsoftware.config.Patch;
+
+import java.util.List;
 
 
 /**
- * Runs autopatch mode
+ * Runs auto-patch mode
  * @goal patch
  */
 public class PatchMojo extends ListMojo {

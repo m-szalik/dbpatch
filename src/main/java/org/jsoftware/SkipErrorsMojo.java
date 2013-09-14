@@ -1,16 +1,12 @@
 package org.jsoftware;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
 import org.jsoftware.impl.CloseUtil;
 import org.jsoftware.maven.AbstractSingleConfDbPatchMojo;
 
+import java.sql.*;
+
 /**
- * Mark patches &quot;in progress&quot; as commited.
+ * Mark patches &quot;in progress&quot; as committed.
  * 
  * @goal skip-errors
  */

@@ -1,7 +1,7 @@
 package org.jsoftware.simpleparser;
 
 public class SimpleParserCallbackContext {
-	private String input;
+	private final String input;
 	private int endp;
 	private int startp;
 

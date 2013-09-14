@@ -1,15 +1,15 @@
 package org.jsoftware;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
 import org.jsoftware.impl.DefaultPatchParser;
-import org.jsoftware.impl.PatchStatement;
 import org.jsoftware.impl.PatchParser.ParseResult;
+import org.jsoftware.impl.PatchStatement;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 
 
@@ -23,7 +23,7 @@ public class HelpParseMojo extends AbstractMojo {
 		Log log = getLog();
 		String file = System.getProperty("maven.dbpatch.file");
 		if (file == null) {
-			throw new MojoFailureException("Set stsyem property \"maven.dbpatch.file\" to file you want to parse.");
+			throw new MojoFailureException("Set system property \"maven.dbpatch.file\" to file you want to parse.");
 		}
 		File f = new File(file);
 		if (! f.exists()) {

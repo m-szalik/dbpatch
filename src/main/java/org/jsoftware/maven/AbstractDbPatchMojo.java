@@ -1,11 +1,11 @@
 package org.jsoftware.maven;
 
-import java.io.File;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.logging.Log;
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.log.LogFactory;
+
+import java.io.File;
 
 public abstract class AbstractDbPatchMojo extends AbstractMojo {
 	
@@ -39,9 +39,9 @@ public abstract class AbstractDbPatchMojo extends AbstractMojo {
 	public File getConfigFile() {
 		if (configFile != null)
 			return configFile;
-		String cfile = System.getProperty("dbpatch.configFile");
-		if (cfile != null) {
-			return new File(cfile);
+		String cFile = System.getProperty("dbpatch.configFile");
+		if (cFile != null) {
+			return new File(cFile);
 		} else {
 			return null;
 		}

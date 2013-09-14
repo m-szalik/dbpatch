@@ -12,9 +12,9 @@ public class SimpleParser implements Serializable {
 	
 	public SimpleParser(String... tokens){
 		this.tokens = Arrays.asList(tokens);
-	};
-	
-	public void parse(String input, SimpleParserCallback callback) {
+	}
+
+    public void parse(String input, SimpleParserCallback callback) {
 		SimpleParserCallbackContext ctx = new SimpleParserCallbackContext(input);
 		callback.documentStarts();
 		if (tokens.isEmpty()) {

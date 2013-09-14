@@ -1,12 +1,12 @@
 package org.jsoftware.config;
 
+import org.jsoftware.impl.DuplicatePatchNameException;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jsoftware.impl.DuplicatePatchNameException;
-
-public interface PatchScaner extends Serializable {
+public interface PatchScanner extends Serializable {
 	
 	/**
 	 * 

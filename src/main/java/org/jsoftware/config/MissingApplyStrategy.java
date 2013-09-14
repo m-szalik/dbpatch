@@ -13,7 +13,7 @@ public class MissingApplyStrategy implements ApplyStrategy, Serializable {
 	public List<Patch> filter(Connection con, List<Patch> patches) {
 		LinkedList<Patch> patchesToApply = new LinkedList<Patch>();
 		for(Patch p : patches) {
-			if (p.getDbState() != DbState.COMMITED) {
+			if (p.getDbState() != DbState.COMMITTED) {
 				patchesToApply.add(p);
 			}
 		}

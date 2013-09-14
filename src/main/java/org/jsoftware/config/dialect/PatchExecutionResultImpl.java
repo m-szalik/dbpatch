@@ -29,8 +29,8 @@ public class PatchExecutionResultImpl implements PatchExecutionResult {
 		return sqlWarning;
 	}
 
-	public boolean isSuccess() {
-		return cause == null;
+	public boolean isFailure() {
+		return cause != null;
 	}
 
 	public SQLException getCause() {

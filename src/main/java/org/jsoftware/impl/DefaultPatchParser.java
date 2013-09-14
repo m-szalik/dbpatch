@@ -1,17 +1,5 @@
 package org.jsoftware.impl;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
 import org.jsoftware.impl.statements.CommentPatchStatement;
@@ -22,12 +10,16 @@ import org.jsoftware.simpleparser.SimpleParser;
 import org.jsoftware.simpleparser.SimpleParserCallback;
 import org.jsoftware.simpleparser.SimpleParserCallbackContext;
 
+import java.io.*;
+import java.nio.charset.Charset;
+import java.util.*;
+
 
 public class DefaultPatchParser extends SimpleParser implements PatchParser {
-	private enum PSTATE { sql, comment_line, comment_block, sql_block, inside_singlequot, inside_doublequot };
+	private enum PSTATE { sql, comment_line, comment_block, sql_block, inside_singlequot, inside_doublequot }
 	private static final String DEFAULT_DELIMITER = ";";
 	private String delimiter = DEFAULT_DELIMITER;
-	private Collection<String> disallowed;
+	private final Collection<String> disallowed;
 	
 	public DefaultPatchParser() {
 		super("--", "//", DEFAULT_DELIMITER, "\n", "/\\*", "\\*/", "\"", "'");
@@ -110,8 +102,8 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 				}
 			}
 			if (token.equals("\n") && current == PSTATE.comment_line) {
-				String commnetLine = text.toLowerCase().trim();
-				if (commnetLine.startsWith("block") || commnetLine.startsWith("statement")) {
+				String commentLine = text.toLowerCase().trim();
+				if (commentLine.startsWith("block") || commentLine.startsWith("statement")) {
 					changeTo(PSTATE.sql_block);
 				} else {
 					changeTo(PSTATE.sql);
@@ -158,7 +150,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 				if (sql.length() > 2) {
 					stm = isAllowedStatement(sql) ? new SqlPatchStatement(sql) : new DisallowedSqlPatchStatement(sql);
 				} else if (sql.length() > 0) {
-					LogFactory.getInstance().warn("Statement \"" + sql + "\" too short. Skiped.");
+					LogFactory.getInstance().warn("Statement \"" + sql + "\" too short. Skipped.");
 				}
 			} else {
 				stm = new CommentPatchStatement(buf.toString().trim());
@@ -177,10 +169,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 	
 	private boolean isAllowedStatement(String sql) {
 		sql = sql.trim().toLowerCase();
-		if (sql.length() > 1) {
-			return ! disallowed.contains(sql);
-		}
-		return true;
-	}
+        return sql.length() <= 1 || !disallowed.contains(sql);
+    }
 }
 

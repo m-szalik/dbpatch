@@ -8,7 +8,7 @@ public class Patch implements Serializable {
 	
 	private static final long serialVersionUID = 4178101927323891639L;
 	public enum DbState {
-		COMMITED, IN_PROGRES, NOT_AVAILABLE
+        COMMITTED, IN_PROGRESS, NOT_AVAILABLE
 	}
 	
 	private String name;

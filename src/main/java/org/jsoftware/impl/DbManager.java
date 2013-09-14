@@ -1,16 +1,5 @@
 package org.jsoftware.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.Patch.DbState;
@@ -20,6 +9,12 @@ import org.jsoftware.impl.extension.Extension;
 import org.jsoftware.impl.statements.DisallowedSqlPatchStatement;
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
+
+import java.sql.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class DbManager {
 	private ConfigurationEntry ce;
@@ -41,7 +36,7 @@ public class DbManager {
 	}
 	
 	public void init(DbManagerPasswordCallback dbManagerPasswordCallback) throws SQLException {
-		Connection con = null;
+		Connection con;
 		int tryNo = 0;
 		String password = ce.getPassword();
 		do {
@@ -76,10 +71,10 @@ public class DbManager {
 			if (rs.next()) {
 				Date d = rs.getDate(1);
 				if (d != null) {
-					p.setDbState(DbState.COMMITED);
+					p.setDbState(DbState.COMMITTED);
 					p.setDbDate(d);
 				} else {
-					p.setDbState(DbState.IN_PROGRES);
+					p.setDbState(DbState.IN_PROGRESS);
 				}
 			} else {
 				p.setDbState(DbState.NOT_AVAILABLE);		
@@ -133,7 +128,7 @@ public class DbManager {
 				}
 			});
 			c.commit();
-			log.debug("Patch " + p.getName() + " commited.");
+			log.debug("Patch " + p.getName() + " committed.");
 		} catch (Exception e) {
 			if (psErr != null) {
 				log.warn("Query execution problem \"" + psErr + "\" - " + e);

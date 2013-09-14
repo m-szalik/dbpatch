@@ -1,14 +1,14 @@
 package org.jsoftware.maven;
 
-import java.io.File;
-import java.util.Collection;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.jsoftware.config.AbstractConfigurationParser;
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.impl.ConsoleDbManagerPasswordCallback;
 import org.jsoftware.impl.DbManager;
+
+import java.io.File;
+import java.util.Collection;
 
 
 /**
@@ -20,7 +20,7 @@ import org.jsoftware.impl.DbManager;
 public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo {
 	
 	/**
-	 * Choosen configuration. Use with property &quot;configFile&quot;.
+	 * Chosen configuration. Use with property &quot;configFile&quot;.
 	 * @parameter 
 	 */
 	private String selectedConfiguration;
@@ -34,7 +34,7 @@ public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo 
 	
 	public void execute() throws MojoExecutionException, MojoFailureException {
 		if (System.getProperty("maven.dbpatch.skip") != null) {
-			log.debug("dbpatch skiped");
+			log.debug("dbpatch skipped");
 			return;
 		}
 		try {

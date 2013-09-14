@@ -1,17 +1,17 @@
 package org.jsoftware.impl;
 
+import org.jsoftware.config.Patch;
+import org.jsoftware.config.PatchScanner;
+import org.jsoftware.impl.commons.FilenameUtils;
+import org.jsoftware.log.Log;
+import org.jsoftware.log.LogFactory;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jsoftware.config.Patch;
-import org.jsoftware.config.PatchScaner;
-import org.jsoftware.impl.commons.FilenameUtils;
-import org.jsoftware.log.Log;
-import org.jsoftware.log.LogFactory;
-
-public abstract class SimplePatchScaner implements PatchScaner {
+public abstract class SimplePatchScanner implements PatchScanner {
 	private Log log = LogFactory.getInstance();
 	
 	public List<Patch> scan(File baseDir, String[] paths) throws DuplicatePatchNameException {	
@@ -20,8 +20,8 @@ public abstract class SimplePatchScaner implements PatchScaner {
 		for(DirMask dm : dirMasks) {
 			log.debug("Scan " + dm.getDir().getAbsolutePath() + " for " + dm.getMask());
 			LinkedList<Patch> dirList = new LinkedList<Patch>();
-			File[] flist = dm.getDir().listFiles(new WildchardMaskFileFilter(dm.getMask()));
-			for (File f : flist) {
+			File[] fList = dm.getDir().listFiles(new WildchardMaskFileFilter(dm.getMask()));
+			for (File f : fList) {
 				Patch p = new Patch();
 				p.setFile(f);
 				p.setName(f.getName().substring(0, f.getName().length() - 4));

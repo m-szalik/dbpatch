@@ -603,7 +603,7 @@ public class FilenameUtils {
             if (ch1 == ':') {
                 ch0 = Character.toUpperCase(ch0);
                 if (ch0 >= 'A' && ch0 <= 'Z') {
-                    if (len == 2 || isSeparator(filename.charAt(2)) == false) {
+                    if (len == 2 || !isSeparator(filename.charAt(2))) {
                         return 2;
                     }
                     return 3;
@@ -1336,7 +1336,7 @@ public class FilenameUtils {
                 if (array[i] == '?') {
                     list.add("?");
                 } else if (list.size() == 0 ||
-                        (i > 0 && list.get(list.size() - 1).equals("*") == false)) {
+                        (i > 0 && !list.get(list.size() - 1).equals("*"))) {
                     list.add("*");
                 }
             } else {

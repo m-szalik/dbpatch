@@ -1,12 +1,12 @@
 package org.jsoftware.impl;
 
+import org.jsoftware.config.Patch;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.jsoftware.config.Patch;
-
-public class NamePatchScaner extends SimplePatchScaner {
+public class NamePatchScanner extends SimplePatchScanner {
 
 	@Override
 	protected void sortAll(List<Patch> allPatchList) {

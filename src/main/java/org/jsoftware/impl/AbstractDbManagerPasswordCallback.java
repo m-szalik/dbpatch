@@ -1,8 +1,8 @@
 package org.jsoftware.impl;
 
-import java.sql.SQLException;
-
 import org.jsoftware.config.ConfigurationEntry;
+
+import java.sql.SQLException;
 
 public abstract class AbstractDbManagerPasswordCallback implements DbManagerPasswordCallback {
 	private final static int MAX_TRIES = 3;
@@ -14,7 +14,7 @@ public abstract class AbstractDbManagerPasswordCallback implements DbManagerPass
 			throw ex;
 		}
 		if (! configurationEntry.isInteractivePasswordAllowed()) {
-			throw new SQLException("Cannot read password interactivly!");
+			throw new SQLException("Cannot read password iteratively!");
 		}
 		return getPassword(sqlException, configurationEntry);
 	}

@@ -1,14 +1,8 @@
 package org.jsoftware.config.dialect;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.SQLWarning;
-import java.sql.Statement;
-import java.sql.Timestamp;
-
 import org.jsoftware.impl.PatchStatement;
+
+import java.sql.*;
 
 public class OracleDialect extends DefaultDialect {
 	private static final long serialVersionUID = -8744726190040823430L;
@@ -17,7 +11,7 @@ public class OracleDialect extends DefaultDialect {
 	public PatchExecutionResult executeStatement(Connection c, PatchStatement ps) {
 		if (ps.getCode().toLowerCase().startsWith("set ")) {
 			PatchExecutionResultImpl resultImpl = new PatchExecutionResultImpl(ps);
-			resultImpl.setSqlWarning(new SQLWarning("dbPatch do not allow executinig SET statements"));
+			resultImpl.setSqlWarning(new SQLWarning("dbPatch do not allow executing SET statements"));
 			return resultImpl;
 		}
 		String sql = ps.getCode();

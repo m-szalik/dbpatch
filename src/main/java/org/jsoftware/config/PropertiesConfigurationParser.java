@@ -1,5 +1,10 @@
 package org.jsoftware.config;
 
+import org.jsoftware.config.dialect.DefaultDialect;
+import org.jsoftware.config.dialect.DialectFinder;
+import org.jsoftware.impl.DirectoryPatchScanner;
+import org.jsoftware.impl.NamePatchScanner;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -7,11 +12,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import org.jsoftware.config.dialect.DefaultDialect;
-import org.jsoftware.config.dialect.DialectFinder;
-import org.jsoftware.impl.DirectoryPatchScaner;
-import org.jsoftware.impl.NamePatchScaner;
 
 
 public class PropertiesConfigurationParser extends AbstractConfigurationParser {
@@ -50,7 +50,7 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 				ce.setDriverClass(value);
 			}
 			if ("strategy".equalsIgnoreCase(keys[1]) || "applyStrategy".equalsIgnoreCase(keys[1])) {
-				ce.setApplayStartegy(value);
+				ce.setApplyStarters(value);
 			}
 			if ("extensions".equalsIgnoreCase(keys[1])) {
 				ce.setExtensions(value);
@@ -58,15 +58,15 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 			if ("encoding".equalsIgnoreCase(keys[1])) {
 				ce.setPatchEncoding(value);
 			}
-			if ("scaner".equalsIgnoreCase(keys[1])) {
-				PatchScaner scaner = null;
+			if ("scanner".equalsIgnoreCase(keys[1])) {
+				PatchScanner scanner = null;
 				value = value.toLowerCase().trim();
-				if (value.startsWith("dir")) scaner = new DirectoryPatchScaner();
-				if (value.startsWith("name")) scaner = new NamePatchScaner();
-				if (scaner == null) {
-					throw new ParseException("Unknow scaner type - " + value, 0);
+				if (value.startsWith("dir")) scanner = new DirectoryPatchScanner();
+				if (value.startsWith("name")) scanner = new NamePatchScanner();
+				if (scanner == null) {
+					throw new ParseException("Unknow scanner type - " + value, 0);
 				} 
-				ce.setPatchScaner(scaner);
+				ce.setPatchScanner(scanner);
 			}
 		}
 		return confs.values();

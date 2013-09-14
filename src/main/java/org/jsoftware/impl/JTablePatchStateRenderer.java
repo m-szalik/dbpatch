@@ -1,15 +1,11 @@
 package org.jsoftware.impl;
 
-import java.awt.Color;
-import java.awt.Component;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.table.TableCellRenderer;
-
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.Patch.DbState;
+
+import javax.swing.*;
+import javax.swing.table.TableCellRenderer;
+import java.awt.*;
 
 public class JTablePatchStateRenderer implements TableCellRenderer {
 	
@@ -18,18 +14,17 @@ public class JTablePatchStateRenderer implements TableCellRenderer {
 			Patch p = (Patch) value;
 			JLabel o = new JLabel("?");
 			o.setBackground(Color.LIGHT_GRAY);
-			if (p.getDbState() == DbState.IN_PROGRES) {
+			if (p.getDbState() == DbState.IN_PROGRESS) {
 				o = new JLabel(Messages.msg("table.patches.state.inProgress"));
 				o.setBackground(Color.YELLOW);
 			}
-			if (p.getDbState() == DbState.COMMITED) {
-				o = new JLabel(Messages.msg("table.patches.state.commited"));
+			if (p.getDbState() == DbState.COMMITTED) {
+				o = new JLabel(Messages.msg("table.patches.state.committed"));
 				o.setBackground(Color.GREEN);
 			}
 			if (p.getDbState() == DbState.NOT_AVAILABLE) {
 				if (p.canApply()) {
-					JButton jb = new JButton(Messages.msg("table.patches.state.patchItBtn"));
-					return jb;
+					return new JButton(Messages.msg("table.patches.state.patchItBtn"));
 				} else {
 					o.setText(Messages.msg("table.patches.state.empty"));
 				}

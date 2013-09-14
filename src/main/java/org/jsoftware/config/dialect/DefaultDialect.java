@@ -1,14 +1,10 @@
 package org.jsoftware.config.dialect;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
-
 import org.jsoftware.config.Patch;
 import org.jsoftware.impl.PatchStatement;
+import org.jsoftware.log.LogFactory;
+
+import java.sql.*;
 
 public class DefaultDialect implements Dialect {
 	private static final long serialVersionUID = 1L;
@@ -29,7 +25,9 @@ public class DefaultDialect implements Dialect {
 			result.setCause(e);
 			try { 
 				result.setSqlWarning(c.getWarnings());
-			} catch (SQLException ex) {		}
+			} catch (SQLException ex) {
+                LogFactory.getInstance().warn("Cannot set warnings.", ex);
+            }
 		}
 		return result;
 	}

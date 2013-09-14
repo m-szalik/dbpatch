@@ -7,12 +7,12 @@ public enum Level {
 	FATAL(20);
 	
 	private Level(int p) {
-		prio = p;
+		priority = p;
 	}
 	
-	public int getPrio() {
-		return prio;
+	public int getPriority() {
+		return priority;
 	}
 	
-	private int prio;
+	private final int priority;
 }

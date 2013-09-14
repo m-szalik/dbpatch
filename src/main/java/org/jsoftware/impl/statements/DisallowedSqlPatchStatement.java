@@ -3,11 +3,11 @@ package org.jsoftware.impl.statements;
 import org.jsoftware.impl.PatchStatement;
 
 /**
- * Dissallowed statements
+ * Disallowed statements
  * @author mgruszecki
  */
 public class DisallowedSqlPatchStatement implements PatchStatement {
-	protected String sql;
+	protected final String sql;
 
 	public DisallowedSqlPatchStatement(String sql) {
 		this.sql = sql;

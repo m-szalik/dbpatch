@@ -1,6 +1,14 @@
 package org.jsoftware.impl;
 
-import java.awt.Dimension;
+import org.jsoftware.config.ConfigurationEntry;
+import org.jsoftware.config.Patch;
+import org.jsoftware.log.LogFactory;
+
+import javax.swing.*;
+import javax.swing.event.InternalFrameEvent;
+import javax.swing.event.InternalFrameListener;
+import javax.swing.table.AbstractTableModel;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -11,23 +19,11 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JInternalFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
-import javax.swing.JTable;
-import javax.swing.event.InternalFrameEvent;
-import javax.swing.event.InternalFrameListener;
-import javax.swing.table.AbstractTableModel;
-
-import org.jsoftware.config.ConfigurationEntry;
-import org.jsoftware.config.Patch;
-
 @SuppressWarnings("serial")
 public class DbPatchInternalFrame extends JInternalFrame implements MouseListener, InternalFrameListener {
-
+    private final static ResultDisplay resultDisplay = new ResultDisplay();
 	private List<Patch> patches;
 	private DbManager dbManager;
-	private ResultDisplay resultDisplay = new ResultDisplay();
 	private JTable table;
 	
 	
@@ -36,7 +32,7 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 		dbManager = new DbManager(ce);
 		dbManager.init(new SwingDbManagerPasswordCallback(this));
 		dbManager.addExtension(resultDisplay);
-		patches = ce.getPatchScaner().scan(new File("."), ce.getPatchDirs().split(","));
+		patches = ce.getPatchScanner().scan(new File("."), ce.getPatchDirs().split(","));
 		addInternalFrameListener(this);
 		final String[] columnModelKeys = new String[] { "patchName", "patchDate", "patchStatements", "patchSize", "state" };
 		final String[] columnModel = new String[columnModelKeys.length];
@@ -44,7 +40,7 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 			columnModel[i] = Messages.msg("table.patches." + columnModelKeys[i]);
 		}
 		AbstractTableModel tableModel = new AbstractTableModel() {
-			DateFormat df = DateFormat.getInstance();
+			final DateFormat df = DateFormat.getInstance();
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				if (rowIndex >= patches.size()) return null;
 				Patch p = patches.get(rowIndex);
@@ -122,12 +118,11 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 				} finally {
 					try {	
 						dbManager.endExecution();	
-					} catch (SQLException e1) {	
-						e1.printStackTrace(); // FIXME
+					} catch (SQLException e1) {
+                        LogFactory.getInstance().fatal("Error executing SQL operation.", e1);
 					}
 				}
 				table.updateUI();
-				return;
 			}
 		}
 	}

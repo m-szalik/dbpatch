@@ -1,21 +1,20 @@
 package org.jsoftware.impl;
 
-import java.sql.Connection;
-import java.sql.SQLWarning;
-
-import javax.swing.JEditorPane;
-
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.dialect.PatchExecutionResult;
 import org.jsoftware.impl.extension.Extension;
 
+import javax.swing.*;
+import java.sql.Connection;
+import java.sql.SQLWarning;
+
 /**
- * Dolna belka z wynikami
+ * Bottom bar with patching results.
  * @author mgruszecki
  */
 public class ResultDisplay extends JEditorPane implements Extension {
 	private static final long serialVersionUID = -6937849129583028112L;
-	private StringBuilder buf;
+	private final StringBuilder buf;
 	
 	public ResultDisplay() {
 		super("text/html", null);
@@ -35,14 +34,14 @@ public class ResultDisplay extends JEditorPane implements Extension {
 		if (ex == null) {
 			addInfo("com.patching.done.ok", new Object[] {patch.getName(), patch.getFile().getName()});
 		} else {
-			addText(Messages.msg("com.patching.done.error", new Object[] {patch.getName(), patch.getFile().getName()}), "#ff0000");
+			addText(Messages.msg("com.patching.done.error", patch.getName(), patch.getFile().getName()), "#ff0000");
 		}
 		addText("<br />", null);
 	}
 
 	public void afterPatchStatement(Connection connection, Patch patch, PatchExecutionResult result) {
 		addText(result.getPatchStatement().getCode() + "<br />", null);
-		if (! result.isSuccess()) {
+		if (result.isFailure()) {
 			addText("<b>" + result.getCause().getLocalizedMessage() + "</b>", "#ff0000");
 			addText("<br />", null);
 		} else {
@@ -53,7 +52,7 @@ public class ResultDisplay extends JEditorPane implements Extension {
 				warn = warn.getNextWarning();
 			}
 			if (result.getDmlType() != null) {
-				addText(Messages.msg("com.patch." + result.getDmlType().name().toLowerCase(), new Object[] { Integer.valueOf(result.getDmlCount())}), "#18f40d");
+				addText(Messages.msg("com.patch." + result.getDmlType().name().toLowerCase(), result.getDmlCount()), "#18f40d");
 			} else {
 				addText(Messages.msg("com.patch.otherType"), "#18f40d");
 			}

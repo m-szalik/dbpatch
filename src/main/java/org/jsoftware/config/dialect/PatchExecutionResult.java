@@ -1,14 +1,14 @@
 package org.jsoftware.config.dialect;
 
+import org.jsoftware.impl.PatchStatement;
+
 import java.sql.SQLException;
 import java.sql.SQLWarning;
-
-import org.jsoftware.impl.PatchStatement;
 
 
 public interface PatchExecutionResult {
 	
-	boolean isSuccess();
+	boolean isFailure();
 	
 	SQLWarning getSqlWarnings();
 	

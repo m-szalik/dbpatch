@@ -1,15 +1,15 @@
 package org.jsoftware.impl.statements;
 
+import org.jsoftware.impl.PatchStatement;
+
 import java.sql.Connection;
 import java.sql.SQLException;
-
-import org.jsoftware.impl.PatchStatement;
 
 public class CommentPatchStatement implements PatchStatement {
 	protected String comment;
 
-	public CommentPatchStatement(String coment) {
-		this.comment = coment;
+	public CommentPatchStatement(String comment) {
+		this.comment = comment;
 	}
 
 	public boolean isDisplayable() {

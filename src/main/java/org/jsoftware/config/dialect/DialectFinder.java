@@ -15,7 +15,7 @@ public class DialectFinder {
 		} catch (ClassNotFoundException e) {
 			throw new IllegalArgumentException("Can not find class " + value + " for dialect " + oldValue);
 		} catch (Exception e) {
-			throw new RuntimeException("Can not instante dialect " + value);
+			throw new RuntimeException("Can not instance dialect " + value);
 		}
 	}
 

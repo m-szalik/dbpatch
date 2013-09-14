@@ -1,15 +1,15 @@
 package org.jsoftware;
 
+import org.jsoftware.config.ApplyStrategy;
+import org.jsoftware.config.Patch;
+import org.jsoftware.config.Patch.DbState;
+import org.jsoftware.config.PatchScanner;
+import org.jsoftware.impl.DuplicatePatchNameException;
+import org.jsoftware.maven.AbstractSingleConfDbPatchMojo;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
-import org.jsoftware.config.ApplyStrategy;
-import org.jsoftware.config.Patch;
-import org.jsoftware.config.PatchScaner;
-import org.jsoftware.config.Patch.DbState;
-import org.jsoftware.impl.DuplicatePatchNameException;
-import org.jsoftware.maven.AbstractSingleConfDbPatchMojo;
 
 
 /**
@@ -26,18 +26,18 @@ public class ListMojo extends AbstractSingleConfDbPatchMojo {
 	 * @throws DuplicatePatchNameException 
 	 */
 	List<Patch> generatePatchList() throws IOException, SQLException, DuplicatePatchNameException {
-		PatchScaner scaner = configurationEntry.getPatchScaner();
-		List<Patch> patches = scaner.scan(directory, configurationEntry.getPatchDirs().split(","));
+		PatchScanner scanner = configurationEntry.getPatchScanner();
+		List<Patch> patches = scanner.scan(directory, configurationEntry.getPatchDirs().split(","));
 		manager.updateStateObjectAll(patches);
-		ApplyStrategy strategy = configurationEntry.getApplayStartegy();
+		ApplyStrategy strategy = configurationEntry.getApplyStarters();
 		log.debug("Apply strategy is " + strategy.getClass().getSimpleName() + ", configurationId:" + configurationEntry.getId());
 		List<Patch> patchesToApply = strategy.filter(manager.getConnection(), patches);
 		StringBuilder sb = new StringBuilder("Patch list:\n");
 		for(Patch p : patches) {
 			configurationEntry.getPatchParser().parse(p, configurationEntry);
 			sb.append('\t');
-			if (p.getDbState() == DbState.COMMITED) sb.append('*');
-			if (p.getDbState() == DbState.IN_PROGRES) sb.append('P');
+			if (p.getDbState() == DbState.COMMITTED) sb.append('*');
+			if (p.getDbState() == DbState.IN_PROGRESS) sb.append('P');
 			if (p.getDbState() == DbState.NOT_AVAILABLE) {
 				if (patchesToApply.contains(p)) sb.append('+');
 				else sb.append('-');
@@ -48,8 +48,8 @@ public class ListMojo extends AbstractSingleConfDbPatchMojo {
 			}
 			sb.append("  statements:").append(p.getStatementCount());
 			sb.append('\n');
-		};
-		log.info(sb.toString().trim());
+		}
+        log.info(sb.toString().trim());
 		log.info("Patches to apply: " + patchesToApply.size() + " using configuration:" + configurationEntry.getId());
 		return patchesToApply;
 	}

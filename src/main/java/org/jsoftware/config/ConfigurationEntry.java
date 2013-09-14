@@ -1,47 +1,43 @@
 package org.jsoftware.config;
 
-import java.io.Serializable;
-import java.nio.charset.Charset;
-import java.text.ParseException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-
 import org.jsoftware.config.dialect.DefaultDialect;
 import org.jsoftware.config.dialect.Dialect;
 import org.jsoftware.config.dialect.DialectFinder;
 import org.jsoftware.impl.DefaultPatchParser;
-import org.jsoftware.impl.DirectoryPatchScaner;
+import org.jsoftware.impl.DirectoryPatchScanner;
 import org.jsoftware.impl.PatchParser;
 import org.jsoftware.impl.extension.Extension;
 import org.jsoftware.impl.extension.TkExtensionAndStrategy;
 
+import java.io.Serializable;
+import java.nio.charset.Charset;
+import java.text.ParseException;
+import java.util.*;
+
 public class ConfigurationEntry implements Serializable {
-	private static Map<String, ApplyStrategy> applayStartegies;
-	private static Map<String, Extension> availableExtensions;
+	private static final Map<String, ApplyStrategy> applyStrategies;
+	private static final Map<String, Extension> availableExtensions;
 	
 	static {
-		applayStartegies = new HashMap<String, ApplyStrategy>();
-		applayStartegies.put("missing", new MissingApplyStrategy());
-		applayStartegies.put("last", new LastApplyStrategy());
-		applayStartegies.put("tk", new TkExtensionAndStrategy());
+		applyStrategies = new HashMap<String, ApplyStrategy>();
+		applyStrategies.put("missing", new MissingApplyStrategy());
+		applyStrategies.put("last", new LastApplyStrategy());
+		applyStrategies.put("tk", new TkExtensionAndStrategy());
 		
 		availableExtensions = new HashMap<String, Extension>();
 		availableExtensions.put("tk", new TkExtensionAndStrategy());
 	}
 	private static final long serialVersionUID = 1L;
-	private String id;
+	private final String id;
 	private String jdbcUri;
 	private String driverClass;
 	private String user;
 	private String password;
 	private Dialect dialect;
 	private String patchDirs;
-	private PatchScaner patchScaner;
-	private PatchParser patchParser;
-	private ApplyStrategy applayStartegy;
+	private PatchScanner patchScanner;
+	private final PatchParser patchParser;
+	private ApplyStrategy applyStarters;
 	private Collection<Extension> extensions;
 	private String patchEncoding;
 	
@@ -53,9 +49,9 @@ public class ConfigurationEntry implements Serializable {
 	ConfigurationEntry(String id) {
 		this.id = id;
 		dialect = new DefaultDialect();
-		patchScaner = new DirectoryPatchScaner();
+		patchScanner = new DirectoryPatchScanner();
 		patchParser = new DefaultPatchParser();
-		applayStartegy = new MissingApplyStrategy();
+		applyStarters = new MissingApplyStrategy();
 		extensions = Collections.emptySet();
 		patchEncoding = Charset.defaultCharset().name();
 	}
@@ -72,20 +68,20 @@ public class ConfigurationEntry implements Serializable {
 		setPatchEncoding(patchEncoding);
 	}
 	
-	public ApplyStrategy getApplayStartegy() {
-		return applayStartegy;
+	public ApplyStrategy getApplyStarters() {
+		return applyStarters;
 	}
 	
-	public void setApplayStartegy(String applayStartegy) {
-		applayStartegy = applayStartegy.toLowerCase().trim();
-		this.applayStartegy = applayStartegies.get(applayStartegy);
-		if (this.applayStartegy == null) {
-			throw new IllegalArgumentException("Can not find applyStrategy for \"" + applayStartegy + "\"");
+	public void setApplyStarters(String applyStarters) {
+		applyStarters = applyStarters.toLowerCase().trim();
+		this.applyStarters = applyStrategies.get(applyStarters);
+		if (this.applyStarters == null) {
+			throw new IllegalArgumentException("Can not find applyStrategy for \"" + applyStarters + "\"");
 		}
 	}
 	
-	public void setStrategy(String startegy) {
-		setApplayStartegy(startegy);
+	public void setStrategy(String strategy) {
+		setApplyStarters(strategy);
 	}
 	
 	public Collection<Extension> getExtensions() {
@@ -165,12 +161,12 @@ public class ConfigurationEntry implements Serializable {
 		return patchParser;
 	}
 
-	public PatchScaner getPatchScaner() {
-		return patchScaner;
+	public PatchScanner getPatchScanner() {
+		return patchScanner;
 	}
 	
-	public void setPatchScaner(PatchScaner patchScaner) {
-		this.patchScaner = patchScaner;
+	public void setPatchScanner(PatchScanner patchScanner) {
+		this.patchScanner = patchScanner;
 	}
 
 	public void validate() throws ParseException {
@@ -199,7 +195,7 @@ public class ConfigurationEntry implements Serializable {
 		tsb.add("driverClass", driverClass).add("jdbcUri", jdbcUri);
 		tsb.add("user", user).add("password", "****");
 		tsb.add("patchDirs", patchDirs).add("encoding", patchEncoding);
-		tsb.add("strategy", applayStartegy);
+		tsb.add("strategy", applyStarters);
 		return tsb.toString();
 	}
 

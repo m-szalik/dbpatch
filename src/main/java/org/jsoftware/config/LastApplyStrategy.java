@@ -12,7 +12,7 @@ public class LastApplyStrategy implements ApplyStrategy {
 	public List<Patch> filter(Connection con, List<Patch> patches) {
 		int last = 0;
 		for(int i=0; i<patches.size(); i++) {
-			if (patches.get(i).getDbState() == DbState.COMMITED) {
+			if (patches.get(i).getDbState() == DbState.COMMITTED) {
 				last = i;
 			}
 		}

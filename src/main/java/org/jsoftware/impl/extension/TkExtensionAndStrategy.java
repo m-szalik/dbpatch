@@ -1,5 +1,10 @@
 package org.jsoftware.impl.extension;
 
+import org.jsoftware.config.ApplyStrategy;
+import org.jsoftware.config.Patch;
+import org.jsoftware.config.dialect.PatchExecutionResult;
+import org.jsoftware.impl.PatchStatement;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -7,11 +12,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import org.jsoftware.config.ApplyStrategy;
-import org.jsoftware.config.Patch;
-import org.jsoftware.config.dialect.PatchExecutionResult;
-import org.jsoftware.impl.PatchStatement;
 
 public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
 	
@@ -21,7 +21,7 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
 			str = str.substring(5, 5+4).trim();
 			return Integer.parseInt(str);
 		} catch (Exception e) {
-			throw new IllegalArgumentException("Can not determinate patchLeve for patch " + p.getName());
+			throw new IllegalArgumentException("Can not determinate patchLeave for patch " + p.getName());
 		}
 	}
 	
@@ -60,7 +60,7 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
 		if (qm.size() == 1) {
 			tabName = qm.iterator().next();
 		}
-		if (tabName == null) throw new RuntimeException("No tk table avaialble. " + qm);
+		if (tabName == null) throw new RuntimeException("No tk table avalaible. " + qm);
 		return tabName;
 	}
 
