@@ -47,6 +47,7 @@
 							<Homepage>http://jsoftware.org/maven-dbpatch-plugin</Homepage>
 							<Version>${project.version}</Version>
 							<Build-Date>${maven.build.timestamp}</Build-Date> <!-- see property maven.build.timestamp.format -->
+                            <Built-By>szalik</Built-By>
 						</manifestEntries>
 					</archive>
 				</configuration>
