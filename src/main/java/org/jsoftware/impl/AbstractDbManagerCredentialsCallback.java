@@ -4,7 +4,7 @@ import org.jsoftware.config.ConfigurationEntry;
 
 import java.sql.SQLException;
 
-public abstract class AbstractDbManagerPasswordCallback implements DbManagerPasswordCallback {
+public abstract class AbstractDbManagerCredentialsCallback implements DbManagerCredentialsCallback {
 	private final static int MAX_TRIES = 3;
 	
 	public String getPassword(SQLException sqlException, int tryNo, ConfigurationEntry configurationEntry) throws SQLException {
@@ -19,8 +19,6 @@ public abstract class AbstractDbManagerPasswordCallback implements DbManagerPass
 		return getPassword(sqlException, configurationEntry);
 	}
 
-	
-	protected abstract String getPassword(SQLException lastSqlException, ConfigurationEntry configurationEntry);
+    protected abstract String getPassword(SQLException lastSqlException, ConfigurationEntry configurationEntry);
 
-		
 }

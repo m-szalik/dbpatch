@@ -48,6 +48,7 @@
 							<Version>${project.version}</Version>
 							<Build-Date>${maven.build.timestamp}</Build-Date> <!-- see property maven.build.timestamp.format -->
                             <Built-By>szalik</Built-By>
+                            <Main-Class>org.jsoftware.DbPatch</Main-Class>
 						</manifestEntries>
 					</archive>
 				</configuration>

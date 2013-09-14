@@ -1,15 +1,11 @@
 package org.jsoftware.config;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.ParseException;
-import java.util.Collection;
-
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.Collection;
 
 public abstract class AbstractConfigurationParser {
 	
@@ -20,6 +16,12 @@ public abstract class AbstractConfigurationParser {
 			log.debug("Looking for dbpach.properties in classpath.");
 			input = Thread.currentThread().getContextClassLoader().getResourceAsStream("/dbpatch.properties");
 			log.debug("Resource dbpatch.properties " +( input == null ? "not" : "" )+ " found in classpath.");
+            if (input == null) {
+                log.debug("Looking for dbpach.properties in current directory.");
+                File f = new File("dbpatch.properties");
+                log.debug("Resource dbpatch.properties " +( ! f.exists() ? "not" : "" )+ " found in current directory.");
+                input = new FileInputStream(f);
+            }
 		} else {
 			File file = (File) confFile;
 			if (! file.exists()) throw new FileNotFoundException(file.getAbsolutePath());

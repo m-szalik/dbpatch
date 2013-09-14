@@ -37,8 +37,9 @@ public abstract class AbstractDbPatchMojo extends AbstractMojo {
 	}
 
 	public File getConfigFile() {
-		if (configFile != null)
+		if (configFile != null) {
 			return configFile;
+        }
 		String cFile = System.getProperty("dbpatch.configFile");
 		if (cFile != null) {
 			return new File(cFile);

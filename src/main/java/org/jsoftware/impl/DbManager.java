@@ -35,7 +35,7 @@ public class DbManager {
 		}
 	}
 	
-	public void init(DbManagerPasswordCallback dbManagerPasswordCallback) throws SQLException {
+	public void init(DbManagerCredentialsCallback dbManagerPasswordCallback) throws SQLException {
 		Connection con;
 		int tryNo = 0;
 		String password = ce.getPassword();

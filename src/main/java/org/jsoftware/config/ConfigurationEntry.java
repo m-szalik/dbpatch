@@ -170,8 +170,6 @@ public class ConfigurationEntry implements Serializable {
 	}
 
 	public void validate() throws ParseException {
-		checkNull(user, "username");
-		checkNull(password, "password");
 		checkNull(dialect, "dialect");
 		checkNull(jdbcUri, "jdbcUri");
 		checkNull(driverClass, "driverClass");
