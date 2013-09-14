@@ -3,23 +3,23 @@
 	<groupId>org.jsoftware</groupId>
 	<artifactId>dbpatch</artifactId>
 	<packaging>maven-plugin</packaging>
-	<version>1.7-SNAPSHOT</version>
+	<version>3.0-SNAPSHOT</version>
 	<name>Database patch Maven Mojo</name>
 	<url>http://jsoftware.org/maven-dbpatch-plugin</url>
-	<description>Manage your database patches whith maven.</description>
+	<description>Manage your database patches with maven.</description>
 	<inceptionYear>2011</inceptionYear>
 	
 	<parent>
 	    <groupId>org.jsoftware</groupId>
 	    <artifactId>jsoftware</artifactId>
-	    <version>1.5</version>
+	    <version>1.6</version>
 	</parent>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
-			<version>2.0</version>
+			<version>3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -55,6 +55,14 @@
 		<connection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</connection>
 		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</developerConnection>
 	</scm>
+
+    <repositories>
+        <repository>
+            <id>jsoftware.org</id>
+            <name>JSoftware.org</name>
+            <url>http://maven.jsoftware.org</url>
+        </repository>
+    </repositories>
 
 	<properties>
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
