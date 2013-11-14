@@ -1,0 +1,29 @@
+<assembly>
+	<id>all</id>
+	<formats>
+		<format>jar</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<dependencySets>
+		<dependencySet>
+			<unpack>true</unpack>
+			<scope>runtime</scope>
+			<unpackOptions>
+				<excludes>
+					<exclude>**/README*</exclude>
+					<exclude>**/LICENSE*</exclude>
+				</excludes>
+			</unpackOptions>
+		</dependencySet>
+	</dependencySets>
+	<fileSets>
+		<fileSet>
+			<directory>${project.build.outputDirectory}
+			</directory>
+			<excludes>
+				<exclude>**/README*</exclude>
+				<exclude>**/LICENSE*</exclude>
+			</excludes>
+		</fileSet>
+	</fileSets>
+</assembly>
