@@ -1,16 +1,14 @@
-package org.jsoftware;
+package org.jsoftware.command;
 
 import org.jsoftware.impl.CloseUtil;
-import org.jsoftware.maven.AbstractSingleConfDbPatchMojo;
 
 import java.sql.*;
 
 /**
  * Mark patches &quot;in progress&quot; as committed.
- * @goal skip-errors
  * @author szalik
  */
-public class SkipErrorsMojo extends AbstractSingleConfDbPatchMojo {
+public class SkipErrorsCommand extends AbstractSingleConfDbPatchCommand {
 
 	@Override
 	protected void executeInternal() throws Exception {

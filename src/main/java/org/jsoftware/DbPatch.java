@@ -1,13 +1,10 @@
 package org.jsoftware;
 
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
+import org.jsoftware.command.*;
 import org.jsoftware.config.AbstractConfigurationParser;
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.impl.InteractivePanel;
 import org.jsoftware.log.LogFactory;
-import org.jsoftware.maven.AbstractDbPatchMojo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +18,7 @@ import java.util.Collection;
  */
 public class DbPatch {
 
-	public static void main(String[] args) throws ParseException, IOException, MojoFailureException, MojoExecutionException {
+	public static void main(String[] args) throws ParseException, IOException, CommandFailureException, CommandExecutionException {
 		LogFactory.initLocal();
         File confFile;
 
@@ -39,38 +36,36 @@ public class DbPatch {
             InteractivePanel interactive = new InteractivePanel(conf);
             interactive.start();
         } else { // mojo (text) mode
-            AbstractMojo mojo = argToMojo(args[1]);
-            LogFactory.getInstance().debug("Lunching text mode - " + mojo + ".");
-            if (mojo instanceof AbstractDbPatchMojo) {
-                ((AbstractDbPatchMojo) mojo).setConfigFile(confFile);
-            }
-            if (mojo == null) {
+            AbstractCommand command = argToCommand(args[0]);
+            if (command == null) {
                 System.err.println("Arg 1 must be mojo name, arg 2 can be configuration file.");
-                new HelpMojo().execute();
+                new HelpCommand().execute();
             } else {
-                mojo.execute();
+                LogFactory.getInstance().debug("Lunching text mode - " + command + ".");
+                command.setConfigFile(confFile);
+                command.execute();
             }
         }
 	}
 
-    private static AbstractMojo argToMojo(String mojoArg) {
+    private static AbstractCommand argToCommand(String mojoArg) {
         if ("help".equalsIgnoreCase(mojoArg)) {
-            return new HelpMojo();
+            return new HelpCommand();
         }
         if ("help-parse".equalsIgnoreCase(mojoArg)) {
-            return new HelpParseMojo();
+            return new HelpParseCommand();
         }
         if ("interactive".equalsIgnoreCase(mojoArg)) {
-            return new InteractiveMojo();
+            return new InteractiveCommand();
         }
         if ("list".equalsIgnoreCase(mojoArg)) {
-            return new ListMojo();
+            return new ListCommand();
         }
         if ("patch".equalsIgnoreCase(mojoArg)) {
-            return new PatchMojo();
+            return new PatchCommand();
         }
         if ("skip-errors".equalsIgnoreCase(mojoArg)) {
-            return new SkipErrorsMojo();
+            return new SkipErrorsCommand();
         }
         return null;
     }

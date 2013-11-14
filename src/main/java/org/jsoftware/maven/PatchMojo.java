@@ -1,0 +1,27 @@
+package org.jsoftware.maven;
+
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.jsoftware.command.PatchCommand;
+
+
+/**
+ * Runs auto-patch mode
+ * @goal patch
+ * @author szalik
+ */
+public class PatchMojo extends CommandSingleConfMojoAdapter<PatchCommand> {
+
+    protected PatchMojo(PatchCommand command) {
+        super(command);
+    }
+
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
+        try {
+            super.execute();
+        } finally {
+            getPluginContext().put(getClass().getName() + "-uptodate", command.isUptodate());
+        }
+    }
+}
