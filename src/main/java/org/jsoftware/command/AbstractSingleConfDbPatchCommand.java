@@ -1,7 +1,5 @@
-package org.jsoftware.maven;
+package org.jsoftware.command;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
 import org.jsoftware.config.AbstractConfigurationParser;
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.impl.ConsoleDbManagerPasswordCallback;
@@ -12,17 +10,9 @@ import java.util.Collection;
 
 
 /**
- *
- * @execute phase="process-resources"
  * @author szalik
  */
-//see http://maven.apache.org/developers/mojo-api-specification.html
-public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo {
-	
-	/**
-	 * Chosen configuration. Use with property &quot;configFile&quot;.
-	 * @parameter 
-	 */
+public abstract class AbstractSingleConfDbPatchCommand extends AbstractCommand {
 	private String selectedConfiguration;
 	protected ConfigurationEntry configurationEntry;
 	protected DbManager manager;
@@ -32,19 +22,15 @@ public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo 
 		this.selectedConfiguration = selectedConfiguration;
 	}
 	
-	public void execute() throws MojoExecutionException, MojoFailureException {
-		if (System.getProperty("maven.dbpatch.skip") != null) {
-			log.debug("dbpatch skipped");
-			return;
-		}
+	public void execute() throws CommandExecutionException, CommandFailureException {
 		try {
 			File cfgFile = getConfigFile();
 			ConfigurationEntry mavenConfigurationEntry = getConf();
 			if (cfgFile != null && mavenConfigurationEntry != null) {
-				throw new MojoExecutionException("Ambiguous configuration. Both \"configFile\" and \"conf\" properties are set!");
+				throw new CommandExecutionException("Ambiguous configuration. Both \"configFile\" and \"conf\" properties are set!");
 			}
 			if (mavenConfigurationEntry == null && cfgFile == null) {
-				throw new MojoExecutionException("Configuration problem. Set one of \"configFile\" or \"conf\" property!");
+				throw new CommandExecutionException("Configuration problem. Set one of \"configFile\" or \"conf\" property!");
 			}
 			
 			if (cfgFile != null) {
@@ -53,7 +39,7 @@ public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo 
 					selectedConfiguration = System.getProperty("maven.dbpatch.configuration");
 				}
 				if (selectedConfiguration == null) {
-					throw new MojoFailureException(this, "configuration missing - selectedConfiguration not set", "Please set maven.dbpatch.configuration property.");
+					throw new CommandFailureException(this, "configuration missing - selectedConfiguration not set", "Please set maven.dbpatch.configuration property.");
 				}
 				ConfigurationEntry confEntry = null;
 				for(ConfigurationEntry ce : conf) {
@@ -62,7 +48,9 @@ public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo 
 						break;
 					}
 				}
-				if (confEntry == null) throw new MojoFailureException(this, "configuration missing - no configuration for " + selectedConfiguration, "No configuration for " + selectedConfiguration + ".");
+				if (confEntry == null) {
+                    throw new CommandFailureException(this, "configuration missing - no configuration for " + selectedConfiguration, "No configuration for " + selectedConfiguration + ".");
+                }
 				this.configurationEntry = confEntry;
 			} 
 			
@@ -80,7 +68,7 @@ public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo 
 			executeInternal();
 			manager.dispose();
 		} catch (Exception e) {
-			throw new MojoExecutionException(e.getMessage(), e);
+			throw new CommandExecutionException(e.getMessage(), e);
 		}
 		
 	}

@@ -1,4 +1,4 @@
-package org.jsoftware;
+package org.jsoftware.command;
 
 import org.jsoftware.config.Patch;
 
@@ -7,26 +7,28 @@ import java.util.List;
 
 /**
  * Runs auto-patch mode
- * @goal patch
  * @author szalik
  */
-public class PatchMojo extends ListMojo {
+public class PatchCommand extends ListCommand {
+    private boolean uptodate;
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void executeInternal() throws Exception {
 		List<Patch> patchesToApply = generatePatchList();
-		Boolean uptodate = Boolean.FALSE;
+		uptodate = false;
 		try {
 			manager.startExecution();
 			for(Patch p : patchesToApply) {
 				manager.apply(p);
 			}
-			uptodate = Boolean.TRUE;
+			uptodate = true;
 		} finally {
 			manager.endExecution();
-			getPluginContext().put(getClass().getName() + "-uptodate", uptodate);			
 		}
 	}
-    
+
+    public boolean isUptodate() {
+        return uptodate;
+    }
 }

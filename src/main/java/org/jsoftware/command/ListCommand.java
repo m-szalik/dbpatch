@@ -1,11 +1,10 @@
-package org.jsoftware;
+package org.jsoftware.command;
 
 import org.jsoftware.config.ApplyStrategy;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.Patch.DbState;
 import org.jsoftware.config.PatchScanner;
 import org.jsoftware.impl.DuplicatePatchNameException;
-import org.jsoftware.maven.AbstractSingleConfDbPatchMojo;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,17 +13,15 @@ import java.util.List;
 
 /**
  * Show list of patches
- * @goal list
  * @author szalik
  */
-public class ListMojo extends AbstractSingleConfDbPatchMojo {
+public class ListCommand extends AbstractSingleConfDbPatchCommand {
 	
 	/**
-	 * 
 	 * @return patches to apply
-	 * @throws IOException 
-	 * @throws SQLException 
-	 * @throws DuplicatePatchNameException 
+	 * @throws java.io.IOException
+	 * @throws java.sql.SQLException
+	 * @throws org.jsoftware.impl.DuplicatePatchNameException
 	 */
 	List<Patch> generatePatchList() throws IOException, SQLException, DuplicatePatchNameException {
 		PatchScanner scanner = configurationEntry.getPatchScanner();
