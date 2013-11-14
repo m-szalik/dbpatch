@@ -1,19 +1,20 @@
 package org.jsoftware;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.jsoftware.impl.CloseUtil;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 
 /**
  * Display help
  * @goal help
+ * @author szalik
  */
 public class HelpMojo extends AbstractMojo {
 

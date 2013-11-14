@@ -1,0 +1,16 @@
+code 1;
+-- comment 1
+code 2;
+/**
+ comment line 1
+ comment line 2
+ */
+
+code 3;
+/**
+ -- comment with --
+ comment line inside;
+*/
+
+code 4;
+

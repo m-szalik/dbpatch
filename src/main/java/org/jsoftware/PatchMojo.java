@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Runs auto-patch mode
  * @goal patch
+ * @author szalik
  */
 public class PatchMojo extends ListMojo {
 	

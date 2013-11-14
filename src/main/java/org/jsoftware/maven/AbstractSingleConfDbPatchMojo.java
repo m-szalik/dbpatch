@@ -12,9 +12,9 @@ import java.util.Collection;
 
 
 /**
- * 
- * @author szalik
+ *
  * @execute phase="process-resources"
+ * @author szalik
  */
 //see http://maven.apache.org/developers/mojo-api-specification.html
 public abstract class AbstractSingleConfDbPatchMojo extends AbstractDbPatchMojo {

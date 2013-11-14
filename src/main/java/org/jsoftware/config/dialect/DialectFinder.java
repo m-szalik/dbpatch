@@ -1,22 +1,46 @@
 package org.jsoftware.config.dialect;
 
-public class DialectFinder {
+import org.jsoftware.log.Log;
+import org.jsoftware.log.LogFactory;
 
-	public static Dialect find(String value) {
+public class DialectFinder {
+    private DialectFinder() {
+    }
+
+    public static Dialect find(String value) {
 		String oldValue = value;
 		value = value.trim().toLowerCase();
 		if (value.length() == 0 || value.equalsIgnoreCase("default")) {
-			return new DefaultDialect();
+			return null;
 		}
-		value = "org.jsoftware.config.dialect." + Character.toUpperCase(value.charAt(0)) + value.substring(1) + "Dialect";
-		try {
-			Class<?> cl = Class.forName(value);
-			return (Dialect) cl.newInstance();
-		} catch (ClassNotFoundException e) {
-			throw new IllegalArgumentException("Can not find class " + value + " for dialect " + oldValue);
-		} catch (Exception e) {
-			throw new RuntimeException("Can not instance dialect " + value);
-		}
+        return createDialect(Character.toUpperCase(value.charAt(0)) + value.substring(1));
 	}
 
+    private static Dialect createDialect(String dialectName) {
+        String value = "org.jsoftware.config.dialect." + dialectName;
+        if (! value.endsWith("Dialect")) {
+            value = value + "Dialect";
+        }
+        try {
+            Class<?> cl = Class.forName(value);
+            return (Dialect) cl.newInstance();
+        } catch (ClassNotFoundException e) {
+            throw new IllegalArgumentException("Can not find class " + value + " for dialect " + dialectName);
+        } catch (Exception e) {
+            throw new RuntimeException("Can not instance dialect " + value);
+        }
+    }
+
+    public static Dialect findByDriverClass(String driverClassName) {
+        Log log = LogFactory.getInstance();
+        log.debug("Try to detect dialect by driver class name '" + driverClassName + "'");
+        String cl = driverClassName.toLowerCase();
+        if (cl.contains("oracle")) {
+            return createDialect("Oracle");
+        }
+        if (cl.contains("sybase")) {
+            return createDialect("Sybase");
+        }
+        return null;
+    }
 }

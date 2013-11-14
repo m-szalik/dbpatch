@@ -7,8 +7,8 @@ import java.sql.*;
 
 /**
  * Mark patches &quot;in progress&quot; as committed.
- * 
  * @goal skip-errors
+ * @author szalik
  */
 public class SkipErrorsMojo extends AbstractSingleConfDbPatchMojo {
 

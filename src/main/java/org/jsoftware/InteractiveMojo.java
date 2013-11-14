@@ -1,7 +1,5 @@
 package org.jsoftware;
 
-import java.util.Collection;
-
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.jsoftware.config.AbstractConfigurationParser;
@@ -9,10 +7,13 @@ import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.impl.InteractivePanel;
 import org.jsoftware.maven.AbstractDbPatchMojo;
 
+import java.util.Collection;
+
 
 /**
- * Runs interactive client
+ * Runs interactive client from maven
  * @goal interactive
+ * @author szalik
  */
 public class InteractiveMojo extends AbstractDbPatchMojo {
 

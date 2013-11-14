@@ -7,6 +7,10 @@ import org.jsoftware.log.LogFactory;
 
 import java.io.File;
 
+/**
+ * Abstract mojo for dbPatch plugin goals
+ * @author szalik
+ */
 public abstract class AbstractDbPatchMojo extends AbstractMojo {
 	
 	/**

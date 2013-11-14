@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 
 /**
  * Consider to extend org.jsoftware.config.dialect.DefaultDialect instead creating new one from scratch.
+ * @author szalik
  */
 public interface Dialect extends Serializable {
     static final String DBPATCH_TABLE_NAME = "db_patches";

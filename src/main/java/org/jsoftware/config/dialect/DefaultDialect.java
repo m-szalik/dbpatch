@@ -6,6 +6,11 @@ import org.jsoftware.log.LogFactory;
 
 import java.sql.*;
 
+/**
+ * Default dialect
+ * Works with: MySQL, PostgreSQL, H2
+ * @author szalik
+ */
 public class DefaultDialect implements Dialect {
 	private static final long serialVersionUID = 1L;
 

@@ -16,6 +16,7 @@ import java.io.IOException;
 /**
  * Display parsed patch
  * @goal help-parse
+ * @author szalik
  */
 public class HelpParseMojo extends AbstractMojo {
 

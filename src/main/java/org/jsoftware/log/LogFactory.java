@@ -2,6 +2,10 @@ package org.jsoftware.log;
 
 import java.io.PrintStream;
 
+/**
+ * Logger Factory
+ * @author szalik
+ */
 public class LogFactory {
 	private static Log instance;
 		
@@ -39,11 +43,11 @@ public class LogFactory {
 			}
         };
 	}
-	
+
 	private LogFactory() {
 	}
-	
-	
+
+
 	
 	public static Log getInstance() {
 		if (instance == null) {
@@ -54,7 +58,11 @@ public class LogFactory {
 	
 }
 
-class LogLocalImpl implements Log{
+/**
+ * Implementation that uses stdOut as log output stream
+ * @author szalik
+ */
+class LogLocalImpl implements Log {
 	Level currentLevel;
 	
 	public void debug(String msg) {

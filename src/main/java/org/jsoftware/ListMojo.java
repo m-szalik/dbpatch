@@ -15,6 +15,7 @@ import java.util.List;
 /**
  * Show list of patches
  * @goal list
+ * @author szalik
  */
 public class ListMojo extends AbstractSingleConfDbPatchMojo {
 	

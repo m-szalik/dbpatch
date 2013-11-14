@@ -4,6 +4,10 @@ import org.jsoftware.impl.PatchStatement;
 
 import java.sql.*;
 
+/**
+ * Oracle Dialect
+ * @author szalik
+ */
 public class OracleDialect extends DefaultDialect {
 	private static final long serialVersionUID = -8744726190040823430L;
 

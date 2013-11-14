@@ -15,11 +15,16 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Collection;
 
+/**
+ * Standalone application with command-line and GUI support
+ * @author szalik
+ */
 public class DbPatch {
 
 	public static void main(String[] args) throws ParseException, IOException, MojoFailureException, MojoExecutionException {
 		LogFactory.initLocal();
         File confFile;
+
         if (args.length > 1) {
            confFile = new File(args[1]);
            if (! confFile.exists()) {

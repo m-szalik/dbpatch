@@ -1,12 +1,17 @@
 package org.jsoftware.config;
 
+import org.jsoftware.config.Patch.DbState;
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.jsoftware.config.Patch.DbState;
-
+/**
+ * Apply all new and missing patches
+ * This is default strategy
+ * @author szalik
+ */
 public class MissingApplyStrategy implements ApplyStrategy, Serializable {
 	private static final long serialVersionUID = -8434361234942313924L;
 

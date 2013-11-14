@@ -1,5 +1,9 @@
 package org.jsoftware.log;
 
+/**
+ * DbPatch logger
+ * @author szalik
+ */
 public interface Log {
 	
 	void debug(String msg);

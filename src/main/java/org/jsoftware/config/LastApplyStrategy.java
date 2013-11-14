@@ -1,11 +1,15 @@
 package org.jsoftware.config;
 
+import org.jsoftware.config.Patch.DbState;
+
 import java.sql.Connection;
 import java.util.Collections;
 import java.util.List;
 
-import org.jsoftware.config.Patch.DbState;
-
+/**
+ * Apply only new patches.
+ * @author szalik
+ */
 public class LastApplyStrategy implements ApplyStrategy {
 
 	@SuppressWarnings("unchecked")

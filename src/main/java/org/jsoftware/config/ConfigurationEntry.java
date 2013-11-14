@@ -8,6 +8,7 @@ import org.jsoftware.impl.DirectoryPatchScanner;
 import org.jsoftware.impl.PatchParser;
 import org.jsoftware.impl.extension.Extension;
 import org.jsoftware.impl.extension.TkExtensionAndStrategy;
+import org.jsoftware.log.LogFactory;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -170,10 +171,16 @@ public class ConfigurationEntry implements Serializable {
 	}
 
 	public void validate() throws ParseException {
-		checkNull(dialect, "dialect");
 		checkNull(jdbcUri, "jdbcUri");
 		checkNull(driverClass, "driverClass");
 		checkNull(patchDirs, "patchDirs");
+        if (dialect == null) {
+            dialect = DialectFinder.findByDriverClass(driverClass);
+            if (dialect == null) {
+                LogFactory.getInstance().info("Cannot detect dialect using default.");
+                dialect = new DefaultDialect();
+            }
+        }
 	}
 
 	private void checkNull(Object what, String key) throws ParseException {
@@ -200,4 +207,20 @@ public class ConfigurationEntry implements Serializable {
 	public boolean isInteractivePasswordAllowed() {
 		return true; // TODO move it into configuration ????
 	}
+}
+
+
+class ToStringBuilder {
+    private final StringBuilder sb = new StringBuilder();
+
+    public ToStringBuilder add(String name, Object value) {
+        sb.append(name).append('=').append(value == null ? "-" : value).append('\n');
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return sb.toString();
+    }
+
 }

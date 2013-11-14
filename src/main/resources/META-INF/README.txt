@@ -3,4 +3,4 @@ Website: http://jsoftware.org/maven-dbpatch-plugin
 Author: Marek Szalik <marek.szalik@jsoftware.org>
 
 
-Sybase support - thanks to Mr. Chandar RAYANE
+SybaseDialect - thanks to Mr. Chandar RAYANE
