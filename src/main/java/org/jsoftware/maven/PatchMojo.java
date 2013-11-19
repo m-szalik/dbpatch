@@ -12,8 +12,8 @@ import org.jsoftware.command.PatchCommand;
  */
 public class PatchMojo extends CommandSingleConfMojoAdapter<PatchCommand> {
 
-    protected PatchMojo(PatchCommand command) {
-        super(command);
+    protected PatchMojo() {
+        super(new PatchCommand());
     }
 
     @Override

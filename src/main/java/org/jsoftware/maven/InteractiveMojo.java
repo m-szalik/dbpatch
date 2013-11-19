@@ -10,7 +10,7 @@ import org.jsoftware.command.InteractiveCommand;
  */
 public class InteractiveMojo extends CommandMojoAdapter<InteractiveCommand> {
 
-    protected InteractiveMojo(InteractiveCommand command) {
-        super(command);
+    protected InteractiveMojo() {
+        super(new InteractiveCommand());
     }
 }

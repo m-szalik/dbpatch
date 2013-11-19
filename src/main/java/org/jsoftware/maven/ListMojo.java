@@ -11,7 +11,7 @@ import org.jsoftware.command.ListCommand;
 public class ListMojo extends CommandSingleConfMojoAdapter<ListCommand> {
 
 
-    protected ListMojo(ListCommand command) {
-        super(command);
+    protected ListMojo() {
+        super(new ListCommand());
     }
 }

@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
  */
 public class HelpMojo extends CommandMojoAdapter<HelpCommand> {
 
-    protected HelpMojo(HelpCommand command) {
-        super(command);
+    protected HelpMojo() {
+        super(new HelpCommand());
     }
 }

@@ -9,7 +9,7 @@ import org.jsoftware.command.SkipErrorsCommand;
  */
 public class SkipErrorsMojo extends CommandSingleConfMojoAdapter<SkipErrorsCommand> {
 
-    protected SkipErrorsMojo(SkipErrorsCommand command) {
-        super(command);
+    protected SkipErrorsMojo() {
+        super(new SkipErrorsCommand());
     }
 }
