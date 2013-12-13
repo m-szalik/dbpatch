@@ -10,6 +10,7 @@ import org.jsoftware.impl.extension.Extension;
 import org.jsoftware.impl.extension.TkExtensionAndStrategy;
 import org.jsoftware.log.LogFactory;
 
+import java.io.File;
 import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.text.ParseException;
@@ -42,8 +43,9 @@ public class ConfigurationEntry implements Serializable {
 	private ApplyStrategy applyStarters;
 	private Collection<Extension> extensions;
 	private String patchEncoding;
-	
-	
+    private String rollbackSuffix = "*.rollback";
+
+
 	public ConfigurationEntry() {
 		this("maven:pom.xml");
 	}
@@ -89,8 +91,16 @@ public class ConfigurationEntry implements Serializable {
 	public Collection<Extension> getExtensions() {
 		return Collections.unmodifiableCollection(extensions);
 	}
-	
-	public void setExtensions(String extensions) {
+
+    public String getRollbackSuffix() {
+        return rollbackSuffix;
+    }
+
+    public void setRollbackSuffix(String rollbackSuffix) {
+        this.rollbackSuffix = rollbackSuffix;
+    }
+
+    public void setExtensions(String extensions) {
 		HashSet<Extension> exs = new HashSet<Extension>();
 		for(String ext : extensions.split(",")) {
 			ext = ext.trim();
@@ -180,11 +190,23 @@ public class ConfigurationEntry implements Serializable {
     }
 
     public void validate() throws ParseException {
-		checkNull(jdbcUri, "jdbcUri");
+        checkNull(jdbcUri, "jdbcUri");
 		checkNull(driverClass, "driverClass");
 		checkNull(patchDirs, "patchDirs");
         if (rollbackDirs == null) {
-            rollbackDirs = patchDirs;
+            StringBuilder sbr = new StringBuilder();
+            for(String dir : patchDirs.split("[ ,]")) {
+                int x = dir.indexOf('*');
+                if (x >= 0) {
+                    dir = dir.substring(0, x - 1);
+                }
+                sbr.append(dir);
+                if (! dir.endsWith(File.separator)) {
+                    sbr.append(File.separator);
+                }
+                sbr.append(rollbackSuffix).append(',');
+            }
+            rollbackDirs = sbr.substring(0, sbr.length() -1);
         }
         if (dialect == null) {
             dialect = DialectFinder.findByDriverClass(driverClass);
@@ -211,8 +233,10 @@ public class ConfigurationEntry implements Serializable {
 		tsb.add("id", id);
 		tsb.add("driverClass", driverClass).add("jdbcUri", jdbcUri);
 		tsb.add("user", user).add("password", "****");
-		tsb.add("patchDirs", patchDirs).add("encoding", patchEncoding);
-		tsb.add("strategy", applyStarters);
+		tsb.add("patchDirs", patchDirs);
+        tsb.add("rollbackDirs", rollbackDirs);
+        tsb.add("encoding", patchEncoding);
+		tsb.add("strategy", applyStarters.getClass().getSimpleName());
 		return tsb.toString();
 	}
 

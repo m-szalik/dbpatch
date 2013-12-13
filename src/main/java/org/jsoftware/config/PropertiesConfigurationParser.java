@@ -53,6 +53,9 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
             if ("rollbackDirs".equalsIgnoreCase(keys[1]) || "undoDirs".equalsIgnoreCase(keys[1])) {
                 ce.setRollbackDirs(value);
             }
+            if ("rollbackSuffix".equalsIgnoreCase(keys[1])) {
+                ce.setRollbackSuffix(value);
+            }
             if ("driverClass".equalsIgnoreCase(keys[1]) || "driver".equalsIgnoreCase(keys[1])) {
 				ce.setDriverClass(value);
 			}
