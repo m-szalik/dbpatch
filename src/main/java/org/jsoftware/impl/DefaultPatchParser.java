@@ -1,7 +1,7 @@
 package org.jsoftware.impl;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.ConfigurationEntry;
-import org.jsoftware.config.Patch;
 import org.jsoftware.impl.statements.CommentPatchStatement;
 import org.jsoftware.impl.statements.DisallowedSqlPatchStatement;
 import org.jsoftware.impl.statements.SqlPatchStatement;
@@ -71,7 +71,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 		};
 	}
 	
-	public ParseResult parse(Patch p, ConfigurationEntry ce) throws IOException {
+	public ParseResult parse(AbstractPatch p, ConfigurationEntry ce) throws IOException {
 		ParseResult pr = parse(new FileInputStream(p.getFile()), ce);
 		p.setStatementCount(pr.executableCount());
 		return pr;

@@ -1,5 +1,6 @@
 package org.jsoftware.impl;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.PatchScanner;
 import org.jsoftware.impl.commons.FilenameUtils;
@@ -18,13 +19,13 @@ public abstract class SimplePatchScanner implements PatchScanner {
 		List<DirMask> dirMasks = parsePatchDirs(baseDir, paths);
 		LinkedList<Patch> list = new LinkedList<Patch>();
 		for(DirMask dm : dirMasks) {
-			log.debug("Scan " + dm.getDir().getAbsolutePath() + " for " + dm.getMask());
+			log.debug("Scan for patches " + dm.getDir().getAbsolutePath() + " with " + dm.getMask());
 			LinkedList<Patch> dirList = new LinkedList<Patch>();
-			File[] fList = dm.getDir().listFiles(new WildchardMaskFileFilter(dm.getMask()));
+			File[] fList = dm.getDir().listFiles(new WildcardMaskFileFilter(dm.getMask()));
 			for (File f : fList) {
 				Patch p = new Patch();
 				p.setFile(f);
-				p.setName(f.getName().substring(0, f.getName().length() - 4));
+				p.setName(AbstractPatch.normalizeName(f.getName()));
 				dirList.add(p);
 			}
 			sortDirectory(dirList);
@@ -40,6 +41,24 @@ public abstract class SimplePatchScanner implements PatchScanner {
 		sortAll(list);
 		return list;
 	}
+
+    @Override
+    public File findRollbackFile(File baseDir, String[] paths, Patch patch) throws DuplicatePatchNameException {
+        List<DirMask> dirMasks = parsePatchDirs(baseDir, paths);
+        LinkedList<Patch> list = new LinkedList<Patch>();
+        for(DirMask dm : dirMasks) {
+            log.debug("Scan for rollback of '" + patch.getName() + "' " + dm.getDir().getAbsolutePath() + " with " + dm.getMask());
+            LinkedList<Patch> dirList = new LinkedList<Patch>();
+            File[] fList = dm.getDir().listFiles(new WildcardMaskFileFilter(dm.getMask()));
+            for (File f : fList) {
+                String rn = AbstractPatch.normalizeName(f.getName());
+                if (rn.equals(patch.getName())) {
+                    return f;
+                }
+            }
+        }
+        return null;
+    }
 
 	
 	protected abstract void sortDirectory(List<Patch> dirPatchList);
@@ -77,16 +96,16 @@ public abstract class SimplePatchScanner implements PatchScanner {
 	}
 	
 		
-	class WildchardMaskFileFilter implements FileFilter {
+	class WildcardMaskFileFilter implements FileFilter {
 		private String mask;
-		public WildchardMaskFileFilter(String mask) {
+		public WildcardMaskFileFilter(String mask) {
 			this.mask = mask;
 		}
 
 		public boolean accept(File pathname) {
 			String fn = pathname.getName();
 			boolean b = FilenameUtils.wildcardMatchOnSystem(fn, mask);
-			log.debug("Check WildchardMaskFileFilter - " + fn + " is " + b);
+			log.debug("Check WildcardMaskFileFilter - " + fn + " is " + b);
 			return b;
 		}
 	}

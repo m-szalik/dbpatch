@@ -1,6 +1,8 @@
 package org.jsoftware.impl.extension;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.Patch;
+import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.config.dialect.PatchExecutionResult;
 import org.jsoftware.impl.PatchStatement;
 
@@ -24,10 +26,18 @@ public interface Extension {
 	void afterPatch(Connection connection, Patch patch, Exception ex) throws SQLException;
 	
 	/** Before patch's statement is executed */
-	void beforePatchStatement(Connection connection, Patch patch, PatchStatement statement);
+	void beforePatchStatement(Connection connection, AbstractPatch patch, PatchStatement statement);
 	
 	/** After patch's statement is executed */
-	void afterPatchStatement(Connection connection, Patch patch, PatchExecutionResult result);
-	
+	void afterPatchStatement(Connection connection, AbstractPatch patch, PatchExecutionResult result);
+
+    /** Before the patch rollback is executed */
+    void beforeRollbackPatch(Connection connection, RollbackPatch patch);
+
+    /** After the patch rollback is executed
+     * @throws SQLException
+     **/
+    void afterRollbackPatch(Connection connection, RollbackPatch patch, Exception ex) throws SQLException;
+
 }
 

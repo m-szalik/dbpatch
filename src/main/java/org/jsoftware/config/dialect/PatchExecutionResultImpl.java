@@ -1,9 +1,9 @@
 package org.jsoftware.config.dialect;
 
+import org.jsoftware.impl.PatchStatement;
+
 import java.sql.SQLException;
 import java.sql.SQLWarning;
-
-import org.jsoftware.impl.PatchStatement;
 
 public class PatchExecutionResultImpl implements PatchExecutionResult {
 	private SQLWarning sqlWarning;

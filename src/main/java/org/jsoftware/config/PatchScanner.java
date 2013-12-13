@@ -17,4 +17,10 @@ public interface PatchScanner extends Serializable {
 	 */
 	List<Patch> scan(File directory, String[] paths) throws DuplicatePatchNameException;
 
+    /**
+     * @param directory base dir
+     * @param paths to scan (add directory if not absolute)
+     * @return null if no file was found
+     */
+    File findRollbackFile(File directory, String[] paths, Patch patch) throws DuplicatePatchNameException;
 }

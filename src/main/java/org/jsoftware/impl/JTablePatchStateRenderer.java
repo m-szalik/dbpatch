@@ -1,7 +1,7 @@
 package org.jsoftware.impl;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.Patch;
-import org.jsoftware.config.Patch.DbState;
 
 import javax.swing.*;
 import javax.swing.table.TableCellRenderer;
@@ -14,15 +14,15 @@ public class JTablePatchStateRenderer implements TableCellRenderer {
 			Patch p = (Patch) value;
 			JLabel o = new JLabel("?");
 			o.setBackground(Color.LIGHT_GRAY);
-			if (p.getDbState() == DbState.IN_PROGRESS) {
+			if (p.getDbState() == AbstractPatch.DbState.IN_PROGRESS) {
 				o = new JLabel(Messages.msg("table.patches.state.inProgress"));
 				o.setBackground(Color.YELLOW);
 			}
-			if (p.getDbState() == DbState.COMMITTED) {
+			if (p.getDbState() == AbstractPatch.DbState.COMMITTED) {
 				o = new JLabel(Messages.msg("table.patches.state.committed"));
 				o.setBackground(Color.GREEN);
 			}
-			if (p.getDbState() == DbState.NOT_AVAILABLE) {
+			if (p.getDbState() == AbstractPatch.DbState.NOT_AVAILABLE) {
 				if (p.canApply()) {
 					return new JButton(Messages.msg("table.patches.state.patchItBtn"));
 				} else {

@@ -1,8 +1,9 @@
 package org.jsoftware.impl;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
-import org.jsoftware.config.Patch.DbState;
+import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.config.dialect.Dialect;
 import org.jsoftware.config.dialect.PatchExecutionResult;
 import org.jsoftware.impl.extension.Extension;
@@ -10,6 +11,7 @@ import org.jsoftware.impl.statements.DisallowedSqlPatchStatement;
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.Collection;
 import java.util.Date;
@@ -71,13 +73,13 @@ public class DbManager {
 			if (rs.next()) {
 				Date d = rs.getDate(1);
 				if (d != null) {
-					p.setDbState(DbState.COMMITTED);
+					p.setDbState(AbstractPatch.DbState.COMMITTED);
 					p.setDbDate(d);
 				} else {
-					p.setDbState(DbState.IN_PROGRESS);
+					p.setDbState(AbstractPatch.DbState.IN_PROGRESS);
 				}
 			} else {
-				p.setDbState(DbState.NOT_AVAILABLE);		
+				p.setDbState(AbstractPatch.DbState.NOT_AVAILABLE);
 			}
 		} finally {
 			rs.close();
@@ -85,69 +87,112 @@ public class DbManager {
 		}
 	}
 
-	public void apply(final Patch p) throws SQLException {
-		PatchStatement psErr = null;
-		try {
-			log.info("Patch " + p.getName());
-			dialect.savePatchInfoPrepare(c, p);
-			invokeExtensions("beforePatch", new ExtensionMethodInvokeCallback() {
-				public void invokeOn(Extension extension) throws Exception {
-					extension.beforePatch(c, p);
-				}
-			});
-			for(final PatchStatement ps : ce.getPatchParser().parse(p, ce).getStatements()) {
-				if (ps.isDisplayable()) {
-					log.debug(ps.toString());
-				}
-				if (ps.isExecutable()) {
-					psErr = ps;
-					invokeExtensions("beforePatchStatement", new ExtensionMethodInvokeCallback() {
-						public void invokeOn(Extension extension) throws Exception {
-							extension.beforePatchStatement(c, p, ps);
-						}
-					});
-					final PatchExecutionResult result = dialect.executeStatement(c, ps);
-					invokeExtensions("afterPatchStatement", new ExtensionMethodInvokeCallback() {
-						public void invokeOn(Extension extension) throws Exception {
-							extension.afterPatchStatement(c, p, result);
-						}
-					});
-					if (result.getCause() != null) {
-						throw result.getCause();
-					}
-				}
-				if (ps instanceof DisallowedSqlPatchStatement) {
-					log.warn("Skip disallowed statement " + ps.getCode());
-				}
-			} // for
-			psErr = null;
-			dialect.savePatchInfoFinal(c, p);
-			invokeExtensions("afterPatchComplete", new ExtensionMethodInvokeCallback() {
-				public void invokeOn(Extension extension) throws Exception {
-					extension.afterPatch(c, p, null);
-				}
-			});
-			c.commit();
-			log.debug("Patch " + p.getName() + " committed.");
-		} catch (Exception e) {
-			if (psErr != null) {
-				log.warn("Query execution problem \"" + psErr + "\" - " + e);
-			}
-			log.warn("Patch " + p.getName() + " execution error!"  + e);
-			c.rollback();
-			final SQLException ex = new SQLException(e.getMessage(), "");
-			ex.initCause(e);
-			invokeExtensions("afterPatchError", new ExtensionMethodInvokeCallback() {
-				public void invokeOn(Extension extension) throws Exception {
-					extension.afterPatch(c, p, ex);
-				}
-			});
-			throw ex;
-		} finally {
-			updateStateObject(p);
-		}
-	}
-	
+    public void apply(final Patch p) throws SQLException {
+        PatchStatementHolder h = new PatchStatementHolder();
+        try {
+            log.info("Patch " + p.getName());
+            dialect.savePatchInfoPrepare(c, p);
+            invokeExtensions("beforePatch", new ExtensionMethodInvokeCallback() {
+                public void invokeOn(Extension extension) throws Exception {
+                    extension.beforePatch(c, p);
+                }
+            });
+            execute(p, h);
+            dialect.savePatchInfoFinal(c, p);
+            invokeExtensions("afterPatchComplete", new ExtensionMethodInvokeCallback() {
+                public void invokeOn(Extension extension) throws Exception {
+                    extension.afterPatch(c, p, null);
+                }
+            });
+            c.commit();
+            log.debug("Patch " + p.getName() + " committed.");
+        } catch (Exception e) {
+            if (h.object != null) {
+                log.warn("Query execution problem \"" + h.object + "\" - " + e);
+            }
+            log.warn("Patch " + p.getName() + " execution error!"  + e);
+            c.rollback();
+            final SQLException ex = new SQLException(e.getMessage(), "");
+            ex.initCause(e);
+            invokeExtensions("afterPatchError", new ExtensionMethodInvokeCallback() {
+                public void invokeOn(Extension extension) throws Exception {
+                    extension.afterPatch(c, p, ex);
+                }
+            });
+            throw ex;
+        } finally {
+            updateStateObject(p);
+        }
+    }
+
+    /**
+     * @param p rollback patch
+     * @throws SQLException
+     */
+    public void rollback(final RollbackPatch p) throws SQLException {
+        PatchStatementHolder h = new PatchStatementHolder();
+        try {
+            log.info("Patch " + p.getName());
+            invokeExtensions("beforeRollbackPatch", new ExtensionMethodInvokeCallback() {
+                public void invokeOn(Extension extension) throws Exception {
+                    extension.beforeRollbackPatch(c, p);
+                }
+            });
+            execute(p, h);
+            invokeExtensions("afterRollbackPatchComplete", new ExtensionMethodInvokeCallback() {
+                public void invokeOn(Extension extension) throws Exception {
+                    extension.afterRollbackPatch(c, p, null);
+                }
+            });
+            dialect.removePatchInfo(c, p);
+            c.commit();
+            log.debug("Patch " + p.getName() + " committed.");
+        } catch (Exception e) {
+            if (h.object != null) {
+                log.warn("Query execution problem \"" + h.object + "\" - " + e);
+            }
+            log.warn("Patch " + p.getName() + " execution error!"  + e);
+            c.rollback();
+            final SQLException ex = new SQLException(e.getMessage(), "");
+            ex.initCause(e);
+            invokeExtensions("afterRollbackPatchError", new ExtensionMethodInvokeCallback() {
+                public void invokeOn(Extension extension) throws Exception {
+                    extension.afterRollbackPatch(c, p, ex);
+                }
+            });
+            throw ex;
+       } 
+    }
+
+
+    private void execute(final AbstractPatch patch, final PatchStatementHolder h) throws IOException, SQLException {
+        for(final PatchStatement ps : ce.getPatchParser().parse(patch, ce).getStatements()) {
+            if (ps.isDisplayable()) {
+                log.debug(ps.toString());
+            }
+            if (ps.isExecutable()) {
+                h.object = ps;
+                invokeExtensions("beforePatchStatement", new ExtensionMethodInvokeCallback() {
+                    public void invokeOn(Extension extension) throws Exception {
+                        extension.beforePatchStatement(c, patch, ps);
+                    }
+                });
+                final PatchExecutionResult result = dialect.executeStatement(c, ps);
+                invokeExtensions("afterPatchStatement", new ExtensionMethodInvokeCallback() {
+                    public void invokeOn(Extension extension) throws Exception {
+                        extension.afterPatchStatement(c, patch, result);
+                    }
+                });
+                if (result.getCause() != null) {
+                    throw result.getCause();
+                }
+            }
+            if (ps instanceof DisallowedSqlPatchStatement) {
+                log.warn("Skip disallowed statement " + ps.getCode());
+            }
+        } // for
+        h.object = null;
+    }
 
 	public void updateStateObjectAll(Collection<Patch> patches) throws SQLException {
 		for(Patch p : patches) {
@@ -211,4 +256,8 @@ public class DbManager {
 
 interface ExtensionMethodInvokeCallback {
 	void invokeOn(Extension extension) throws Exception;
+}
+
+class PatchStatementHolder {
+    public PatchStatement object;
 }

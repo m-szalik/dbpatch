@@ -1,6 +1,10 @@
 package org.jsoftware.impl;
 
-import java.awt.Image;
+import org.jsoftware.config.ConfigurationEntry;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -11,19 +15,6 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-
-import org.jsoftware.config.ConfigurationEntry;
 
 public class InteractivePanel {
 	private Collection<ConfigurationEntry> conf;

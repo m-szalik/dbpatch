@@ -1,6 +1,8 @@
 package org.jsoftware.config.dialect;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.Patch;
+import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.impl.PatchStatement;
 import org.jsoftware.log.LogFactory;
 
@@ -108,7 +110,26 @@ public class DefaultDialect implements Dialect {
 		ps.close();
 	}
 
-	public void checkAndCreateStruct(Connection con) throws SQLException {
+    @Override
+    public void removePatchInfo(Connection con, RollbackPatch p) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("DELETE FROM " + DBPATCH_TABLE_NAME + " WHERE patch_name=?");
+        ps.setString(1, p.getName());
+        ps.execute();
+        ps.close();
+    }
+
+    @Override
+    public boolean checkIfPatchIsCommitted(Connection con, AbstractPatch patch) throws SQLException {
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM " + DBPATCH_TABLE_NAME + " WHERE patch_name=?");
+        ps.setString(1, patch.getName());
+        ResultSet rs = ps.executeQuery();
+        boolean b = rs.next();
+        rs.close();
+        ps.close();
+        return b;
+    }
+
+    public void checkAndCreateStruct(Connection con) throws SQLException {
 		con.setAutoCommit(true);
 		ResultSet rs = con.getMetaData().getTables(null, null, DBPATCH_TABLE_NAME, null);
 		boolean tableFound = rs.next();
@@ -141,4 +162,6 @@ public class DefaultDialect implements Dialect {
 		rs.close();
 		return ts;
 	}
+
+
 }

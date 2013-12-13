@@ -50,7 +50,10 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 			if ("dirs".equalsIgnoreCase(keys[1]) || "patchDirs".equalsIgnoreCase(keys[1])) {
 				ce.setPatchDirs(value);
 			}
-			if ("driverClass".equalsIgnoreCase(keys[1]) || "driver".equalsIgnoreCase(keys[1])) {
+            if ("rollbackDirs".equalsIgnoreCase(keys[1]) || "undoDirs".equalsIgnoreCase(keys[1])) {
+                ce.setRollbackDirs(value);
+            }
+            if ("driverClass".equalsIgnoreCase(keys[1]) || "driver".equalsIgnoreCase(keys[1])) {
 				ce.setDriverClass(value);
 			}
 			if ("strategy".equalsIgnoreCase(keys[1]) || "applyStrategy".equalsIgnoreCase(keys[1])) {

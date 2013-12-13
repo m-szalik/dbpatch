@@ -75,4 +75,12 @@ public abstract class AbstractSingleConfDbPatchCommand extends AbstractCommand {
 	
     
 	protected abstract void executeInternal() throws Exception;
+
+    public String getSelectedConfiguration() {
+        return selectedConfiguration;
+    }
+
+    public ConfigurationEntry getConfigurationEntry() {
+        return configurationEntry;
+    }
 }

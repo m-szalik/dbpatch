@@ -1,6 +1,5 @@
 package org.jsoftware.impl;
 
-import org.jsoftware.command.AbstractCommand;
 import org.jsoftware.command.CommandFailureException;
 import org.jsoftware.config.Patch;
 

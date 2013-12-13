@@ -1,7 +1,9 @@
 package org.jsoftware.impl.extension;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.ApplyStrategy;
 import org.jsoftware.config.Patch;
+import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.config.dialect.PatchExecutionResult;
 import org.jsoftware.impl.PatchStatement;
 
@@ -60,7 +62,7 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
 		if (qm.size() == 1) {
 			tabName = qm.iterator().next();
 		}
-		if (tabName == null) throw new RuntimeException("No tk table avalaible. " + qm);
+		if (tabName == null) throw new RuntimeException("No tk table available. " + qm);
 		return tabName;
 	}
 
@@ -74,17 +76,31 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
 	public void beforePatch(Connection connection, Patch patch) {
 	}
 
-	public void beforePatchStatement(Connection connection, Patch patch, PatchStatement statement) {
-	}
-
 	public void afterPatch(Connection connection, Patch patch, Exception ex) throws SQLException {
 		if (ex == null) {
 			connection.createStatement().executeUpdate("UPDATE " + detectTkTableName(connection) + " SET patch_level=" + patchLevel(patch));
 		}
 	}
 
-	public void afterPatchStatement(Connection connection, Patch patch, PatchExecutionResult result) {
-	}
+    @Override
+    public void beforePatchStatement(Connection connection, AbstractPatch patch, PatchStatement statement) {
+
+    }
+
+    @Override
+    public void afterPatchStatement(Connection connection, AbstractPatch patch, PatchExecutionResult result) {
+
+    }
+
+    @Override
+    public void beforeRollbackPatch(Connection connection, RollbackPatch patch) {
+
+    }
+
+    @Override
+    public void afterRollbackPatch(Connection connection, RollbackPatch patch, Exception ex) throws SQLException {
+
+    }
 
 
 }

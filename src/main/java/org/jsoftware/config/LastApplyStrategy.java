@@ -1,6 +1,6 @@
 package org.jsoftware.config;
 
-import org.jsoftware.config.Patch.DbState;
+
 
 import java.sql.Connection;
 import java.util.Collections;
@@ -16,7 +16,7 @@ public class LastApplyStrategy implements ApplyStrategy {
 	public List<Patch> filter(Connection con, List<Patch> patches) {
 		int last = 0;
 		for(int i=0; i<patches.size(); i++) {
-			if (patches.get(i).getDbState() == DbState.COMMITTED) {
+			if (patches.get(i).getDbState() == AbstractPatch.DbState.COMMITTED) {
 				last = i;
 			}
 		}

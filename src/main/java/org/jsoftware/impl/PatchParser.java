@@ -1,11 +1,11 @@
 package org.jsoftware.impl;
 
+import org.jsoftware.config.AbstractPatch;
+import org.jsoftware.config.ConfigurationEntry;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-import org.jsoftware.config.ConfigurationEntry;
-import org.jsoftware.config.Patch;
 
 
 public interface PatchParser {
@@ -17,5 +17,5 @@ public interface PatchParser {
 
 	ParseResult parse(InputStream inputStream, ConfigurationEntry ce) throws IOException;
 
-	ParseResult parse(Patch p, ConfigurationEntry ce) throws IOException;
+	ParseResult parse(AbstractPatch p, ConfigurationEntry ce) throws IOException;
 }

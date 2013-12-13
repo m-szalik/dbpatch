@@ -1,11 +1,14 @@
 package org.jsoftware.impl;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.Patch;
+import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.config.dialect.PatchExecutionResult;
 import org.jsoftware.impl.extension.Extension;
 
 import javax.swing.*;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.sql.SQLWarning;
 
 /**
@@ -28,7 +31,6 @@ public class ResultDisplay extends JEditorPane implements Extension {
 	public void beforePatch(Connection connection, Patch patch) {
 		addInfo("com.patching.start", new Object[] {patch.getName(), patch.getFile().getName()});	
 	}
-	public void beforePatchStatement(Connection connection, Patch patch, PatchStatement statement) {	}
 	public void beforePatching(Connection connection) {	}
 	public void afterPatch(Connection connection, Patch patch, Exception ex) {
 		if (ex == null) {
@@ -39,7 +41,33 @@ public class ResultDisplay extends JEditorPane implements Extension {
 		addText("<br />", null);
 	}
 
-	public void afterPatchStatement(Connection connection, Patch patch, PatchExecutionResult result) {
+    @Override
+    public void beforePatchStatement(Connection connection, AbstractPatch patch, PatchStatement statement) {
+
+    }
+
+    @Override
+    public void afterPatchStatement(Connection connection, AbstractPatch patch, PatchExecutionResult result) {
+
+    }
+
+    @Override
+    public void beforeRollbackPatch(Connection connection, RollbackPatch patch) {
+
+    }
+
+    @Override
+    public void afterRollbackPatch(Connection connection, RollbackPatch patch, Exception ex) throws SQLException {
+        if (ex == null) {
+            addInfo("com.rollbacking.done.ok", new Object[] {patch.getName(), patch.getFile().getName()});
+        } else {
+            addText(Messages.msg("com.rollbacking.done.error", patch.getName(), patch.getFile().getName()), "#ff0000");
+        }
+        addText("<br />", null);
+
+    }
+
+    public void afterPatchStatement(Connection connection, Patch patch, PatchExecutionResult result) {
 		addText(result.getPatchStatement().getCode() + "<br />", null);
 		if (result.isFailure()) {
 			addText("<b>" + result.getCause().getLocalizedMessage() + "</b>", "#ff0000");

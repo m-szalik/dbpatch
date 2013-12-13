@@ -9,26 +9,28 @@ import java.util.List;
  * Runs auto-patch mode
  * @author szalik
  */
-public class PatchCommand extends ListCommand {
-    private boolean uptodate;
+public class PatchCommand extends ListCommand implements CommandSuccessIndicator {
+    private boolean success;
 	
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void executeInternal() throws Exception {
-		List<Patch> patchesToApply = generatePatchList();
-		uptodate = false;
+		List<Patch> patchesToApply = getList();
+		success = false;
 		try {
 			manager.startExecution();
 			for(Patch p : patchesToApply) {
 				manager.apply(p);
 			}
-			uptodate = true;
+			success = true;
 		} finally {
 			manager.endExecution();
 		}
 	}
 
-    public boolean isUptodate() {
-        return uptodate;
+
+    @Override
+    public boolean isSuccess() {
+        return success;
     }
 }

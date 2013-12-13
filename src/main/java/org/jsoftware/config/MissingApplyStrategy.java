@@ -1,6 +1,5 @@
 package org.jsoftware.config;
 
-import org.jsoftware.config.Patch.DbState;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -18,7 +17,7 @@ public class MissingApplyStrategy implements ApplyStrategy, Serializable {
 	public List<Patch> filter(Connection con, List<Patch> patches) {
 		LinkedList<Patch> patchesToApply = new LinkedList<Patch>();
 		for(Patch p : patches) {
-			if (p.getDbState() != DbState.COMMITTED) {
+			if (p.getDbState() != AbstractPatch.DbState.COMMITTED) {
 				patchesToApply.add(p);
 			}
 		}

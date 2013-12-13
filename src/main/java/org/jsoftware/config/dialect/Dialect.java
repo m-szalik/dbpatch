@@ -1,6 +1,8 @@
 package org.jsoftware.config.dialect;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.Patch;
+import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.impl.PatchStatement;
 
 import java.io.Serializable;
@@ -65,4 +67,9 @@ public interface Dialect extends Serializable {
      * Get database now timestamp
      */
 	Timestamp getNow(Connection con) throws SQLException;
+
+    void removePatchInfo(Connection c, RollbackPatch p) throws SQLException;
+
+    boolean checkIfPatchIsCommitted(Connection c, AbstractPatch patch) throws SQLException;
+
 }

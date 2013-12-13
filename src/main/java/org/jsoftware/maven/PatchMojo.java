@@ -21,7 +21,7 @@ public class PatchMojo extends CommandSingleConfMojoAdapter<PatchCommand> {
         try {
             super.execute();
         } finally {
-            getPluginContext().put(getClass().getName() + "-uptodate", command.isUptodate());
+            getPluginContext().put(getClass().getName() + "-uptodate", command.isSuccess());
         }
     }
 }

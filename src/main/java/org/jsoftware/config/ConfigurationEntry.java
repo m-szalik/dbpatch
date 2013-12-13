@@ -36,6 +36,7 @@ public class ConfigurationEntry implements Serializable {
 	private String password;
 	private Dialect dialect;
 	private String patchDirs;
+    private String rollbackDirs;
 	private PatchScanner patchScanner;
 	private final PatchParser patchParser;
 	private ApplyStrategy applyStarters;
@@ -170,10 +171,21 @@ public class ConfigurationEntry implements Serializable {
 		this.patchScanner = patchScanner;
 	}
 
-	public void validate() throws ParseException {
+    public String getRollbackDirs() {
+        return rollbackDirs;
+    }
+
+    public void setRollbackDirs(String rollbackDirs) {
+        this.rollbackDirs = rollbackDirs;
+    }
+
+    public void validate() throws ParseException {
 		checkNull(jdbcUri, "jdbcUri");
 		checkNull(driverClass, "driverClass");
 		checkNull(patchDirs, "patchDirs");
+        if (rollbackDirs == null) {
+            rollbackDirs = patchDirs;
+        }
         if (dialect == null) {
             dialect = DialectFinder.findByDriverClass(driverClass);
             if (dialect == null) {
