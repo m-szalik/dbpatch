@@ -34,7 +34,7 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
             if (p.getDbState() == AbstractPatch.DbState.IN_PROGRESS) sb.append('P');
             if (p.getDbState() == AbstractPatch.DbState.NOT_AVAILABLE) sb.append(' ');
             sb.append(' ').append(p.getName());
-            for(int a=p.getName().length(); a<22; a++) {
+            for(int a=p.getName().length(); a<SPACES; a++) {
                 sb.append(' ');
             }
             sb.append("  rollback: ");

@@ -15,6 +15,7 @@ import java.util.List;
  * @author szalik
  */
 public abstract class AbstractListCommand<P extends AbstractPatch> extends AbstractSingleConfDbPatchCommand {
+    static final int SPACES = 36;
 	
 	/**
 	 * @return patches to apply
