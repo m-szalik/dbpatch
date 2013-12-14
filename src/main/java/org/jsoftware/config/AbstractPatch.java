@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
-public class AbstractPatch implements Serializable {
+public abstract class AbstractPatch implements Serializable {
 	
 	private static final long serialVersionUID = 4178101927323891639L;
 
@@ -56,9 +56,7 @@ public class AbstractPatch implements Serializable {
 	public DbState getDbState() {
 		return dbState;
 	}
-	public boolean canApply() {
-		return statementCount > 0 && dbState == DbState.NOT_AVAILABLE;
-	}
+	public abstract boolean canApply();
 	@Override
 	public String toString() {
 		return super.toString() + "-" + name;

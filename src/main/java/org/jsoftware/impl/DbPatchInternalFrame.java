@@ -1,7 +1,9 @@
 package org.jsoftware.impl;
 
+import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.config.Patch;
+import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.log.LogFactory;
 
 import javax.swing.*;
@@ -29,12 +31,13 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 	
 	public DbPatchInternalFrame(final ConfigurationEntry ce) throws SQLException, IOException, DuplicatePatchNameException {
 		super("DbPatch - " + ce.getId(), true, true, true);
+        final File dir = new File(".");
 		dbManager = new DbManager(ce);
 		dbManager.init(new SwingDbManagerPasswordCallback(this));
 		dbManager.addExtension(resultDisplay);
-		patches = ce.getPatchScanner().scan(new File("."), ce.getPatchDirs().split(","));
+		patches = ce.getPatchScanner().scan(dir, ce.getPatchDirs().split(","));
 		addInternalFrameListener(this);
-		final String[] columnModelKeys = new String[] { "patchName", "patchDate", "patchStatements", "patchSize", "state" };
+		final String[] columnModelKeys = new String[] { "patchName", "patchDate", "patchStatements", "patchSize", "action", "state" };
 		final String[] columnModel = new String[columnModelKeys.length];
 		for(int i=0; i<columnModel.length; i++) {
 			columnModel[i] = Messages.msg("table.patches." + columnModelKeys[i]);
@@ -43,25 +46,58 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 			final DateFormat df = DateFormat.getInstance();
 			public Object getValueAt(int rowIndex, int columnIndex) {
 				if (rowIndex >= patches.size()) return null;
-				Patch p = patches.get(rowIndex);
-				switch (columnIndex) {
+				Patch patch = patches.get(rowIndex);
+                AbstractPatch p;
+                if (patch.getDbState() == AbstractPatch.DbState.COMMITTED) {
+                    try {
+                        File rollbackFile = ce.getPatchScanner().findRollbackFile(dir, ce.getRollbackDirs().split(","), patch);
+                        int sc = ce.getPatchParser().parse(new FileInputStream(rollbackFile), ce).executableCount();
+                        p = new RollbackPatch(patch, rollbackFile, sc);
+                    } catch (Exception e) {
+                        p = new RollbackPatch(patch);
+                    }
+                } else {
+                    p = patch;
+                }
+
+                switch (columnIndex) {
 				case 0:
-					return p.getName();
+					return patch.getName();
 				case 1:
-					return df.format(new Date(p.getFile().lastModified()));
+					return p.getFile() != null ? df.format(new Date(p.getFile().lastModified())) : "-";
 				case 2:
 					return p.getStatementCount() < 0 ? "" : p.getStatementCount();
 				case 3:
-					long len = p.getFile().length();
-					return len > 102400 ?(len / 1024) + "kB" : len + "B";
-				case 4:
+                    if (p.getFile() != null) {
+                        long len = p.getFile().length();
+                        return len > 102400 ?(len / 1024) + "kB" : len + "B";
+                    } else {
+                        return "-";
+                    }
+				case 5:
 					return p;
+                case 4:
+                    if (p.canApply()) {
+                        if (p instanceof Patch) {
+                            return new JPatchButton(Messages.msg("table.patches.state.patchItBtn"), p);
+                        }
+                        if (p instanceof RollbackPatch) {
+                            return new JPatchButton(Messages.msg("table.patches.state.rollbackItBtn"), p);
+                        }
+                    }
+                    return "";
 				default:
 					return null;
 				}
 			}
 			public Class<?> getColumnClass(int columnIndex) {
-				return columnIndex == 4 ? Patch.class : super.getColumnClass(columnIndex);
+				if (columnIndex == 5) {
+                    return AbstractPatch.class;
+                }
+                if (columnIndex == 4) {
+                    return JPatchButton.class;
+                }
+                return super.getColumnClass(columnIndex);
 			}
 			public int getRowCount() {
 				return patches.size();
@@ -73,12 +109,16 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 				return columnModel[column];
 			}
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return columnIndex == 4;
+				return columnIndex == 5;
 			}
 		};
 		table = new JTable(tableModel);
 //		table.setFillsViewportHeight(true);
-		table.setDefaultRenderer(Patch.class, new JTablePatchStateRenderer());
+        JTablePatchStateRenderer renderer = new JTablePatchStateRenderer();
+        table.setDefaultRenderer(AbstractPatch.class, renderer);
+        table.setDefaultRenderer(Patch.class, renderer);
+        table.setDefaultRenderer(RollbackPatch.class, renderer);
+        table.setDefaultRenderer(JPatchButton.class, renderer);
 		table.addMouseListener(this);
 		resultDisplay.setMinimumSize(new Dimension(getWidth(), 40));
 		setContentPane(new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(table), new JScrollPane(resultDisplay)));
@@ -107,12 +147,18 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 		int row = target.getSelectedRow();
 		int col = target.getSelectedColumn();
 		Object obj = target.getValueAt(row, col);
-		if (obj instanceof Patch) {
-			Patch patch = (Patch) obj;
+		if (obj instanceof JPatchButton) {
+            JPatchButton jPatchButton = (JPatchButton) obj;
+			AbstractPatch patch = jPatchButton.getPatch();
 			if (patch.canApply()) {
 				try {
 					dbManager.startExecution();
-					dbManager.apply(patch);
+                    if (patch instanceof Patch) {
+					    dbManager.apply((Patch) patch);
+                    }
+                    if (patch instanceof RollbackPatch) {
+                        dbManager.rollback((RollbackPatch) patch);
+                    }
 				} catch (SQLException e1) {
 					throw new RuntimeException(e1);
 				} finally {
