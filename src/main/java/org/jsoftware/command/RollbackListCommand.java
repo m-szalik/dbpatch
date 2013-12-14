@@ -43,7 +43,7 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
                 missingRollback.add(p);
                 sb.append("MISSING OR EMPTY");
             } else {
-                sb.append("OK");
+                sb.append("OK ");
             }
             rollbacks.add(rollbackPatch);
             sb.append('\n');
@@ -53,7 +53,7 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
             if (! missingRollback.isEmpty()) {
                 sb = new StringBuilder();
                 for(Patch mp : missingRollback) {
-                    sb.append('\t').append(mp.getName()).append('\n');
+                    sb.append(' ').append(mp.getName());
                 }
                 log.warn("Missing rollback patches: \n" + sb);
             }
@@ -63,7 +63,7 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
     }
 
     private RollbackPatch findRollback(Patch patch) throws IOException, DuplicatePatchNameException {
-        File rf = getConfigurationEntry().getPatchScanner().findRollbackFile(directory, configurationEntry.getPatchDirs().split(",") ,patch);
+        File rf = getConfigurationEntry().getPatchScanner().findRollbackFile(directory, configurationEntry.getRollbackDirs().split(",") ,patch);
         if (rf == null) {
             return new RollbackPatch(patch);
         } else {

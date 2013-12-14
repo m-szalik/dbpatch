@@ -7,6 +7,7 @@ public class RollbackPatch extends AbstractPatch {
     private boolean missing;
 
     public RollbackPatch(Patch patch) {
+        super.setName(patch.getName());
         super.setDbDate(patch.getDbDate());
         super.setDbState(patch.getDbState());
         this.originalPatchFile = patch.getFile();

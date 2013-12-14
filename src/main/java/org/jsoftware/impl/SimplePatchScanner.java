@@ -9,13 +9,14 @@ import org.jsoftware.log.LogFactory;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class SimplePatchScanner implements PatchScanner {
 	private Log log = LogFactory.getInstance();
 	
-	public List<Patch> scan(File baseDir, String[] paths) throws DuplicatePatchNameException {	
+	public List<Patch> scan(File baseDir, String[] paths) throws DuplicatePatchNameException, IOException {
 		List<DirMask> dirMasks = parsePatchDirs(baseDir, paths);
 		LinkedList<Patch> list = new LinkedList<Patch>();
 		for(DirMask dm : dirMasks) {
@@ -43,12 +44,11 @@ public abstract class SimplePatchScanner implements PatchScanner {
 	}
 
     @Override
-    public File findRollbackFile(File baseDir, String[] paths, Patch patch) throws DuplicatePatchNameException {
+    public File findRollbackFile(File baseDir, String[] paths, Patch patch) throws DuplicatePatchNameException, IOException {
         List<DirMask> dirMasks = parsePatchDirs(baseDir, paths);
         LinkedList<Patch> list = new LinkedList<Patch>();
         for(DirMask dm : dirMasks) {
             log.debug("Scan for rollback of '" + patch.getName() + "' " + dm.getDir().getAbsolutePath() + " with " + dm.getMask());
-            LinkedList<Patch> dirList = new LinkedList<Patch>();
             File[] fList = dm.getDir().listFiles(new WildcardMaskFileFilter(dm.getMask()));
             for (File f : fList) {
                 String rn = AbstractPatch.normalizeName(f.getName());
@@ -66,7 +66,7 @@ public abstract class SimplePatchScanner implements PatchScanner {
 	protected abstract void sortAll(List<Patch> allPatchList);
 
 
-	private List<DirMask> parsePatchDirs(File basePath, String[] dirs) {
+	List<DirMask> parsePatchDirs(File basePath, String[] dirs) throws IOException {
 		List<DirMask> dirMasks = new LinkedList<DirMask>();
 		for(String s : dirs) {
 			s = s.trim();
@@ -76,17 +76,18 @@ public abstract class SimplePatchScanner implements PatchScanner {
 			}
 			File f = new File(s);
 			if (! f.isAbsolute()) {
-				f = new File(basePath, s);
+				f = new File(basePath, s).getCanonicalFile();
 			}
 			if (f.isDirectory()) {
-				DirMask dm = new DirMask(f);
+				DirMask dm = new DirMask(f.getCanonicalFile());
 				dirMasks.add(dm);
 				log.debug(" + entry directory " + dm);
 			} else {
 				String wch = f.getName();
-				DirMask dm = new DirMask(f.getParentFile());
+				DirMask dm = new DirMask(f.getParentFile().getCanonicalFile());
 				dm.setMask(wch);
-				log.debug(" + entry single file " + dm);
+                dirMasks.add(dm);
+				log.debug(" + entry single file or dir with special character " + dm);
 			}
 		}
 		for(DirMask dm : dirMasks) {
@@ -105,7 +106,7 @@ public abstract class SimplePatchScanner implements PatchScanner {
 		public boolean accept(File pathname) {
 			String fn = pathname.getName();
 			boolean b = FilenameUtils.wildcardMatchOnSystem(fn, mask);
-			log.debug("Check WildcardMaskFileFilter - " + fn + " is " + b);
+			//log.debug("Check WildcardMaskFileFilter - " + fn + " is " + b);
 			return b;
 		}
 	}

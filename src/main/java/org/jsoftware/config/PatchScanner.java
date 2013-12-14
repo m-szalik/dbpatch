@@ -3,6 +3,7 @@ package org.jsoftware.config;
 import org.jsoftware.impl.DuplicatePatchNameException;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
@@ -15,12 +16,12 @@ public interface PatchScanner extends Serializable {
 	 * @return
 	 * @throws DuplicatePatchNameException 
 	 */
-	List<Patch> scan(File directory, String[] paths) throws DuplicatePatchNameException;
+	List<Patch> scan(File directory, String[] paths) throws DuplicatePatchNameException, IOException;
 
     /**
      * @param directory base dir
      * @param paths to scan (add directory if not absolute)
      * @return null if no file was found
      */
-    File findRollbackFile(File directory, String[] paths, Patch patch) throws DuplicatePatchNameException;
+    File findRollbackFile(File directory, String[] paths, Patch patch) throws DuplicatePatchNameException, IOException;
 }

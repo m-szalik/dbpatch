@@ -195,7 +195,7 @@ public class ConfigurationEntry implements Serializable {
 		checkNull(patchDirs, "patchDirs");
         if (rollbackDirs == null) {
             StringBuilder sbr = new StringBuilder();
-            for(String dir : patchDirs.split("[ ,]")) {
+            for(String dir : patchDirs.split("[,]")) {
                 int x = dir.indexOf('*');
                 if (x >= 0) {
                     dir = dir.substring(0, x - 1);

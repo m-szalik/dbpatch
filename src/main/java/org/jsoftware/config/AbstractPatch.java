@@ -10,11 +10,11 @@ public class AbstractPatch implements Serializable {
 
     public static String normalizeName(String name) {
         String nameLC = name.toLowerCase();
-        while(nameLC.endsWith(".sql") || name.endsWith(".undo") || name.endsWith(".rollback")) {
+        while(nameLC.endsWith(".sql") || nameLC.endsWith(".undo") || nameLC.endsWith(".rollback")) {
             int dot = nameLC.lastIndexOf('.');
-            nameLC = nameLC.substring(0, dot +1);
+            nameLC = nameLC.substring(0, dot);
         }
-        return name.substring(0, nameLC.length() -1);
+        return name.substring(0, nameLC.length());
     }
 
     public enum DbState {
