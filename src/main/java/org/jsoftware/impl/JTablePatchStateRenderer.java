@@ -5,46 +5,52 @@ import org.jsoftware.config.Patch;
 import org.jsoftware.config.RollbackPatch;
 
 import javax.swing.*;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
-public class JTablePatchStateRenderer implements TableCellRenderer {
-    private static final JLabel EMPTY = new JLabel();
+public class JTablePatchStateRenderer extends DefaultTableCellRenderer {
 
 	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        Component component = null;
+        Color color = null;
         if (value instanceof Patch) {
 			Patch p = (Patch) value;
-			JLabel o = new JLabel("?");
-			o.setBackground(Color.LIGHT_GRAY);
+            String text = "";
 			if (p.getDbState() == AbstractPatch.DbState.IN_PROGRESS) {
-				o = new JLabel(Messages.msg("table.patches.state.inProgress"));
-				o.setBackground(Color.YELLOW);
+				text = Messages.msg("table.patches.state.inProgress");
 			}
 			if (p.getDbState() == AbstractPatch.DbState.COMMITTED) {
-				o = new JLabel(Messages.msg("table.patches.state.committed"));
-				o.setBackground(Color.GREEN);
+                text = Messages.msg("table.patches.state.committed");
+                color = Color.GREEN;
 			}
 			if (p.getDbState() == AbstractPatch.DbState.NOT_AVAILABLE) {
 				if (p.canApply()) {
-                    o = new JLabel(Messages.msg("table.patches.state.missing"));
-                    o.setBackground(Color.GRAY);
+                    text = Messages.msg("table.patches.state.missing");
 				} else {
-					o.setText(Messages.msg("table.patches.state.empty"));
+					text = Messages.msg("table.patches.state.empty");
 				}
 			}
-			return o;
+            component = super.getTableCellRendererComponent(table, text, isSelected, hasFocus, row, column);
 		}
         if (value instanceof RollbackPatch) {
+            String text = "";
             RollbackPatch rp = (RollbackPatch) value;
             if (rp.isMissing()) {
-                return new JLabel(Messages.msg("table.patches.state.rollback.missing"));
+                text = Messages.msg("table.patches.state.rollback.missing");
+                color = Color.RED;
             }
-            return new JLabel();
+            component = super.getTableCellRendererComponent(table, text, isSelected, hasFocus, row, column);
         }
         if (value instanceof JButton) {
-            return (JButton) value;
+            component = (JComponent) value;
         }
-		return EMPTY;
-	}
+        if (component == null) {
+            component = super.getTableCellRendererComponent(table, "", isSelected, hasFocus, row, column);
+        }
+        if (color != null) {
+            component.setForeground(color);
+        }
+        return component;
+    }
 
 }

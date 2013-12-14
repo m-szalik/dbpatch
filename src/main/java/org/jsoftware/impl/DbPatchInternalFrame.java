@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.event.InternalFrameListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -109,10 +110,19 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 				return columnModel[column];
 			}
 			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return columnIndex == 5;
+				return false;
 			}
 		};
-		table = new JTable(tableModel);
+		table = new JTable(tableModel) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                if (c instanceof JComponent) {
+                    ((JComponent) c).setBorder(null);
+                }
+                return c;
+            }
+        };
 //		table.setFillsViewportHeight(true);
         JTablePatchStateRenderer renderer = new JTablePatchStateRenderer();
         table.setDefaultRenderer(AbstractPatch.class, renderer);
