@@ -46,7 +46,6 @@ public abstract class SimplePatchScanner implements PatchScanner {
     @Override
     public File findRollbackFile(File baseDir, String[] paths, Patch patch) throws DuplicatePatchNameException, IOException {
         List<DirMask> dirMasks = parsePatchDirs(baseDir, paths);
-        LinkedList<Patch> list = new LinkedList<Patch>();
         for(DirMask dm : dirMasks) {
             log.debug("Scan for rollback of '" + patch.getName() + "' " + dm.getDir().getAbsolutePath() + " with " + dm.getMask());
             File[] fList = dm.getDir().listFiles(new WildcardMaskFileFilter(dm.getMask()));
