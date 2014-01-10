@@ -57,9 +57,9 @@
 	</build>
 
 	<scm>
-		<url>svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</url>
-		<connection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</connection>
-		<developerConnection>scm:svn:svn://jsoftware.org/grucha/dbpatch-maven-plugin/trunk</developerConnection>
+		<url>https://github.com/m-szalik/dbpatch-maven-plugin.git</url>
+		<connection>scm:git:https://github.com/m-szalik/dbpatch-maven-plugin.git</connection>
+		<developerConnection>scm:git:https://github.com/m-szalik/dbpatch-maven-plugin.git</developerConnection>
 	</scm>
 
     <repositories>
