@@ -33,9 +33,9 @@
     </prerequisites>
 -->
 	<parent>
-	    <groupId>org.jsoftware</groupId>
-	    <artifactId>jsoftware</artifactId>
-	    <version>1.6</version>
+	    <groupId>org.sonatype.oss</groupId>
+	    <artifactId>oss-parent</artifactId>
+	    <version>7</version>
 	</parent>
 
 	<dependencies>
