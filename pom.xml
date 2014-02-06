@@ -16,6 +16,17 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <developers>
+        <developer>
+            <id>szalik</id>
+            <name>Marek Salik</name>
+            <email>marek.szalik@jsoftware.org</email>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+    </developers>
 <!--
     <prerequisites>
         <maven>3.0</maven>
@@ -70,6 +81,7 @@
 		<developerConnection>scm:git:https://github.com/m-szalik/dbpatch-maven-plugin.git</developerConnection>
 	</scm>
 
+<!--
     <repositories>
         <repository>
             <id>jsoftware.org</id>
@@ -77,6 +89,7 @@
             <url>http://maven.jsoftware.org</url>
         </repository>
     </repositories>
+-->
 
 	<properties>
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
