@@ -9,6 +9,12 @@
 	<description>Manage your database patches with maven.</description>
 	<inceptionYear>2011</inceptionYear>
 
+    <parent>
+        <groupId>org.jsoftware</groupId>
+        <artifactId>jsoftware</artifactId>
+        <version>1.7.1</version>
+    </parent>
+
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -17,26 +23,12 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <id>szalik</id>
-            <name>Marek Salik</name>
-            <email>marek.szalik@jsoftware.org</email>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
+
 <!--
     <prerequisites>
         <maven>3.0</maven>
     </prerequisites>
 -->
-	<parent>
-	    <groupId>org.sonatype.oss</groupId>
-	    <artifactId>oss-parent</artifactId>
-	    <version>7</version>
-	</parent>
 
 	<dependencies>
 		<dependency>
@@ -81,17 +73,4 @@
 		<developerConnection>scm:git:https://github.com/m-szalik/dbpatch-maven-plugin.git</developerConnection>
 	</scm>
 
-<!--
-    <repositories>
-        <repository>
-            <id>jsoftware.org</id>
-            <name>JSoftware.org</name>
-            <url>http://maven.jsoftware.org</url>
-        </repository>
-    </repositories>
--->
-
-	<properties>
-		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
-	</properties>
 </project>
