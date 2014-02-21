@@ -73,4 +73,10 @@
 		<developerConnection>scm:git:https://github.com/m-szalik/dbpatch-maven-plugin.git</developerConnection>
 	</scm>
 
+
+    <issueManagement>
+        <url>https://github.com/m-szalik/dbpatch-maven-plugin/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
 </project>
