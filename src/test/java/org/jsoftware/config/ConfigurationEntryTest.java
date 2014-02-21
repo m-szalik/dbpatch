@@ -3,6 +3,7 @@ package org.jsoftware.config;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.text.ParseException;
 
 /**
@@ -20,23 +21,23 @@ public class ConfigurationEntryTest {
 
     @Test
     public void testAutodetectRollbackDirs1() throws ParseException {
-        ce.setPatchDirs("/abc/,/xyz");
+        ce.setPatchDirs("/abc/,/xyz".replace('/', File.separatorChar));
         ce.validate();
-        org.junit.Assert.assertEquals("/abc/*.rollback,/xyz/*.rollback", ce.getRollbackDirs());
+        org.junit.Assert.assertEquals("/abc/*.rollback,/xyz/*.rollback".replace('/', File.separatorChar), ce.getRollbackDirs());
     }
 
     @Test
     public void testAutodetectRollbackDirs2() throws ParseException {
-        ce.setPatchDirs("/abc/*.sql");
+        ce.setPatchDirs("/abc/*.sql".replace('/', File.separatorChar));
         ce.validate();
-        org.junit.Assert.assertEquals("/abc/*.rollback", ce.getRollbackDirs());
+        org.junit.Assert.assertEquals("/abc/*.rollback".replace('/', File.separatorChar), ce.getRollbackDirs());
     }
 
     @Test
     public void testAutodetectRollbackDirsChangedDefault() throws ParseException {
-        ce.setPatchDirs("/abc/");
+        ce.setPatchDirs("/abc/".replace('/', File.separatorChar));
         ce.setRollbackSuffix("*.undo");
         ce.validate();
-        org.junit.Assert.assertEquals("/abc/*.undo", ce.getRollbackDirs());
+        org.junit.Assert.assertEquals("/abc/*.undo".replace('/', File.separatorChar), ce.getRollbackDirs());
     }
 }
