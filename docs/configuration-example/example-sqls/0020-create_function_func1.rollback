@@ -1,0 +1,3 @@
+-- Roll back patch for 0020-create_function_add.sql
+
+DROP FUNCTION FUNC1;
