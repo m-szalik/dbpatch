@@ -5,6 +5,9 @@ import org.jsoftware.impl.PatchStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * SQL comment
+ */
 public class CommentPatchStatement implements PatchStatement {
     protected String comment;
 

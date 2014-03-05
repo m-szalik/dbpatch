@@ -5,6 +5,9 @@ import org.jsoftware.impl.PatchStatement;
 import java.sql.SQLException;
 import java.sql.SQLWarning;
 
+/**
+ * @see org.jsoftware.config.dialect.PatchExecutionResult
+ */
 public class PatchExecutionResultImpl implements PatchExecutionResult {
     private SQLWarning sqlWarning;
     private SQLException cause;

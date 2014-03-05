@@ -5,6 +5,9 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * Util for quietly closingSQL resources.
+ */
 public class CloseUtil {
 
     private CloseUtil() {

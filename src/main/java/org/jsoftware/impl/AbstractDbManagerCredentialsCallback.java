@@ -4,6 +4,7 @@ import org.jsoftware.config.ConfigurationEntry;
 
 import java.sql.SQLException;
 
+
 public abstract class AbstractDbManagerCredentialsCallback implements DbManagerCredentialsCallback {
     private final static int MAX_TRIES = 3;
 

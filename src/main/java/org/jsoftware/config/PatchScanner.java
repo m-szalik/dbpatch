@@ -7,12 +7,15 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Scans for patch and roll-back patch files
+ */
 public interface PatchScanner extends Serializable {
 
     /**
      * @param directory base dir
      * @param paths     to scan (add directory if not absolute)
-     * @return
+     * @return list of found patches
      * @throws DuplicatePatchNameException
      */
     List<Patch> scan(File directory, String[] paths) throws DuplicatePatchNameException, IOException;

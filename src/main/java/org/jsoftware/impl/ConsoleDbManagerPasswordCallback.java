@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.SQLException;
 
+/**
+ * If missing password ask via command line console
+ */
 public class ConsoleDbManagerPasswordCallback extends AbstractDbManagerCredentialsCallback {
 
 
