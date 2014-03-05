@@ -5,7 +5,7 @@
 	<packaging>maven-plugin</packaging>
 	<version>3.4-SNAPSHOT</version>
 	<name>Database patch Maven Mojo</name>
-	<url>http://jsoftware.org/maven-dbpatch-plugin</url>
+	<url>https://github.com/m-szalik/dbpatch-maven-plugin/wiki</url>
 	<description>Manage your database patches with maven.</description>
 	<inceptionYear>2011</inceptionYear>
 
