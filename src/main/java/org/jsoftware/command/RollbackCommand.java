@@ -10,7 +10,7 @@ import java.util.List;
 
 
 /**
- * Runs auto-patch mode
+ * Command: Runs auto-patch mode
  * @author szalik
  */
 public class RollbackCommand extends RollbackListCommand implements CommandSuccessIndicator {

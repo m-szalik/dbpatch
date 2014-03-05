@@ -11,6 +11,7 @@ import java.util.Collection;
 
 
 /**
+ * Abstract plugin command for single database profile
  * @author szalik
  */
 public abstract class AbstractSingleConfDbPatchCommand extends AbstractCommand {

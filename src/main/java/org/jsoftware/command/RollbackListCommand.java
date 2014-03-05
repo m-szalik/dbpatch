@@ -16,7 +16,7 @@ import java.util.List;
 
 
 /**
- * Runs auto-patch mode
+ * Command: Runs auto-rollback mode
  * @author szalik
  */
 public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
