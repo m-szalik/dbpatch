@@ -3,6 +3,7 @@ package org.jsoftware.config;
 import java.io.File;
 
 public class RollbackPatch extends AbstractPatch {
+
     private final File originalPatchFile;
     private boolean missing;
 

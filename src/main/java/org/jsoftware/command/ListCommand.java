@@ -9,7 +9,7 @@ import java.util.List;
 
 
 /**
- * Show list of patches
+ * Command:Show list of patches
  * @author szalik
  */
 public class ListCommand extends AbstractListCommand<Patch> {

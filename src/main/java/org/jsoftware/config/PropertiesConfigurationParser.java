@@ -16,7 +16,9 @@ import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * Parse dbpatch.properties file
+ */
 public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 
 	@Override
@@ -83,6 +85,9 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 	}
 
 
+    /**
+     * Evaluate strings like ${systemProperty} or ${envName}
+     */
     static int evaluatePropertyValuesInternal(Properties props) {
         final Pattern pattern = Pattern.compile("(#|\\$)\\{[^\\}]*\\}");
         int replaceCount = 0;

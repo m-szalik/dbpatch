@@ -9,7 +9,7 @@ import java.io.IOException;
 
 
 /**
- * Display parsed patch
+ * Command: Display parsed patch
  * @author szalik
  */
 public class HelpParseCommand extends AbstractCommand {

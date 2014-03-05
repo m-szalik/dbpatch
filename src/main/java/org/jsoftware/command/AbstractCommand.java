@@ -6,6 +6,7 @@ import org.jsoftware.log.LogFactory;
 import java.io.File;
 
 /**
+ * Abstract plugin command
  * @author szalik
  */
 public abstract class AbstractCommand {

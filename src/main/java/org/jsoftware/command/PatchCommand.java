@@ -6,7 +6,7 @@ import java.util.List;
 
 
 /**
- * Runs auto-patch mode
+ * Command: Runs auto-patch mode
  * @author szalik
  */
 public class PatchCommand extends ListCommand implements CommandSuccessIndicator {
