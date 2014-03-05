@@ -1,4 +1,4 @@
-maven dbpatch plugin
+Maven dbpatch plugin
 ====================
 
 ### Manage versioning of your databases with maven
