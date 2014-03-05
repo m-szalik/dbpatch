@@ -31,9 +31,6 @@ public abstract class AbstractConfigurationParser {
 			log.debug("Configuration found - " + file.getPath());
 			input = new FileInputStream(file);
 		}
-		if (input == null) {
-			throw new IOException("No configuration file found.");
-		}
 		AbstractConfigurationParser parser = new PropertiesConfigurationParser();
 		Collection<ConfigurationEntry> conf = parser.parse(input);
 		for(ConfigurationEntry ce : conf) {
