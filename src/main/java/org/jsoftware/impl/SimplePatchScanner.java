@@ -73,20 +73,25 @@ public abstract class SimplePatchScanner implements PatchScanner {
 				log.debug(" - entry skipped");
 				continue;
 			}
-			File f = new File(s);
-			if (! f.isAbsolute()) {
-				f = new File(basePath, s).getCanonicalFile();
-			}
-			if (f.isDirectory()) {
-				DirMask dm = new DirMask(f.getCanonicalFile());
-				dirMasks.add(dm);
-				log.debug(" + entry directory " + dm);
+            File f = new File(basePath, s);
+            String absolute = f.getAbsolutePath();
+			if (! absolute.contains("*") && ! absolute.contains("?")) {
+                if (f.isDirectory()) {
+                    DirMask dm = new DirMask(f);
+                    dirMasks.add(dm);
+                    log.debug(" + entry directory " + dm);
+                } else {
+                    DirMask dm = new DirMask(f.getParentFile());
+                    dm.setMask(f.getName());
+                    dirMasks.add(dm);
+                    log.debug(" + single file " + dm);
+                }
 			} else {
 				String wch = f.getName();
 				DirMask dm = new DirMask(f.getParentFile().getCanonicalFile());
 				dm.setMask(wch);
                 dirMasks.add(dm);
-				log.debug(" + entry single file or dir with special character " + dm);
+				log.debug(" + dir with special character " + dm);
 			}
 		}
 		for(DirMask dm : dirMasks) {

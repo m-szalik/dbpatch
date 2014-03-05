@@ -30,3 +30,4 @@ https://github.com/m-szalik/dbpatch-maven-plugin/wiki
 
 #### License
 Apache License 2.0
+
