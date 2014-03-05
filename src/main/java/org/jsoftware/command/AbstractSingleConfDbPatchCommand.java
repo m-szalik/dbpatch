@@ -4,6 +4,7 @@ import org.jsoftware.config.AbstractConfigurationParser;
 import org.jsoftware.config.ConfigurationEntry;
 import org.jsoftware.impl.ConsoleDbManagerPasswordCallback;
 import org.jsoftware.impl.DbManager;
+import org.jsoftware.log.LogFactory;
 
 import java.io.File;
 import java.util.Collection;
@@ -23,7 +24,12 @@ public abstract class AbstractSingleConfDbPatchCommand extends AbstractCommand {
 	}
 	
 	public void execute() throws CommandExecutionException, CommandFailureException {
-		try {
+        String configurationProperty = System.getProperty("maven.dbpatch.configuration");
+        if (configurationProperty != null && configurationProperty.trim().length() > 0) {
+            LogFactory.getInstance().info("Using profile \"" + configurationProperty.trim() + "\".");
+            selectedConfiguration =configurationProperty.trim();
+        }
+        try {
 			File cfgFile = getConfigFile();
 			ConfigurationEntry mavenConfigurationEntry = getConf();
 			if (cfgFile != null && mavenConfigurationEntry != null) {
@@ -35,9 +41,6 @@ public abstract class AbstractSingleConfDbPatchCommand extends AbstractCommand {
 			
 			if (cfgFile != null) {
 				Collection<ConfigurationEntry> conf = AbstractConfigurationParser.discoverConfiguration(getConfigFile());
-				if (selectedConfiguration == null) {
-					selectedConfiguration = System.getProperty("maven.dbpatch.configuration");
-				}
 				if (selectedConfiguration == null) {
 					throw new CommandFailureException(this, "configuration missing - selectedConfiguration not set", "Please set maven.dbpatch.configuration property.");
 				}
