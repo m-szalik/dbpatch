@@ -14,6 +14,11 @@ _Whenever it is possible patches are executed in transactions, so you can be sur
  * dbpatch:rollback – rollback patch or multiple patches
  * dbpatch:interactive – interactive mode (GUI) – screen below
 
+#### Interactive mode
+This plugin can be executed as standard java program (java -jar [plugin-jar-file.jar](http://central.maven.org/maven2/org/jsoftware/dbpatch/))
+
+![interactive mode screen shot](https://raw.github.com/m-szalik/dbpatch-maven-plugin/master/docs/dbpatch-interactive-screen.png)
+
 #### Bash completions for dbpatch plugin:
 Download [bash_completion](./docs/bash_completion) and save it into your maven base directory **~/.m2**.
 
