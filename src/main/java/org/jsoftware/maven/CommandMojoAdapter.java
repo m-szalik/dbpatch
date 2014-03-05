@@ -14,44 +14,48 @@ import java.io.File;
 
 /**
  * Abstract mojo for dbPatch plugin goals
+ *
  * @author szalik
  */
 public class CommandMojoAdapter<C extends AbstractCommand> extends AbstractMojo {
     protected final C command;
 
-	/**
-	 * Configuration file
-	 * @parameter
-	 */
-	protected File configFile;
-	
-	/**
-	 * Daatabase and patch configuration
-	 * @see ConfigurationEntry's fields 
-	 * @parameter 
-	 */
-	protected ConfigurationEntry conf;
+    /**
+     * Configuration file
+     *
+     * @parameter
+     */
+    protected File configFile;
 
-	/**
-	 * Project directory
-	 * @parameter default-value="${basedir}"
-	 * @required
-	 * @readonly
-	 */
-	protected File directory;
+    /**
+     * Daatabase and patch configuration
+     *
+     * @parameter
+     * @see ConfigurationEntry's fields
+     */
+    protected ConfigurationEntry conf;
+
+    /**
+     * Project directory
+     *
+     * @parameter default-value="${basedir}"
+     * @required
+     * @readonly
+     */
+    protected File directory;
 
     protected CommandMojoAdapter(C command) {
         this.command = command;
     }
 
 
-	@Override
-	public void setLog(Log log) {
-		super.setLog(log);
-		if (log != null) {
-			LogFactory.initMaven(log);
-		}
-	}
+    @Override
+    public void setLog(Log log) {
+        super.setLog(log);
+        if (log != null) {
+            LogFactory.initMaven(log);
+        }
+    }
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {

@@ -5,8 +5,9 @@ import org.jsoftware.command.RollbackCommand;
 
 /**
  * Rollabck patch or patches
- * @goal rollback
+ *
  * @author szalik
+ * @goal rollback
  */
 public class RollbackMojo extends CommandSingleConfMojoAdapter<RollbackCommand> {
 

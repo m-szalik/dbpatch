@@ -21,37 +21,37 @@ import java.util.regex.Pattern;
  */
 public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 
-	@Override
-	public Collection<ConfigurationEntry> parse(InputStream input) throws IOException, ParseException {
-		Properties p = new Properties();
-		p.load(input);
+    @Override
+    public Collection<ConfigurationEntry> parse(InputStream input) throws IOException, ParseException {
+        Properties p = new Properties();
+        p.load(input);
         evaluatePropertyValuesInternal(p);
-		Map<String,ConfigurationEntry> confs = new HashMap<String,ConfigurationEntry>();
-		for(Map.Entry<Object,Object> me : p.entrySet()) {
-			String[] keys = me.getKey().toString().toLowerCase().split("\\.");
-			if (keys.length != 2) throw new ParseException("Invalid key " + me.getKey(), 0);
-			ConfigurationEntry ce = confs.get(keys[0]);
-			if (ce == null) {
-				ce = new ConfigurationEntry(keys[0]);
-				ce.setDialectInstance(new DefaultDialect());
-				confs.put(keys[0], ce);
-			}
-			String value = me.getValue().toString();
-			if ("jdbcUrl".equalsIgnoreCase(keys[1]) || "jdbcUri".equalsIgnoreCase(keys[1])) {
-				ce.setJdbcUri(value);
-			}
-			if ("username".equalsIgnoreCase(keys[1]) || "user".equalsIgnoreCase(keys[1])) {
-				ce.setUser(value);
-			}
-			if ("password".equalsIgnoreCase(keys[1])) {
-				ce.setPassword(value);
-			}
-			if ("dialect".equalsIgnoreCase(keys[1])) {
-				ce.setDialectInstance(DialectFinder.find(value));
-			}
-			if ("dirs".equalsIgnoreCase(keys[1]) || "patchDirs".equalsIgnoreCase(keys[1])) {
-				ce.setPatchDirs(value);
-			}
+        Map<String, ConfigurationEntry> confs = new HashMap<String, ConfigurationEntry>();
+        for (Map.Entry<Object, Object> me : p.entrySet()) {
+            String[] keys = me.getKey().toString().toLowerCase().split("\\.");
+            if (keys.length != 2) throw new ParseException("Invalid key " + me.getKey(), 0);
+            ConfigurationEntry ce = confs.get(keys[0]);
+            if (ce == null) {
+                ce = new ConfigurationEntry(keys[0]);
+                ce.setDialectInstance(new DefaultDialect());
+                confs.put(keys[0], ce);
+            }
+            String value = me.getValue().toString();
+            if ("jdbcUrl".equalsIgnoreCase(keys[1]) || "jdbcUri".equalsIgnoreCase(keys[1])) {
+                ce.setJdbcUri(value);
+            }
+            if ("username".equalsIgnoreCase(keys[1]) || "user".equalsIgnoreCase(keys[1])) {
+                ce.setUser(value);
+            }
+            if ("password".equalsIgnoreCase(keys[1])) {
+                ce.setPassword(value);
+            }
+            if ("dialect".equalsIgnoreCase(keys[1])) {
+                ce.setDialectInstance(DialectFinder.find(value));
+            }
+            if ("dirs".equalsIgnoreCase(keys[1]) || "patchDirs".equalsIgnoreCase(keys[1])) {
+                ce.setPatchDirs(value);
+            }
             if ("rollbackDirs".equalsIgnoreCase(keys[1]) || "undoDirs".equalsIgnoreCase(keys[1])) {
                 ce.setRollbackDirs(value);
             }
@@ -59,30 +59,30 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
                 ce.setRollbackSuffix(value);
             }
             if ("driverClass".equalsIgnoreCase(keys[1]) || "driver".equalsIgnoreCase(keys[1])) {
-				ce.setDriverClass(value);
-			}
-			if ("strategy".equalsIgnoreCase(keys[1]) || "applyStrategy".equalsIgnoreCase(keys[1])) {
-				ce.setApplyStarters(value);
-			}
-			if ("extensions".equalsIgnoreCase(keys[1])) {
-				ce.setExtensions(value);
-			}
-			if ("encoding".equalsIgnoreCase(keys[1])) {
-				ce.setPatchEncoding(value);
-			}
-			if ("scanner".equalsIgnoreCase(keys[1])) {
-				PatchScanner scanner = null;
-				value = value.toLowerCase().trim();
-				if (value.startsWith("dir")) scanner = new DirectoryPatchScanner();
-				if (value.startsWith("name")) scanner = new NamePatchScanner();
-				if (scanner == null) {
-					throw new ParseException("Unknown scanner type - " + value, 0);
-				} 
-				ce.setPatchScanner(scanner);
-			}
-		}
-		return confs.values();
-	}
+                ce.setDriverClass(value);
+            }
+            if ("strategy".equalsIgnoreCase(keys[1]) || "applyStrategy".equalsIgnoreCase(keys[1])) {
+                ce.setApplyStarters(value);
+            }
+            if ("extensions".equalsIgnoreCase(keys[1])) {
+                ce.setExtensions(value);
+            }
+            if ("encoding".equalsIgnoreCase(keys[1])) {
+                ce.setPatchEncoding(value);
+            }
+            if ("scanner".equalsIgnoreCase(keys[1])) {
+                PatchScanner scanner = null;
+                value = value.toLowerCase().trim();
+                if (value.startsWith("dir")) scanner = new DirectoryPatchScanner();
+                if (value.startsWith("name")) scanner = new NamePatchScanner();
+                if (scanner == null) {
+                    throw new ParseException("Unknown scanner type - " + value, 0);
+                }
+                ce.setPatchScanner(scanner);
+            }
+        }
+        return confs.values();
+    }
 
 
     /**
@@ -101,7 +101,7 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
             String result = input;
             int offset = 0;
             while (matcher.find(offset)) {
-                offset = matcher.start() +1;
+                offset = matcher.start() + 1;
                 String group = matcher.group();
                 String replacement = group.substring(2, group.length() - 1);
                 if (replacement.length() > 0) {
@@ -118,11 +118,11 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
                         throw new IllegalArgumentException("Cannot resolve configuration expression '" + replacement + "' for key '" + me.getKey() + "'");
                     }
                 }
-                if (! group.equals(replacement)) {
+                if (!group.equals(replacement)) {
                     result = StringUtils.replace(result, group, replacement);
                     matcher = pattern.matcher(result);
                     replaceCount++;
-                    offset = offset + replacement.length() -1;
+                    offset = offset + replacement.length() - 1;
                 }
             }
             me.setValue(result);

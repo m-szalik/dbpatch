@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * Command:Show list of patches
+ *
  * @author szalik
  */
 public class ListCommand extends AbstractListCommand<Patch> {
@@ -20,17 +21,21 @@ public class ListCommand extends AbstractListCommand<Patch> {
         log.debug("Apply strategy is " + strategy.getClass().getSimpleName() + ", configurationId:" + configurationEntry.getId());
         List<Patch> patchesToApply = strategy.filter(manager.getConnection(), inList);
         StringBuilder sb = new StringBuilder("Patch list:\n");
-        for(Patch p : inList) {
+        for (Patch p : inList) {
             getConfigurationEntry().getPatchParser().parse(p, getConfigurationEntry());
             sb.append('\t');
-            if (p.getDbState() == AbstractPatch.DbState.COMMITTED) sb.append('*');
-            if (p.getDbState() == AbstractPatch.DbState.IN_PROGRESS) sb.append('P');
+            if (p.getDbState() == AbstractPatch.DbState.COMMITTED) {
+                sb.append('*');
+            }
+            if (p.getDbState() == AbstractPatch.DbState.IN_PROGRESS) {
+                sb.append('P');
+            }
             if (p.getDbState() == AbstractPatch.DbState.NOT_AVAILABLE) {
                 if (patchesToApply.contains(p)) sb.append('+');
                 else sb.append('-');
             }
             sb.append(' ').append(p.getName());
-            for(int a=p.getName().length(); a<SPACES; a++) {
+            for (int a = p.getName().length(); a < SPACES; a++) {
                 sb.append(' ');
             }
             sb.append("  statements:").append(p.getStatementCount());
@@ -42,8 +47,8 @@ public class ListCommand extends AbstractListCommand<Patch> {
     }
 
     @Override
-	protected void executeInternal() throws Exception {
-		getList();
-	}
-    
+    protected void executeInternal() throws Exception {
+        getList();
+    }
+
 }

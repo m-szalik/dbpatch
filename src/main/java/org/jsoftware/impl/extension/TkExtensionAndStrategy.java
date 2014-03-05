@@ -16,71 +16,71 @@ import java.util.List;
 import java.util.Set;
 
 public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
-	
-	private static int patchLevel(Patch p) {
-		String str = p.getFile().getName();
-		try {
-			str = str.substring(5, 5+4).trim();
-			return Integer.parseInt(str);
-		} catch (Exception e) {
-			throw new IllegalArgumentException("Can not determinate patchLeave for patch " + p.getName());
-		}
-	}
-	
-	public List<Patch> filter(Connection con, List<Patch> patches) {
-		try {	
-			String tabName = detectTkTableName(con);
-			ResultSet rs = con.createStatement().executeQuery("SELECT patch_level FROM " + tabName);
-			rs.next();
-			int currentPatchLevel = rs.getInt(1);
-			rs.close();
-			LinkedList<Patch> patchesToApply = new LinkedList<Patch>();
-			for(Patch p : patches) {
-				if (patchLevel(p) > currentPatchLevel) {
-					patchesToApply.add(p);
-				}
-			}
-			return patchesToApply;
-		} catch (Exception e) {
-			throw new RuntimeException("Can not apply strategy.", e);
-		}
-	}
 
-	private String detectTkTableName(Connection con) {
-		String tabName = null;
-		Set<String> qm = new HashSet<String>();
-		try {
-			ResultSet rs = con.getMetaData().getTables(null,null,null,null);
-			while(rs.next()) {
-				String tb = rs.getString(3);
-				if ("patches".equalsIgnoreCase(tb) || "tk_patches".equalsIgnoreCase(tb)) qm.add(tb);
-			}
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		if (qm.size() == 1) {
-			tabName = qm.iterator().next();
-		}
-		if (tabName == null) throw new RuntimeException("No tk table available. " + qm);
-		return tabName;
-	}
+    private static int patchLevel(Patch p) {
+        String str = p.getFile().getName();
+        try {
+            str = str.substring(5, 5 + 4).trim();
+            return Integer.parseInt(str);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Can not determinate patchLeave for patch " + p.getName());
+        }
+    }
 
-	public void beforePatching(Connection connection) {
-	}
+    public List<Patch> filter(Connection con, List<Patch> patches) {
+        try {
+            String tabName = detectTkTableName(con);
+            ResultSet rs = con.createStatement().executeQuery("SELECT patch_level FROM " + tabName);
+            rs.next();
+            int currentPatchLevel = rs.getInt(1);
+            rs.close();
+            LinkedList<Patch> patchesToApply = new LinkedList<Patch>();
+            for (Patch p : patches) {
+                if (patchLevel(p) > currentPatchLevel) {
+                    patchesToApply.add(p);
+                }
+            }
+            return patchesToApply;
+        } catch (Exception e) {
+            throw new RuntimeException("Can not apply strategy.", e);
+        }
+    }
 
-	public void afterPatching(Connection connection) {
-		// TODO release TK lock
-	}
+    private String detectTkTableName(Connection con) {
+        String tabName = null;
+        Set<String> qm = new HashSet<String>();
+        try {
+            ResultSet rs = con.getMetaData().getTables(null, null, null, null);
+            while (rs.next()) {
+                String tb = rs.getString(3);
+                if ("patches".equalsIgnoreCase(tb) || "tk_patches".equalsIgnoreCase(tb)) qm.add(tb);
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (qm.size() == 1) {
+            tabName = qm.iterator().next();
+        }
+        if (tabName == null) throw new RuntimeException("No tk table available. " + qm);
+        return tabName;
+    }
 
-	public void beforePatch(Connection connection, Patch patch) {
-	}
+    public void beforePatching(Connection connection) {
+    }
 
-	public void afterPatch(Connection connection, Patch patch, Exception ex) throws SQLException {
-		if (ex == null) {
-			connection.createStatement().executeUpdate("UPDATE " + detectTkTableName(connection) + " SET patch_level=" + patchLevel(patch));
-		}
-	}
+    public void afterPatching(Connection connection) {
+        // TODO release TK lock
+    }
+
+    public void beforePatch(Connection connection, Patch patch) {
+    }
+
+    public void afterPatch(Connection connection, Patch patch, Exception ex) throws SQLException {
+        if (ex == null) {
+            connection.createStatement().executeUpdate("UPDATE " + detectTkTableName(connection) + " SET patch_level=" + patchLevel(patch));
+        }
+    }
 
     @Override
     public void beforePatchStatement(Connection connection, AbstractPatch patch, PatchStatement statement) {

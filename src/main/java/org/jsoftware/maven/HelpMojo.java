@@ -3,11 +3,11 @@ package org.jsoftware.maven;
 import org.jsoftware.command.HelpCommand;
 
 
-
 /**
  * Display help
- * @goal help
+ *
  * @author szalik
+ * @goal help
  */
 public class HelpMojo extends CommandMojoAdapter<HelpCommand> {
 
