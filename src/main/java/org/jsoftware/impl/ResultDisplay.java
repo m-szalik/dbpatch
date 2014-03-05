@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.SQLWarning;
 
 /**
+ * GUI
  * Bottom bar with patching results.
  *
  * @author szalik

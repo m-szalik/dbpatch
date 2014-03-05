@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Helper for parsing SQL patch files.
+ */
 public class SimpleParser implements Serializable {
     private static final long serialVersionUID = 1L;
     private List<String> tokens;

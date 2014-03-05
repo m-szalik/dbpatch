@@ -46,6 +46,7 @@ public class ListCommand extends AbstractListCommand<Patch> {
         return patchesToApply;
     }
 
+
     @Override
     protected void executeInternal() throws Exception {
         getList();

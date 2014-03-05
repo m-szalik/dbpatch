@@ -5,6 +5,7 @@ import org.jsoftware.config.AbstractPatch;
 import javax.swing.*;
 
 /**
+ * GUI button
  * @author szalik
  */
 public class JPatchButton extends JButton {

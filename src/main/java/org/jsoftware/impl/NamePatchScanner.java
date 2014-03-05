@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Sorts patches by name from all directories
+ */
 public class NamePatchScanner extends SimplePatchScanner {
 
     @Override
