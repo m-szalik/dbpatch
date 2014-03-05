@@ -2,7 +2,7 @@ maven dbpatch plugin
 ====================
 
 ### Manage versioning of your databases with maven
-**This plugin allows you to version database changes (sql patches) with maven. It can automaticly apply patches as well as execute rollback scripts.**
+**This plugin allows you to version database changes (sql patches) with maven. It can automaticly apply patches as well as execute roll-backs scripts.**
 _Whenever it is possible patches are executed in transactions, so you can be sure that your patch was applied correctly or none._
 
 #### Plugin goals:
