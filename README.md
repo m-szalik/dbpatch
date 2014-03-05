@@ -20,7 +20,7 @@ This plugin can be executed as standard java program (java -jar [plugin-jar-file
 ![interactive mode screen shot](https://raw.github.com/m-szalik/dbpatch-maven-plugin/master/docs/dbpatch-interactive-screen.png)
 
 #### Bash completions for dbpatch plugin:
-Download [bash_completion](./docs/bash_completion) and save it into your maven base directory **~/.m2**.
+Download [bash_completion](https://raw.github.com/m-szalik/dbpatch-maven-plugin/master/docs/bash_completion) and save it into your maven base directory **~/.m2**.
 
 #### Configuration
 For configuration example see [docs/configuration-example](./docs/configuration-example)
