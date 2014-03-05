@@ -8,7 +8,7 @@ import java.util.Collection;
 
 
 /**
- * Runs interactive client from maven
+ * Command: Runs interactive client from maven
  * @author szalik
  */
 public class InteractiveCommand extends AbstractCommand {

@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 
 
 /**
- * Display help
+ * Command: Display help
  * @author szalik
  */
 public class HelpCommand extends AbstractCommand {

@@ -7,6 +7,9 @@ import java.io.*;
 import java.text.ParseException;
 import java.util.Collection;
 
+/**
+ * Base class for parsing configuration
+ */
 public abstract class AbstractConfigurationParser {
 	
 	public static Collection<ConfigurationEntry> discoverConfiguration(Object confFile) throws ParseException, IOException {

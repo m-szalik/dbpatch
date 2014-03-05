@@ -5,7 +5,7 @@ import org.jsoftware.impl.CloseUtil;
 import java.sql.*;
 
 /**
- * Mark patches &quot;in progress&quot; as committed.
+ * Command: Mark patches &quot;in progress&quot; as committed.
  * @author szalik
  */
 public class SkipErrorsCommand extends AbstractSingleConfDbPatchCommand {
