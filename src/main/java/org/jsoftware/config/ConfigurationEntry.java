@@ -16,6 +16,9 @@ import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.*;
 
+/**
+ * Represents configuration for single database profile
+ */
 public class ConfigurationEntry implements Serializable {
     private static final Map<String, ApplyStrategy> applyStrategies;
     private static final Map<String, Extension> availableExtensions;

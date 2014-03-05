@@ -3,6 +3,10 @@ package org.jsoftware.impl;
 import org.jsoftware.command.CommandFailureException;
 import org.jsoftware.config.Patch;
 
+/**
+ * In case if there is more than one patch with the same patch name
+ * @see org.jsoftware.config.Patch#getName()
+ */
 public class DuplicatePatchNameException extends CommandFailureException {
     private static final long serialVersionUID = 5221931112583803769L;
 

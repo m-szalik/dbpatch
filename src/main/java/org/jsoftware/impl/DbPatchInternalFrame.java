@@ -22,6 +22,9 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Interactive mode GUI
+ */
 @SuppressWarnings("serial")
 public class DbPatchInternalFrame extends JInternalFrame implements MouseListener, InternalFrameListener {
     private final static ResultDisplay resultDisplay = new ResultDisplay();

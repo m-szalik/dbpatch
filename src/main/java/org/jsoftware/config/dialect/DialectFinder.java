@@ -3,12 +3,14 @@ package org.jsoftware.config.dialect;
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
 
+/**
+ * It tries to autodetect database Dialect by parsing jdbc driver class name
+ */
 public class DialectFinder {
     private DialectFinder() {
     }
 
     public static Dialect find(String value) {
-        String oldValue = value;
         value = value.trim().toLowerCase();
         if (value.length() == 0 || value.equalsIgnoreCase("default")) {
             return null;

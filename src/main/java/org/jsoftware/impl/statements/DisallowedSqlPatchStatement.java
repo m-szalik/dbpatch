@@ -3,7 +3,7 @@ package org.jsoftware.impl.statements;
 import org.jsoftware.impl.PatchStatement;
 
 /**
- * Disallowed statements
+ * Disallowed statement
  *
  * @author szalik
  */

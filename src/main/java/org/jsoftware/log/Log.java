@@ -1,7 +1,7 @@
 package org.jsoftware.log;
 
 /**
- * DbPatch logger
+ * DbPatch logger facade
  *
  * @author szalik
  */

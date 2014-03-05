@@ -4,8 +4,15 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Basic patch information.
+ * <ul>
+ *     <li>file name</li>
+ *     <li>statements count</li>
+ *     <li>database state and apply date</li>
+ * </ul>
+ */
 public abstract class AbstractPatch implements Serializable {
-
     private static final long serialVersionUID = 4178101927323891639L;
 
     public static String normalizeName(String name) {

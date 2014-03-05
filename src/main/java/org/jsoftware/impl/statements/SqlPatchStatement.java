@@ -2,6 +2,9 @@ package org.jsoftware.impl.statements;
 
 import org.jsoftware.impl.PatchStatement;
 
+/**
+ * Executable SQL statement
+ */
 public class SqlPatchStatement implements PatchStatement {
     protected String sql;
 
