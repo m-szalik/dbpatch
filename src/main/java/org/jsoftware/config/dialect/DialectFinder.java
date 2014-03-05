@@ -8,17 +8,17 @@ public class DialectFinder {
     }
 
     public static Dialect find(String value) {
-		String oldValue = value;
-		value = value.trim().toLowerCase();
-		if (value.length() == 0 || value.equalsIgnoreCase("default")) {
-			return null;
-		}
+        String oldValue = value;
+        value = value.trim().toLowerCase();
+        if (value.length() == 0 || value.equalsIgnoreCase("default")) {
+            return null;
+        }
         return createDialect(Character.toUpperCase(value.charAt(0)) + value.substring(1));
-	}
+    }
 
     private static Dialect createDialect(String dialectName) {
         String value = "org.jsoftware.config.dialect." + dialectName;
-        if (! value.endsWith("Dialect")) {
+        if (!value.endsWith("Dialect")) {
             value = value + "Dialect";
         }
         try {

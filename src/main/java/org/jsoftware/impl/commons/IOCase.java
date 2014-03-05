@@ -21,14 +21,14 @@ import java.io.Serializable;
 
 /**
  * Enumeration of IO case sensitivity.
- * <p>
+ * <p/>
  * Different filing systems have different rules for case-sensitivity.
  * Windows is case-insensitive, Unix is case-sensitive.
- * <p>
+ * <p/>
  * This class captures that difference, providing an enumeration to
  * control how filename comparisons should be performed. It also provides
  * methods that use the enumeration to perform comparisons.
- * <p>
+ * <p/>
  * Wherever possible, you should use the <code>check</code> methods in this
  * class to compare filenames.
  *
@@ -42,62 +42,70 @@ public final class IOCase implements Serializable {
      * The constant for case sensitive regardless of operating system.
      */
     public static final IOCase SENSITIVE = new IOCase("Sensitive", true);
-    
+
     /**
      * The constant for case insensitive regardless of operating system.
      */
     public static final IOCase INSENSITIVE = new IOCase("Insensitive", false);
-    
+
     /**
      * The constant for case sensitivity determined by the current operating system.
      * Windows is case-insensitive when comparing filenames, Unix is case-sensitive.
-     * <p>
+     * <p/>
      * <strong>Note:</strong> This only caters for Windows and Unix. Other operating
      * systems (e.g. OSX and OpenVMS) are treated as case sensitive if they use the
      * Unix file separator and case-insensitive if they use the Windows file separator
      * (see {@link java.io.File#separatorChar}).
-     * <p>
+     * <p/>
      * If you derialize this constant of Windows, and deserialize on Unix, or vice
      * versa, then the value of the case-sensitivity flag will change.
      */
     public static final IOCase SYSTEM = new IOCase("System", !FilenameUtils.isSystemWindows());
 
-    /** Serialization version. */
+    /**
+     * Serialization version.
+     */
     private static final long serialVersionUID = -6343169151696340687L;
 
-    /** The enumeration name. */
+    /**
+     * The enumeration name.
+     */
     private final String name;
-    
-    /** The sensitivity flag. */
+
+    /**
+     * The sensitivity flag.
+     */
     private final transient boolean sensitive;
 
     //-----------------------------------------------------------------------
+
     /**
      * Factory method to create an IOCase from a name.
-     * 
-     * @param name  the name to find
+     *
+     * @param name the name to find
      * @return the IOCase object
      * @throws IllegalArgumentException if the name is invalid
      */
     public static IOCase forName(String name) {
-        if (IOCase.SENSITIVE.name.equals(name)){
+        if (IOCase.SENSITIVE.name.equals(name)) {
             return IOCase.SENSITIVE;
         }
-        if (IOCase.INSENSITIVE.name.equals(name)){
+        if (IOCase.INSENSITIVE.name.equals(name)) {
             return IOCase.INSENSITIVE;
         }
-        if (IOCase.SYSTEM.name.equals(name)){
+        if (IOCase.SYSTEM.name.equals(name)) {
             return IOCase.SYSTEM;
         }
         throw new IllegalArgumentException("Invalid IOCase name: " + name);
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * Private constructor.
-     * 
-     * @param name  the name
-     * @param sensitive  the sensitivity
+     *
+     * @param name      the name
+     * @param sensitive the sensitivity
      */
     private IOCase(String name, boolean sensitive) {
         this.name = name;
@@ -107,7 +115,7 @@ public final class IOCase implements Serializable {
     /**
      * Replaces the enumeration from the stream with a real one.
      * This ensures that the correct flag is set for SYSTEM.
-     * 
+     *
      * @return the resolved object
      */
     private Object readResolve() {
@@ -115,9 +123,10 @@ public final class IOCase implements Serializable {
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * Gets the name of the constant.
-     * 
+     *
      * @return the name of the constant
      */
     public String getName() {
@@ -126,7 +135,7 @@ public final class IOCase implements Serializable {
 
     /**
      * Does the object represent case sensitive comparison.
-     * 
+     *
      * @return true if case sensitive
      */
     public boolean isCaseSensitive() {
@@ -134,14 +143,15 @@ public final class IOCase implements Serializable {
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * Compares two strings using the case-sensitivity rule.
-     * <p>
+     * <p/>
      * This method mimics {@link String#compareTo} but takes case-sensitivity
      * into account.
-     * 
-     * @param str1  the first string to compare, not null
-     * @param str2  the second string to compare, not null
+     *
+     * @param str1 the first string to compare, not null
+     * @param str2 the second string to compare, not null
      * @return true if equal using the case rules
      * @throws NullPointerException if either string is null
      */
@@ -154,12 +164,12 @@ public final class IOCase implements Serializable {
 
     /**
      * Compares two strings using the case-sensitivity rule.
-     * <p>
+     * <p/>
      * This method mimics {@link String#equals} but takes case-sensitivity
      * into account.
-     * 
-     * @param str1  the first string to compare, not null
-     * @param str2  the second string to compare, not null
+     *
+     * @param str1 the first string to compare, not null
+     * @param str2 the second string to compare, not null
      * @return true if equal using the case rules
      * @throws NullPointerException if either string is null
      */
@@ -172,12 +182,12 @@ public final class IOCase implements Serializable {
 
     /**
      * Checks if one string starts with another using the case-sensitivity rule.
-     * <p>
+     * <p/>
      * This method mimics {@link String#startsWith(String)} but takes case-sensitivity
      * into account.
-     * 
-     * @param str  the string to check, not null
-     * @param start  the start to compare against, not null
+     *
+     * @param str   the string to check, not null
+     * @param start the start to compare against, not null
      * @return true if equal using the case rules
      * @throws NullPointerException if either string is null
      */
@@ -187,12 +197,12 @@ public final class IOCase implements Serializable {
 
     /**
      * Checks if one string ends with another using the case-sensitivity rule.
-     * <p>
+     * <p/>
      * This method mimics {@link String#endsWith} but takes case-sensitivity
      * into account.
-     * 
-     * @param str  the string to check, not null
-     * @param end  the end to compare against, not null
+     *
+     * @param str the string to check, not null
+     * @param end the end to compare against, not null
      * @return true if equal using the case rules
      * @throws NullPointerException if either string is null
      */
@@ -204,15 +214,15 @@ public final class IOCase implements Serializable {
     /**
      * Checks if one string contains another starting at a specific index using the
      * case-sensitivity rule.
-     * <p>
-     * This method mimics parts of {@link String#indexOf(String, int)} 
+     * <p/>
+     * This method mimics parts of {@link String#indexOf(String, int)}
      * but takes case-sensitivity into account.
-     * 
-     * @param str  the string to check, not null
-     * @param strStartIndex  the index to start at in str
-     * @param search  the start to search for, not null
+     *
+     * @param str           the string to check, not null
+     * @param strStartIndex the index to start at in str
+     * @param search        the start to search for, not null
      * @return the first index of the search String,
-     *  -1 if no match or <code>null</code> string input
+     * -1 if no match or <code>null</code> string input
      * @throws NullPointerException if either string is null
      * @since Commons IO 2.0
      */
@@ -230,13 +240,13 @@ public final class IOCase implements Serializable {
 
     /**
      * Checks if one string contains another at a specific index using the case-sensitivity rule.
-     * <p>
-     * This method mimics parts of {@link String#regionMatches(boolean, int, String, int, int)} 
+     * <p/>
+     * This method mimics parts of {@link String#regionMatches(boolean, int, String, int, int)}
      * but takes case-sensitivity into account.
-     * 
-     * @param str  the string to check, not null
-     * @param strStartIndex  the index to start at in str
-     * @param search  the start to search for, not null
+     *
+     * @param str           the string to check, not null
+     * @param strStartIndex the index to start at in str
+     * @param search        the start to search for, not null
      * @return true if equal using the case rules
      * @throws NullPointerException if either string is null
      */
@@ -245,9 +255,10 @@ public final class IOCase implements Serializable {
     }
 
     //-----------------------------------------------------------------------
+
     /**
      * Gets a string describing the sensitivity.
-     * 
+     *
      * @return a string describing the sensitivity
      */
     @Override

@@ -6,30 +6,30 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class CommentPatchStatement implements PatchStatement {
-	protected String comment;
+    protected String comment;
 
-	public CommentPatchStatement(String comment) {
-		this.comment = comment;
-	}
+    public CommentPatchStatement(String comment) {
+        this.comment = comment;
+    }
 
-	public boolean isDisplayable() {
-		return true;
-	}
+    public boolean isDisplayable() {
+        return true;
+    }
 
-	public String toString() {
-		return getClass().getSimpleName() + ":" + comment;
-	}
+    public String toString() {
+        return getClass().getSimpleName() + ":" + comment;
+    }
 
-	public String getCode() {
-		return comment;
-	}
-	
-	public boolean isExecutable() {
-		return false;
-	}
+    public String getCode() {
+        return comment;
+    }
 
-	public int execute(Connection con) throws SQLException {
-		return 0;
-	}
+    public boolean isExecutable() {
+        return false;
+    }
+
+    public int execute(Connection con) throws SQLException {
+        return 0;
+    }
 
 }

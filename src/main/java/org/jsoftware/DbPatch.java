@@ -14,19 +14,20 @@ import java.util.Collection;
 
 /**
  * Standalone application with command-line and GUI support
+ *
  * @author szalik
  */
 public class DbPatch {
 
-	public static void main(String[] args) throws ParseException, IOException, CommandFailureException, CommandExecutionException {
-		LogFactory.initLocal();
+    public static void main(String[] args) throws ParseException, IOException, CommandFailureException, CommandExecutionException {
+        LogFactory.initLocal();
         File confFile;
 
         if (args.length > 1) {
-           confFile = new File(args[1]);
-           if (! confFile.exists()) {
-               throw new FileNotFoundException("Cannot find configuration file - " + confFile.getAbsolutePath());
-           }
+            confFile = new File(args[1]);
+            if (!confFile.exists()) {
+                throw new FileNotFoundException("Cannot find configuration file - " + confFile.getAbsolutePath());
+            }
         } else {
             confFile = null;
         }
@@ -46,7 +47,7 @@ public class DbPatch {
                 command.execute();
             }
         }
-	}
+    }
 
     private static AbstractCommand argToCommand(String mojoArg) {
         if ("help".equalsIgnoreCase(mojoArg)) {

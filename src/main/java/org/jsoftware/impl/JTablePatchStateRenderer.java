@@ -10,28 +10,28 @@ import java.awt.*;
 
 public class JTablePatchStateRenderer extends DefaultTableCellRenderer {
 
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         Component component = null;
         Color color = null;
         if (value instanceof Patch) {
-			Patch p = (Patch) value;
+            Patch p = (Patch) value;
             String text = "";
-			if (p.getDbState() == AbstractPatch.DbState.IN_PROGRESS) {
-				text = Messages.msg("table.patches.state.inProgress");
-			}
-			if (p.getDbState() == AbstractPatch.DbState.COMMITTED) {
+            if (p.getDbState() == AbstractPatch.DbState.IN_PROGRESS) {
+                text = Messages.msg("table.patches.state.inProgress");
+            }
+            if (p.getDbState() == AbstractPatch.DbState.COMMITTED) {
                 text = Messages.msg("table.patches.state.committed");
                 color = Color.GREEN;
-			}
-			if (p.getDbState() == AbstractPatch.DbState.NOT_AVAILABLE) {
-				if (p.canApply()) {
+            }
+            if (p.getDbState() == AbstractPatch.DbState.NOT_AVAILABLE) {
+                if (p.canApply()) {
                     text = Messages.msg("table.patches.state.missing");
-				} else {
-					text = Messages.msg("table.patches.state.empty");
-				}
-			}
+                } else {
+                    text = Messages.msg("table.patches.state.empty");
+                }
+            }
             component = super.getTableCellRendererComponent(table, text, isSelected, hasFocus, row, column);
-		}
+        }
         if (value instanceof RollbackPatch) {
             String text = "";
             RollbackPatch rp = (RollbackPatch) value;

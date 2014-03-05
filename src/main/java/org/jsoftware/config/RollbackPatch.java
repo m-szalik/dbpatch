@@ -37,7 +37,7 @@ public class RollbackPatch extends AbstractPatch {
 
     @Override
     public boolean canApply() {
-        return ! isMissing() && getStatementCount() > 0 && getDbState() == DbState.COMMITTED;
+        return !isMissing() && getStatementCount() > 0 && getDbState() == DbState.COMMITTED;
     }
 }
 

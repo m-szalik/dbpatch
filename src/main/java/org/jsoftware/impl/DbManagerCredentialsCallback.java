@@ -6,8 +6,8 @@ import java.sql.SQLException;
 
 public interface DbManagerCredentialsCallback {
 
-	String getUsername(ConfigurationEntry configurationEntry) throws SQLException;
+    String getUsername(ConfigurationEntry configurationEntry) throws SQLException;
 
     String getPassword(SQLException sqlException, int tryNo, ConfigurationEntry configurationEntry) throws SQLException;
-	
+
 }

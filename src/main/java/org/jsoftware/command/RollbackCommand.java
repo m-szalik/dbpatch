@@ -11,14 +11,15 @@ import java.util.List;
 
 /**
  * Command: Runs auto-patch mode
+ *
  * @author szalik
  */
 public class RollbackCommand extends RollbackListCommand implements CommandSuccessIndicator {
     private boolean success;
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	protected void executeInternal() throws Exception {
+
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void executeInternal() throws Exception {
         success = false;
         List<RollbackPatch> patches = getList();
         List<RollbackPatch> patchesFiltered = new LinkedList<RollbackPatch>();
@@ -27,7 +28,7 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
         if (StringUtils.isBlank(dSingle) && StringUtils.isBlank(dStop)) {
             throw new MojoExecutionException("Missing property 'maven.dbpatch.single' or 'maven.dbpatch.stop'!");
         }
-        if (! StringUtils.isBlank(dSingle) && ! StringUtils.isBlank(dStop)) {
+        if (!StringUtils.isBlank(dSingle) && !StringUtils.isBlank(dStop)) {
             throw new MojoExecutionException("Both properties 'maven.dbpatch.single' and 'maven.dbpatch.stop' are set!");
         }
         String pnOrg = StringUtils.isBlank(dSingle) ? dStop : dSingle;
@@ -35,7 +36,7 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
         log.debug("Looking for patch '" + pnOrg + "' -> '" + pn + "'.");
         boolean found = false;
         if (StringUtils.isNotBlank(dStop)) {
-            for(RollbackPatch rp : patches) {
+            for (RollbackPatch rp : patches) {
                 patchesFiltered.add(rp);
                 if (rp.getName().equals(pn)) {
                     found = true;
@@ -43,7 +44,7 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
                 }
             }
         } else {
-            for(RollbackPatch rp : patches) {
+            for (RollbackPatch rp : patches) {
                 if (rp.getName().equals(pn)) {
                     found = true;
                     patchesFiltered.add(rp);
@@ -51,13 +52,13 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
                 }
             }
         }
-        if (! found) {
-            throw new MojoExecutionException("Cannot find patch by name '" +pnOrg+ "'");
+        if (!found) {
+            throw new MojoExecutionException("Cannot find patch by name '" + pnOrg + "'");
         }
 
-		try {
-			manager.startExecution();
-			for(RollbackPatch p : patchesFiltered) {
+        try {
+            manager.startExecution();
+            for (RollbackPatch p : patchesFiltered) {
                 if (p.getDbState() == AbstractPatch.DbState.COMMITTED) {
                     if (p.isMissing()) {
                         String msg = "Missing or empty rollback file for patch " + p.getName();
@@ -70,12 +71,12 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
                 } else {
                     log.info("Skipping rollback for " + p.getName() + " patch was not applied.");
                 }
-			}
-			success = true;
-		} finally {
-			manager.endExecution();
-		}
-	}
+            }
+            success = true;
+        } finally {
+            manager.endExecution();
+        }
+    }
 
     @Override
     public boolean isSuccess() {
