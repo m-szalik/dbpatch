@@ -4,8 +4,9 @@ import org.jsoftware.command.SkipErrorsCommand;
 
 /**
  * Mark patches &quot;in progress&quot; as committed.
- * @goal skip-errors
+ *
  * @author szalik
+ * @goal skip-errors
  */
 public class SkipErrorsMojo extends CommandSingleConfMojoAdapter<SkipErrorsCommand> {
 

@@ -19,73 +19,73 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DbManager {
-	private ConfigurationEntry ce;
-	private Dialect dialect;
-	private Connection c;
-	private final Log log = LogFactory.getInstance();
-	private List<Extension> extensions;
-	
-	
-	public DbManager(ConfigurationEntry ce) throws SQLException {
-		this.ce = ce;
-		this.extensions = new LinkedList<Extension>(ce.getExtensions());
-		this.dialect = ce.getDialect();
-		try {
-			Class.forName(ce.getDriverClass()).newInstance();
-		} catch(Exception ex) {
-			throw new SQLException("Could not load driver class - " + ce.getDriverClass());
-		}
-	}
-	
-	public void init(DbManagerCredentialsCallback dbManagerPasswordCallback) throws SQLException {
-		Connection con;
-		int tryNo = 0;
-		String password = ce.getPassword();
-		do {
-			try {
-				con = DriverManager.getConnection(ce.getJdbcUri(), ce.getUser(), password);
-			} catch (SQLException e) {
-				password = dbManagerPasswordCallback.getPassword(e, tryNo, ce);
-				tryNo++;
-				continue;
-			}
-			break;
-		} while (true);
-		if (con != null) {			
-			dialect.checkAndCreateStruct(con);
-			con.setAutoCommit(false); // just for sure
-			c = con;
-		}
-	}
-	
-	public Connection getConnection() {
-		if (c == null) {
-			throw new IllegalStateException("Invoke init method first.");
-		}
-		return c;
-	}
+    private ConfigurationEntry ce;
+    private Dialect dialect;
+    private Connection c;
+    private final Log log = LogFactory.getInstance();
+    private List<Extension> extensions;
 
-	public void updateStateObject(Patch p) throws SQLException {
-		PreparedStatement ps = c.prepareStatement("SELECT patch_db_date FROM "+ dialect.getDbPatchTableName() +" WHERE patch_name=?");
-		ps.setString(1, p.getName());
-		ResultSet rs = ps.executeQuery();
-		try {
-			if (rs.next()) {
-				Date d = rs.getDate(1);
-				if (d != null) {
-					p.setDbState(AbstractPatch.DbState.COMMITTED);
-					p.setDbDate(d);
-				} else {
-					p.setDbState(AbstractPatch.DbState.IN_PROGRESS);
-				}
-			} else {
-				p.setDbState(AbstractPatch.DbState.NOT_AVAILABLE);
-			}
-		} finally {
-			rs.close();
-			ps.close();
-		}
-	}
+
+    public DbManager(ConfigurationEntry ce) throws SQLException {
+        this.ce = ce;
+        this.extensions = new LinkedList<Extension>(ce.getExtensions());
+        this.dialect = ce.getDialect();
+        try {
+            Class.forName(ce.getDriverClass()).newInstance();
+        } catch (Exception ex) {
+            throw new SQLException("Could not load driver class - " + ce.getDriverClass());
+        }
+    }
+
+    public void init(DbManagerCredentialsCallback dbManagerPasswordCallback) throws SQLException {
+        Connection con;
+        int tryNo = 0;
+        String password = ce.getPassword();
+        do {
+            try {
+                con = DriverManager.getConnection(ce.getJdbcUri(), ce.getUser(), password);
+            } catch (SQLException e) {
+                password = dbManagerPasswordCallback.getPassword(e, tryNo, ce);
+                tryNo++;
+                continue;
+            }
+            break;
+        } while (true);
+        if (con != null) {
+            dialect.checkAndCreateStruct(con);
+            con.setAutoCommit(false); // just for sure
+            c = con;
+        }
+    }
+
+    public Connection getConnection() {
+        if (c == null) {
+            throw new IllegalStateException("Invoke init method first.");
+        }
+        return c;
+    }
+
+    public void updateStateObject(Patch p) throws SQLException {
+        PreparedStatement ps = c.prepareStatement("SELECT patch_db_date FROM " + dialect.getDbPatchTableName() + " WHERE patch_name=?");
+        ps.setString(1, p.getName());
+        ResultSet rs = ps.executeQuery();
+        try {
+            if (rs.next()) {
+                Date d = rs.getDate(1);
+                if (d != null) {
+                    p.setDbState(AbstractPatch.DbState.COMMITTED);
+                    p.setDbDate(d);
+                } else {
+                    p.setDbState(AbstractPatch.DbState.IN_PROGRESS);
+                }
+            } else {
+                p.setDbState(AbstractPatch.DbState.NOT_AVAILABLE);
+            }
+        } finally {
+            rs.close();
+            ps.close();
+        }
+    }
 
     public void apply(final Patch p) throws SQLException {
         PatchStatementHolder h = new PatchStatementHolder();
@@ -110,7 +110,7 @@ public class DbManager {
             if (h.object != null) {
                 log.warn("Query execution problem \"" + h.object + "\" - " + e);
             }
-            log.warn("Patch " + p.getName() + " execution error!"  + e);
+            log.warn("Patch " + p.getName() + " execution error!" + e);
             c.rollback();
             final SQLException ex = new SQLException(e.getMessage(), "");
             ex.initCause(e);
@@ -151,7 +151,7 @@ public class DbManager {
             if (h.object != null) {
                 log.warn("Query execution problem \"" + h.object + "\" - " + e);
             }
-            log.warn("Patch " + p.getName() + " execution error!"  + e);
+            log.warn("Patch " + p.getName() + " execution error!" + e);
             c.rollback();
             final SQLException ex = new SQLException(e.getMessage(), "");
             ex.initCause(e);
@@ -161,12 +161,12 @@ public class DbManager {
                 }
             });
             throw ex;
-       } 
+        }
     }
 
 
     private void execute(final AbstractPatch patch, final PatchStatementHolder h) throws IOException, SQLException {
-        for(final PatchStatement ps : ce.getPatchParser().parse(patch, ce).getStatements()) {
+        for (final PatchStatement ps : ce.getPatchParser().parse(patch, ce).getStatements()) {
             if (ps.isDisplayable()) {
                 log.debug(ps.toString());
             }
@@ -194,68 +194,68 @@ public class DbManager {
         h.object = null;
     }
 
-	public void updateStateObjectAll(Collection<Patch> patches) throws SQLException {
-		for(Patch p : patches) {
-			updateStateObject(p);
-		}
-	}
+    public void updateStateObjectAll(Collection<Patch> patches) throws SQLException {
+        for (Patch p : patches) {
+            updateStateObject(p);
+        }
+    }
 
 
-	public void startExecution() throws SQLException {
-		dialect.lock(c, 3000);
-		invokeExtensions("beforePatching", new ExtensionMethodInvokeCallback() {
-			public void invokeOn(Extension extension) throws Exception {
-				extension.beforePatching(c);
-			}
-		});
-	}
-	
-	public void endExecution() throws SQLException {
-		try { 
-			c.rollback(); 
-		} finally {
-			invokeExtensions("afterPatching", new ExtensionMethodInvokeCallback() {
-				public void invokeOn(Extension extension) throws Exception {
-					extension.afterPatching(c);
-				}
-			});
-			dialect.releaseLock(c);
-		}
-	}
+    public void startExecution() throws SQLException {
+        dialect.lock(c, 3000);
+        invokeExtensions("beforePatching", new ExtensionMethodInvokeCallback() {
+            public void invokeOn(Extension extension) throws Exception {
+                extension.beforePatching(c);
+            }
+        });
+    }
+
+    public void endExecution() throws SQLException {
+        try {
+            c.rollback();
+        } finally {
+            invokeExtensions("afterPatching", new ExtensionMethodInvokeCallback() {
+                public void invokeOn(Extension extension) throws Exception {
+                    extension.afterPatching(c);
+                }
+            });
+            dialect.releaseLock(c);
+        }
+    }
 
 
-	public void dispose() {
-		CloseUtil.close(c);
-	}
-	
-	private void invokeExtensions(String method, ExtensionMethodInvokeCallback cb) {
-		for(Extension extension : extensions) {
-			log.debug("Invoke method (" + method + ") on " + extension.getClass());
-			try {
-				cb.invokeOn(extension);
-			} catch (Exception e) {
-				log.warn("Invoke method (" + method + ") on " + extension.getClass() + " throws " + e, e);
-			}
-		}
-	}
-	
-	public void addExtension(Extension extension) {
-		extensions.add(extension);
-	}
+    public void dispose() {
+        CloseUtil.close(c);
+    }
 
-	public String getTableName() {
-		return dialect.getDbPatchTableName();
-	}
+    private void invokeExtensions(String method, ExtensionMethodInvokeCallback cb) {
+        for (Extension extension : extensions) {
+            log.debug("Invoke method (" + method + ") on " + extension.getClass());
+            try {
+                cb.invokeOn(extension);
+            } catch (Exception e) {
+                log.warn("Invoke method (" + method + ") on " + extension.getClass() + " throws " + e, e);
+            }
+        }
+    }
 
-	public Date getNow() throws SQLException {
-		Timestamp ts = dialect.getNow(c);
-		return new Date(ts.getTime());
-	}
+    public void addExtension(Extension extension) {
+        extensions.add(extension);
+    }
+
+    public String getTableName() {
+        return dialect.getDbPatchTableName();
+    }
+
+    public Date getNow() throws SQLException {
+        Timestamp ts = dialect.getNow(c);
+        return new Date(ts.getTime());
+    }
 
 }
 
 interface ExtensionMethodInvokeCallback {
-	void invokeOn(Extension extension) throws Exception;
+    void invokeOn(Extension extension) throws Exception;
 }
 
 class PatchStatementHolder {

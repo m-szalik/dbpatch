@@ -5,8 +5,9 @@ import org.jsoftware.command.InteractiveCommand;
 
 /**
  * Runs interactive client from maven
- * @goal interactive
+ *
  * @author szalik
+ * @goal interactive
  */
 public class InteractiveMojo extends CommandMojoAdapter<InteractiveCommand> {
 

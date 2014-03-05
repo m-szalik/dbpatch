@@ -5,8 +5,9 @@ import org.jsoftware.command.RollbackListCommand;
 
 /**
  * Show list of rollabck patches
- * @goal rollback-list
+ *
  * @author szalik
+ * @goal rollback-list
  */
 public class RollbackListMojo extends CommandSingleConfMojoAdapter<RollbackListCommand> {
 

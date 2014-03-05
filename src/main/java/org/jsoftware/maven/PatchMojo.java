@@ -7,8 +7,9 @@ import org.jsoftware.command.PatchCommand;
 
 /**
  * Runs auto-patch mode
- * @goal patch
+ *
  * @author szalik
+ * @goal patch
  */
 public class PatchMojo extends CommandSingleConfMojoAdapter<PatchCommand> {
 

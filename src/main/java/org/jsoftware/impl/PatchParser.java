@@ -9,13 +9,15 @@ import java.util.List;
 
 
 public interface PatchParser {
-	public interface ParseResult {
-		List<PatchStatement> getStatements();
-		int executableCount();
-		int totalCount();
-	}
+    public interface ParseResult {
+        List<PatchStatement> getStatements();
 
-	ParseResult parse(InputStream inputStream, ConfigurationEntry ce) throws IOException;
+        int executableCount();
 
-	ParseResult parse(AbstractPatch p, ConfigurationEntry ce) throws IOException;
+        int totalCount();
+    }
+
+    ParseResult parse(InputStream inputStream, ConfigurationEntry ce) throws IOException;
+
+    ParseResult parse(AbstractPatch p, ConfigurationEntry ce) throws IOException;
 }

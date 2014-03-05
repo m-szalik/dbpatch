@@ -5,8 +5,9 @@ import org.jsoftware.command.ListCommand;
 
 /**
  * Show list of patches
- * @goal list
+ *
  * @author szalik
+ * @goal list
  */
 public class ListMojo extends CommandSingleConfMojoAdapter<ListCommand> {
 
