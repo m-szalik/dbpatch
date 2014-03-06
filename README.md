@@ -31,3 +31,6 @@ https://github.com/m-szalik/dbpatch-maven-plugin/wiki
 #### License
 Apache License 2.0
 
+#### Problems and questions
+In case of problems or questions contact me by [creating an issue](https://github.com/m-szalik/dbpatch-maven-plugin/issues/new) on GitHub.
+
