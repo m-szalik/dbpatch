@@ -11,6 +11,7 @@ public interface DbManagerCredentialsCallback {
 
     /**
      * Invoked when username is missing or invalid
+     *
      * @param configurationEntry selected database profile
      * @return database username
      * @throws SQLException
@@ -18,11 +19,12 @@ public interface DbManagerCredentialsCallback {
     String getUsername(ConfigurationEntry configurationEntry) throws SQLException;
 
     /**
-    * Invoked when password is missing or invalid
-    * @param configurationEntry selected database profile
-    * @return database password
-    * @throws SQLException
-    */
+     * Invoked when password is missing or invalid
+     *
+     * @param configurationEntry selected database profile
+     * @return database password
+     * @throws SQLException
+     */
     String getPassword(SQLException sqlException, int tryNo, ConfigurationEntry configurationEntry) throws SQLException;
 
 }

@@ -2,8 +2,8 @@ package org.jsoftware.command;
 
 /**
  * @author szalik
- * It is mapped to MojoExecutionException but
- * <p>I got my own exception because this software can be used without maven.</p>
+ *         It is mapped to MojoExecutionException but
+ *         <p>I got my own exception because this software can be used without maven.</p>
  */
 public class CommandExecutionException extends Exception {
     public CommandExecutionException(String message) {
