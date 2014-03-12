@@ -4,6 +4,7 @@ import java.io.File;
 
 /**
  * Single roll-back patch
+ *
  * @see org.jsoftware.config.Patch
  */
 public class RollbackPatch extends AbstractPatch {

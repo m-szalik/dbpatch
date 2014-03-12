@@ -2,6 +2,7 @@ package org.jsoftware.impl;
 
 /**
  * Represents single SQL statements
+ *
  * @see org.jsoftware.impl.statements.CommentPatchStatement
  * @see org.jsoftware.impl.statements.SqlPatchStatement
  * @see org.jsoftware.impl.statements.DisallowedSqlPatchStatement

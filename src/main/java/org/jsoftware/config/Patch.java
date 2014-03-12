@@ -2,6 +2,7 @@ package org.jsoftware.config;
 
 /**
  * Single patch
+ *
  * @see org.jsoftware.config.RollbackPatch
  */
 public class Patch extends AbstractPatch {

@@ -36,7 +36,6 @@ public class OracleDialect extends DefaultDialect {
             }
             return result;
         }
-
         return super.executeStatement(c, ps);
     }
 
