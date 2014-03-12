@@ -159,8 +159,7 @@ public class DefaultDialect implements Dialect {
                 stm = con.createStatement();
                 stm.execute("CREATE TABLE " + DBPATCH_TABLE_NAME + "(patch_name varchar(128), patch_date TIMESTAMP, patch_db_date TIMESTAMP)");
                 insertEmptyRow(con);
-            } catch (SQLException e) { /* ignore */ }
-            finally {
+            } catch (SQLException e) { /* ignore */ } finally {
                 CloseUtil.close(stm);
             }
         }

@@ -7,9 +7,9 @@ import java.util.Date;
 /**
  * Basic patch information.
  * <ul>
- *     <li>file name</li>
- *     <li>statements count</li>
- *     <li>database state and apply date</li>
+ * <li>file name</li>
+ * <li>statements count</li>
+ * <li>database state and apply date</li>
  * </ul>
  */
 public abstract class AbstractPatch implements Serializable {

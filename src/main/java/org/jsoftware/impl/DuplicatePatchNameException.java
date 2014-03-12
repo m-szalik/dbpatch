@@ -5,6 +5,7 @@ import org.jsoftware.config.Patch;
 
 /**
  * In case if there is more than one patch with the same patch name
+ *
  * @see org.jsoftware.config.Patch#getName()
  */
 public class DuplicatePatchNameException extends CommandFailureException {
