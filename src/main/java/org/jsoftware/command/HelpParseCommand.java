@@ -1,5 +1,6 @@
 package org.jsoftware.command;
 
+import org.jsoftware.impl.CloseUtil;
 import org.jsoftware.impl.DefaultPatchParser;
 import org.jsoftware.impl.PatchParser.ParseResult;
 import org.jsoftware.impl.PatchStatement;
@@ -26,14 +27,18 @@ public class HelpParseCommand extends AbstractCommand {
             throw new CommandFailureException("File " + f.getAbsolutePath() + " not found.");
         }
         DefaultPatchParser parser = new DefaultPatchParser();
+        FileInputStream fis = null;
         try {
-            ParseResult pr = parser.parse(new FileInputStream(f), null);
+            fis = new FileInputStream(f);
+            ParseResult pr = parser.parse(fis, null);
             log.info("Statements count: " + pr.executableCount());
             for (PatchStatement ps : pr.getStatements()) {
                 log.info("{ " + ps + " }");
             }
         } catch (IOException e) {
             throw new CommandExecutionException("Exception", e);
+        } finally {
+            CloseUtil.close(fis);
         }
     }
 

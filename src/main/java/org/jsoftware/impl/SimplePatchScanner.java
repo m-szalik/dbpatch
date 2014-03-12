@@ -104,7 +104,7 @@ public abstract class SimplePatchScanner implements PatchScanner {
     }
 
 
-    class WildcardMaskFileFilter implements FileFilter {
+    static class WildcardMaskFileFilter implements FileFilter {
         private String mask;
 
         public WildcardMaskFileFilter(String mask) {

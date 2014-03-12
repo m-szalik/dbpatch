@@ -5,11 +5,13 @@ import org.jsoftware.config.ApplyStrategy;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.config.dialect.PatchExecutionResult;
+import org.jsoftware.impl.CloseUtil;
 import org.jsoftware.impl.PatchStatement;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,9 +30,12 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
     }
 
     public List<Patch> filter(Connection con, List<Patch> patches) {
+        Statement stm = null;
+        ResultSet rs = null;
         try {
             String tabName = detectTkTableName(con);
-            ResultSet rs = con.createStatement().executeQuery("SELECT patch_level FROM " + tabName);
+            stm = con.createStatement();
+            rs = stm.executeQuery("SELECT patch_level FROM " + tabName);
             rs.next();
             int currentPatchLevel = rs.getInt(1);
             rs.close();
@@ -43,6 +48,9 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
             return patchesToApply;
         } catch (Exception e) {
             throw new RuntimeException("Can not apply strategy.", e);
+        } finally {
+            CloseUtil.close(rs);
+            CloseUtil.close(stm);
         }
     }
 
@@ -78,7 +86,13 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
 
     public void afterPatch(Connection connection, Patch patch, Exception ex) throws SQLException {
         if (ex == null) {
-            connection.createStatement().executeUpdate("UPDATE " + detectTkTableName(connection) + " SET patch_level=" + patchLevel(patch));
+            Statement stm = null;
+            try {
+                stm = connection.createStatement();
+                stm.executeUpdate("UPDATE " + detectTkTableName(connection) + " SET patch_level=" + patchLevel(patch));
+            } finally {
+                CloseUtil.close(stm);
+            }
         }
     }
 

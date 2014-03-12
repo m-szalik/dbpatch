@@ -45,7 +45,7 @@ public abstract class AbstractCommand {
     }
 
     public ConfigurationEntry getConf() {
-        return conf;	/* firebug ok - unwritten field (maven writes it) */
+        return conf;	/* findBugs ok - unwritten field (maven writes it) */
     }
 
 

@@ -1,5 +1,6 @@
 package org.jsoftware.config.dialect;
 
+import org.jsoftware.impl.CloseUtil;
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
 
@@ -19,42 +20,52 @@ public class SybaseDialect extends DefaultDialect {
     public void checkAndCreateStruct(Connection con) throws SQLException {
         boolean autoCommit = con.getAutoCommit();
         con.setAutoCommit(true);
+        ResultSet rs = null;
         try {
-            ResultSet rs = con.getMetaData().getTables(null, null, DBPATCH_TABLE_NAME, null);
+            rs = con.getMetaData().getTables(null, null, DBPATCH_TABLE_NAME, null);
             boolean tableFound = rs.next();
-            rs.close();
+            CloseUtil.close(rs);
             if (!tableFound) {
+                Statement stm = null;
                 try {
-                    con.createStatement().execute("CREATE TABLE " + DBPATCH_TABLE_NAME + "(patch_name varchar(128), patch_date datetime NULL, patch_db_date datetime NULL)");
+                    stm = con.createStatement();
+                    stm.execute("CREATE TABLE " + DBPATCH_TABLE_NAME + "(patch_name varchar(128), patch_date datetime NULL, patch_db_date datetime NULL)");
                     insertEmptyRow(con);
                 } catch (SQLException e) {
                     logger.info("An error occurred while creating '" + DBPATCH_TABLE_NAME + "' table (in Sybase database). Message: " + e.getMessage());
                     throw e;
+                } finally {
+                    CloseUtil.close(stm);
                 }
             }
-            rs = con.createStatement().executeQuery("SELECT patch_name FROM " + DBPATCH_TABLE_NAME + " WHERE patch_name IS NULL");
-            if (!rs.next()) {
-                insertEmptyRow(con);
+            Statement stm = null;
+            try {
+                stm = con.createStatement();
+                rs = stm.executeQuery("SELECT patch_name FROM " + DBPATCH_TABLE_NAME + " WHERE patch_name IS NULL");
+                if (!rs.next()) {
+                    insertEmptyRow(con);
+                }
+            } finally {
+                CloseUtil.close(rs);
+                CloseUtil.close(stm);
             }
-            rs.close();
         } finally {
             con.setAutoCommit(autoCommit);
         }
     }
 
     public Timestamp getNow(Connection con) throws SQLException {
-        Statement stm = con.createStatement();
-        ResultSet rs = stm.executeQuery("SELECT getDate()");
-        Timestamp ts = null;
+        Statement stm = null;
+        ResultSet rs = null;
         try {
+            stm = con.createStatement();
+            rs = stm.executeQuery("SELECT getDate()");
             rs.next();
-            ts = rs.getTimestamp(1);
-            rs.close();
+            return rs.getTimestamp(1);
         } finally {
-            stm.close();
-            rs.close();
+            CloseUtil.close(rs);
+            CloseUtil.close(stm);
         }
-        return ts;
     }
 
 
