@@ -3,6 +3,7 @@ package org.jsoftware.command;
 import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.RollbackPatch;
+import org.jsoftware.impl.CloseUtil;
 import org.jsoftware.impl.DuplicatePatchNameException;
 import org.jsoftware.impl.PatchParser;
 
@@ -68,13 +69,19 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
         if (rf == null) {
             return new RollbackPatch(patch);
         } else {
-            PatchParser.ParseResult pr = configurationEntry.getPatchParser().parse(new FileInputStream(rf), configurationEntry);
-            int sc = pr.executableCount();
-            if (sc == 0) {
-                log.warn("Rollback file patch found (" + rf.getAbsolutePath() + "), but contains zero statements!");
-                return new RollbackPatch(patch);
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(rf);
+                PatchParser.ParseResult pr = configurationEntry.getPatchParser().parse(fis, configurationEntry);
+                int sc = pr.executableCount();
+                if (sc == 0) {
+                    log.warn("Rollback file patch found (" + rf.getAbsolutePath() + "), but contains zero statements!");
+                    return new RollbackPatch(patch);
+                }
+                return new RollbackPatch(patch, rf, sc);
+            } finally {
+                CloseUtil.close(fis);
             }
-            return new RollbackPatch(patch, rf, sc);
         }
     }
 

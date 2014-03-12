@@ -66,10 +66,12 @@ public class DbManager {
     }
 
     public void updateStateObject(Patch p) throws SQLException {
-        PreparedStatement ps = c.prepareStatement("SELECT patch_db_date FROM " + dialect.getDbPatchTableName() + " WHERE patch_name=?");
-        ps.setString(1, p.getName());
-        ResultSet rs = ps.executeQuery();
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
+            ps = c.prepareStatement("SELECT patch_db_date FROM " + dialect.getDbPatchTableName() + " WHERE patch_name=?");
+            ps.setString(1, p.getName());
+            rs = ps.executeQuery();
             if (rs.next()) {
                 Date d = rs.getDate(1);
                 if (d != null) {
@@ -82,8 +84,8 @@ public class DbManager {
                 p.setDbState(AbstractPatch.DbState.NOT_AVAILABLE);
             }
         } finally {
-            rs.close();
-            ps.close();
+            CloseUtil.close(rs);
+            CloseUtil.close(ps);
         }
     }
 

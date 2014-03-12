@@ -19,7 +19,7 @@ public class HelpCommand extends AbstractCommand {
         InputStream in = getClass().getResourceAsStream("/dbpatch-help.txt");
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new InputStreamReader(in));
+            br = new BufferedReader(new InputStreamReader(in, "UTF-8"));
             String s;
             while ((s = br.readLine()) != null) {
                 System.out.println(s);
