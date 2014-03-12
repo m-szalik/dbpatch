@@ -1,5 +1,6 @@
 package org.jsoftware.config.dialect;
 
+import org.jsoftware.impl.CloseUtil;
 import org.jsoftware.impl.PatchStatement;
 
 import java.sql.*;
@@ -41,18 +42,17 @@ public class OracleDialect extends DefaultDialect {
 
 
     public Timestamp getNow(Connection con) throws SQLException {
-        Statement stm = con.createStatement();
-        ResultSet rs = stm.executeQuery("SELECT sysdate FROM dual");
-        Timestamp ts = null;
+        Statement stm = null;
+        ResultSet rs = null;
         try {
+            stm = con.createStatement();
+            rs = stm.executeQuery("SELECT sysdate FROM dual");
             rs.next();
-            ts = rs.getTimestamp(1);
-            rs.close();
+            return rs.getTimestamp(1);
         } finally {
-            stm.close();
-            rs.close();
+            CloseUtil.close(rs);
+            CloseUtil.close(stm);
         }
-        return ts;
     }
 
 }

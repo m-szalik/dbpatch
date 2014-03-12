@@ -54,12 +54,16 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
                 Patch patch = patches.get(rowIndex);
                 AbstractPatch p;
                 if (patch.getDbState() == AbstractPatch.DbState.COMMITTED) {
+                    FileInputStream fis = null;
                     try {
                         File rollbackFile = ce.getPatchScanner().findRollbackFile(dir, ce.getRollbackDirs().split(","), patch);
-                        int sc = ce.getPatchParser().parse(new FileInputStream(rollbackFile), ce).executableCount();
+                        fis = new FileInputStream(rollbackFile);
+                        int sc = ce.getPatchParser().parse(fis, ce).executableCount();
                         p = new RollbackPatch(patch, rollbackFile, sc);
                     } catch (Exception e) {
                         p = new RollbackPatch(patch);
+                    } finally {
+                        CloseUtil.close(fis);
                     }
                 } else {
                     p = patch;

@@ -27,7 +27,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
         disallowed = new HashSet<String>();
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/dbpatch-disallowedStatements.txt")));
+            br = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("/dbpatch-disallowedStatements.txt"), "UTF-8"));
             String s;
             while ((s = br.readLine()) != null) {
                 s = s.trim();
@@ -75,9 +75,15 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
     }
 
     public ParseResult parse(AbstractPatch p, ConfigurationEntry ce) throws IOException {
-        ParseResult pr = parse(new FileInputStream(p.getFile()), ce);
-        p.setStatementCount(pr.executableCount());
-        return pr;
+        FileInputStream fis = null;
+        try {
+            fis = new FileInputStream(p.getFile());
+            ParseResult pr = parse(fis, ce);
+            p.setStatementCount(pr.executableCount());
+            return pr;
+        } finally {
+            CloseUtil.close(fis);
+        }
     }
 
 
