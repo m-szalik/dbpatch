@@ -25,10 +25,12 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
     protected boolean output = true;
 
     @Override
-    protected List<RollbackPatch> generateList(List<Patch> inList) throws IOException, SQLException, DuplicatePatchNameException {
+    protected List<RollbackPatch> generateList(List<Patch> inListIn) throws IOException, SQLException, DuplicatePatchNameException {
         List<Patch> missingRollback = new LinkedList<Patch>();
         List<RollbackPatch> rollbacks = new LinkedList<RollbackPatch>();
         StringBuilder sb = new StringBuilder("Patch list:\n");
+        List<Patch> inList = new LinkedList<Patch>(inListIn);
+        Collections.reverse(inList);
         for (Patch p : inList) {
             getConfigurationEntry().getPatchParser().parse(p, getConfigurationEntry());
             sb.append('\t');
@@ -45,7 +47,7 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
                 missingRollback.add(p);
                 sb.append("MISSING OR EMPTY");
             } else {
-                sb.append("OK ");
+                sb.append("FOUND");
             }
             rollbacks.add(rollbackPatch);
             sb.append('\n');
@@ -60,9 +62,9 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
                 log.warn("Missing rollback patches: \n" + sb);
             }
         }
-        Collections.reverse(rollbacks);
         return rollbacks;
     }
+
 
     private RollbackPatch findRollback(Patch patch) throws IOException, DuplicatePatchNameException {
         File rf = getConfigurationEntry().getPatchScanner().findRollbackFile(directory, configurationEntry.getRollbackDirs().split(","), patch);
