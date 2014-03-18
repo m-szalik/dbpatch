@@ -61,7 +61,9 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
             ResultSet rs = con.getMetaData().getTables(null, null, null, null);
             while (rs.next()) {
                 String tb = rs.getString(3);
-                if ("patches".equalsIgnoreCase(tb) || "tk_patches".equalsIgnoreCase(tb)) qm.add(tb);
+                if ("patches".equalsIgnoreCase(tb) || "tk_patches".equalsIgnoreCase(tb)) {
+                    qm.add(tb);
+                }
             }
             rs.close();
         } catch (SQLException e) {
@@ -70,7 +72,9 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
         if (qm.size() == 1) {
             tabName = qm.iterator().next();
         }
-        if (tabName == null) throw new RuntimeException("No tk table available. " + qm);
+        if (tabName == null) {
+            throw new RuntimeException("No tk table available. " + qm);
+        }
         return tabName;
     }
 

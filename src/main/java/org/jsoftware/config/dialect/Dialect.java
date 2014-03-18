@@ -47,7 +47,7 @@ public interface Dialect extends Serializable {
      * @throws SQLException
      * @see #getDbPatchTableName()
      */
-    void checkAndCreateStruct(Connection con) throws SQLException;
+    void checkAndCreateStructure(Connection con) throws SQLException;
 
     /**
      * Execute dbPatch statement

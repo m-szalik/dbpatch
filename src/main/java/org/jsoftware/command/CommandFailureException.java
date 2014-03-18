@@ -6,8 +6,8 @@ package org.jsoftware.command;
  *         <p>I got my own exception because this software can be used without maven.</p>
  */
 public class CommandFailureException extends Exception {
-    private Object source;
-    private String messageString, descriptionString;
+    private final Object source;
+    private final String messageString, descriptionString;
 
     public CommandFailureException(Object source, String message, String description) {
         super(message + " - " + description);
@@ -19,6 +19,8 @@ public class CommandFailureException extends Exception {
     public CommandFailureException(String message) {
         super(message);
         this.messageString = message;
+        this.source = null;
+        this.descriptionString = null;
     }
 
     public Object getSource() {

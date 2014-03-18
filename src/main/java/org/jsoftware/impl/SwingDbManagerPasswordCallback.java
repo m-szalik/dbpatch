@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * If password missing ask using GUI dialogue.
  */
 public class SwingDbManagerPasswordCallback extends AbstractDbManagerCredentialsCallback {
-    private JInternalFrame frame;
+    private final JInternalFrame frame;
 
     public SwingDbManagerPasswordCallback(JInternalFrame frame) {
         this.frame = frame;

@@ -19,7 +19,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
     private enum PSTATE {sql, comment_line, comment_block, sql_block, inside_singlequot, inside_doublequot}
 
     private static final String DEFAULT_DELIMITER = ";";
-    private String delimiter = DEFAULT_DELIMITER;
+    private final String delimiter = DEFAULT_DELIMITER;
     private final Collection<String> disallowed;
 
     public DefaultPatchParser() {
@@ -67,7 +67,9 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
             public int executableCount() {
                 int c = 0;
                 for (PatchStatement ps : statements) {
-                    if (ps.isExecutable()) c++;
+                    if (ps.isExecutable()) {
+                        c++;
+                    }
                 }
                 return c;
             }
@@ -89,7 +91,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
 
     class SqlParserCallback implements SimpleParserCallback {
         private PSTATE current = PSTATE.sql;
-        private Collection<PatchStatement> statements;
+        private final Collection<PatchStatement> statements;
         private StringBuilder buf;
 
         public SqlParserCallback(List<PatchStatement> statements) {
@@ -104,7 +106,9 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
             String text = ctx.getTextBefore();
             buf.append(text);
             if (current == PSTATE.sql_block) {
-                if (!token.equals("--")) buf.append(token);
+                if (!token.equals("--")) {
+                    buf.append(token);
+                }
             } else {
                 if (token.equals("\n")) {
                     buf.append('\n');
@@ -118,22 +122,40 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
                     changeTo(PSTATE.sql);
                 }
             }
-            if (token.equals("*/") && current == PSTATE.comment_block) changeTo(PSTATE.sql);
-            if (token.equals("--") && current == PSTATE.sql) changeTo(PSTATE.comment_line);
-            if (token.equals("--") && current == PSTATE.sql_block) changeTo(PSTATE.comment_line);
-            if (token.equals("//") && current == PSTATE.sql) changeTo(PSTATE.comment_line);
-            if (token.equals("/*") && current == PSTATE.sql) changeTo(PSTATE.comment_block);
-            if (token.equals(delimiter) && current == PSTATE.sql) changeTo(PSTATE.sql);
+            if (token.equals("*/") && current == PSTATE.comment_block) {
+                changeTo(PSTATE.sql);
+            }
+            if (token.equals("--") && current == PSTATE.sql) {
+                changeTo(PSTATE.comment_line);
+            }
+            if (token.equals("--") && current == PSTATE.sql_block) {
+                changeTo(PSTATE.comment_line);
+            }
+            if (token.equals("//") && current == PSTATE.sql) {
+                changeTo(PSTATE.comment_line);
+            }
+            if (token.equals("/*") && current == PSTATE.sql) {
+                changeTo(PSTATE.comment_block);
+            }
+            if (token.equals(delimiter) && current == PSTATE.sql) {
+                changeTo(PSTATE.sql);
+            }
 
             if (token.equals("\"") || token.equals("'")) {
                 boolean bslash = ctx.getTextBefore().endsWith("\\");
                 if (token.equals("\"")) {
-                    if (current == PSTATE.sql) current = PSTATE.inside_doublequot;
-                    else if (current == PSTATE.inside_doublequot && !bslash) current = PSTATE.sql;
+                    if (current == PSTATE.sql) {
+                        current = PSTATE.inside_doublequot;
+                    } else if (current == PSTATE.inside_doublequot && !bslash) {
+                        current = PSTATE.sql;
+                    }
                 }
                 if (token.equals("'")) {
-                    if (current == PSTATE.sql) current = PSTATE.inside_singlequot;
-                    else if (current == PSTATE.inside_singlequot && !bslash) current = PSTATE.sql;
+                    if (current == PSTATE.sql) {
+                        current = PSTATE.inside_singlequot;
+                    } else if (current == PSTATE.inside_singlequot && !bslash) {
+                        current = PSTATE.sql;
+                    }
                 }
                 if (current == PSTATE.sql) {
                     buf.append(token);

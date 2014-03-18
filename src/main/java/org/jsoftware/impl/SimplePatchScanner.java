@@ -17,7 +17,7 @@ import java.util.List;
  * Abstract directory scanner that looks for patch files.
  */
 public abstract class SimplePatchScanner implements PatchScanner {
-    private Log log = LogFactory.getInstance();
+    private final Log log = LogFactory.getInstance();
 
     public List<Patch> scan(File baseDir, String[] paths) throws DuplicatePatchNameException, IOException {
         List<DirMask> dirMasks = parsePatchDirs(baseDir, paths);
@@ -105,7 +105,7 @@ public abstract class SimplePatchScanner implements PatchScanner {
 
 
     static class WildcardMaskFileFilter implements FileFilter {
-        private String mask;
+        private final String mask;
 
         public WildcardMaskFileFilter(String mask) {
             this.mask = mask;
@@ -113,16 +113,14 @@ public abstract class SimplePatchScanner implements PatchScanner {
 
         public boolean accept(File pathname) {
             String fn = pathname.getName();
-            boolean b = FilenameUtils.wildcardMatchOnSystem(fn, mask);
-            //log.debug("Check WildcardMaskFileFilter - " + fn + " is " + b);
-            return b;
+            return FilenameUtils.wildcardMatchOnSystem(fn, mask);
         }
     }
 
 }
 
 class DirMask {
-    private File dir;
+    private final File dir;
     private String mask = "*.sql";
 
     public DirMask(File dir) {

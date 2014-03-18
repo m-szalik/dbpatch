@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  */
 public class SimpleParser implements Serializable {
     private static final long serialVersionUID = 1L;
-    private List<String> tokens;
+    private final List<String> tokens;
 
     public SimpleParser(String... tokens) {
         this.tokens = Arrays.asList(tokens);
@@ -46,7 +46,9 @@ public class SimpleParser implements Serializable {
         sb.append('(');
         for (int i = 0; i < tokens.size(); i++) {
             sb.append(tokens.get(i));
-            if (i + 1 < tokens.size()) sb.append('|');
+            if (i + 1 < tokens.size()) {
+                sb.append('|');
+            }
         }
         sb.append(')');
         return Pattern.compile(sb.toString());

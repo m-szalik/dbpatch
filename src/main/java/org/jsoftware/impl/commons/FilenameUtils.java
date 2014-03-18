@@ -329,7 +329,7 @@ public class FilenameUtils {
      *
      * @param filename      the filename to normalize, null returns null
      * @param unixSeparator <code>true</code> if a unix separator should
-     *                      be used or <code>false</code> if a windows separtor should be used.
+     *                      be used or <code>false</code> if a windows separator should be used.
      * @return the normalized filename, or null if invalid
      * @since Commons IO 2.0
      */
@@ -1114,7 +1114,7 @@ public class FilenameUtils {
         if (filename == null) {
             return false;
         }
-        if (extension == null || extension.length() == 0) {
+        if (extension == null || extension.isEmpty()) {
             return (indexOfExtension(filename) == -1);
         }
         String fileExt = getExtension(filename);
