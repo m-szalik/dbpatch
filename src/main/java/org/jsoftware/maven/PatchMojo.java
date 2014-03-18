@@ -18,6 +18,7 @@ public class PatchMojo extends CommandSingleConfMojoAdapter<PatchCommand> {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             super.execute();

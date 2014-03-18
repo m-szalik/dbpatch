@@ -1,6 +1,8 @@
 package org.jsoftware.impl;
 
 import org.jsoftware.config.ConfigurationEntry;
+import org.jsoftware.log.Log;
+import org.jsoftware.log.LogFactory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,11 +19,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InteractivePanel {
-    private Collection<ConfigurationEntry> conf;
+    private final Log log = LogFactory.getInstance();
+    private final Collection<ConfigurationEntry> conf;
     private JDesktopPane desktop;
-    private Map<String, JInternalFrame> frames = new HashMap<String, JInternalFrame>();
+    private final Map<String, JInternalFrame> frames = new HashMap<String, JInternalFrame>();
     private boolean active;
     private Image defaultIcon;
+
 
     public InteractivePanel(Collection<ConfigurationEntry> conf) {
         Messages.init();
@@ -31,11 +35,14 @@ public class InteractivePanel {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (Exception e1) {
+                log.trace("Cannot set look and feel", e1);
             }
         }
         try {
             defaultIcon = ImageIO.read(getClass().getResource("/icon.png"));
-        } catch (IOException e) { /* findBugs ok */ }
+        } catch (IOException e) {
+            log.trace("Cannot load app icon", e);
+        }
         this.conf = conf;
     }
 
@@ -44,6 +51,7 @@ public class InteractivePanel {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
+                active = false;
             }
         }
     }
@@ -52,34 +60,42 @@ public class InteractivePanel {
         JInternalFrame fr = null;
         if (frames.get(id) != null) {
             fr = frames.get(id);
-            if (fr.isClosed())
+            if (fr.isClosed()) {
                 fr = null;
+            }
         }
         if (fr == null) {
             for (ConfigurationEntry ce : conf) {
                 if (ce.getId().equals(id)) {
                     fr = new DbPatchInternalFrame(ce);
-                    if (defaultIcon != null) fr.setFrameIcon(new ImageIcon(defaultIcon));
+                    if (defaultIcon != null) {
+                        fr.setFrameIcon(new ImageIcon(defaultIcon));
+                    }
                     frames.put(id, fr);
                     desktop.add(fr);
                     try {
                         fr.setMaximum(true);
                     } catch (PropertyVetoException e) {
+                        log.trace("Unable to set frame to maximum", e);
                     }
                 }
             }
         }
 
         try {
-            if (fr != null)
+            if (fr != null) {
                 fr.setSelected(true);
+            }
         } catch (PropertyVetoException e) {
+            log.trace("Unable to set frame as selected!", e);
         }
     }
 
     public void start() throws IOException {
         final JFrame frame = new JFrame("DbPatch");
-        if (defaultIcon != null) frame.setIconImage(defaultIcon);
+        if (defaultIcon != null) {
+            frame.setIconImage(defaultIcon);
+        }
         frame.setSize(900, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JMenuBar menu = new JMenuBar();

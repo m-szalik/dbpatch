@@ -7,6 +7,8 @@ package org.jsoftware.log;
  */
 public interface Log {
 
+    void trace(String msg, Throwable e);
+
     void debug(String msg);
 
     void info(String msg);

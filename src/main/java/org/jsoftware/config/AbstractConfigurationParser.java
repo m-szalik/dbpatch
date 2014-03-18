@@ -46,5 +46,5 @@ public abstract class AbstractConfigurationParser {
         }
     }
 
-    public abstract Collection<ConfigurationEntry> parse(InputStream input) throws ParseException, IOException;
+    protected abstract Collection<ConfigurationEntry> parse(InputStream input) throws ParseException, IOException;
 }

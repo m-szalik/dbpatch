@@ -26,15 +26,17 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
         Properties p = new Properties();
         p.load(input);
         evaluatePropertyValuesInternal(p);
-        Map<String, ConfigurationEntry> confs = new HashMap<String, ConfigurationEntry>();
+        Map<String, ConfigurationEntry> configs = new HashMap<String, ConfigurationEntry>();
         for (Map.Entry<Object, Object> me : p.entrySet()) {
             String[] keys = me.getKey().toString().toLowerCase().split("\\.");
-            if (keys.length != 2) throw new ParseException("Invalid key " + me.getKey(), 0);
-            ConfigurationEntry ce = confs.get(keys[0]);
+            if (keys.length != 2) {
+                throw new ParseException("Invalid key " + me.getKey(), 0);
+            }
+            ConfigurationEntry ce = configs.get(keys[0]);
             if (ce == null) {
                 ce = new ConfigurationEntry(keys[0]);
                 ce.setDialectInstance(new DefaultDialect());
-                confs.put(keys[0], ce);
+                configs.put(keys[0], ce);
             }
             String value = me.getValue().toString();
             if ("jdbcUrl".equalsIgnoreCase(keys[1]) || "jdbcUri".equalsIgnoreCase(keys[1])) {
@@ -73,15 +75,19 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
             if ("scanner".equalsIgnoreCase(keys[1])) {
                 PatchScanner scanner = null;
                 value = value.toLowerCase().trim();
-                if (value.startsWith("dir")) scanner = new DirectoryPatchScanner();
-                if (value.startsWith("name")) scanner = new NamePatchScanner();
+                if (value.startsWith("dir")) {
+                    scanner = new DirectoryPatchScanner();
+                }
+                if (value.startsWith("name")) {
+                    scanner = new NamePatchScanner();
+                }
                 if (scanner == null) {
                     throw new ParseException("Unknown scanner type - " + value, 0);
                 }
                 ce.setPatchScanner(scanner);
             }
         }
-        return confs.values();
+        return configs.values();
     }
 
 

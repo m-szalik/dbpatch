@@ -19,11 +19,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DbManager {
-    private ConfigurationEntry ce;
-    private Dialect dialect;
-    private Connection c;
+    private final ConfigurationEntry ce;
+    private final Dialect dialect;
     private final Log log = LogFactory.getInstance();
-    private List<Extension> extensions;
+    private final List<Extension> extensions;
+    private Connection c;
 
 
     public DbManager(ConfigurationEntry ce) throws SQLException {
@@ -52,7 +52,7 @@ public class DbManager {
             break;
         } while (true);
         if (con != null) {
-            dialect.checkAndCreateStruct(con);
+            dialect.checkAndCreateStructure(con);
             con.setAutoCommit(false); // just for sure
             c = con;
         }

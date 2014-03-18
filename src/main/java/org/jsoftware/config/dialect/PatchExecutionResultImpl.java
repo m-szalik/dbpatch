@@ -13,7 +13,7 @@ public class PatchExecutionResultImpl implements PatchExecutionResult {
     private SQLException cause;
     private int dmlCount = -1;
     private DML_TYPE dmlType;
-    private PatchStatement patchStatement;
+    private final PatchStatement patchStatement;
 
 
     public PatchExecutionResultImpl(PatchStatement patchStatement) {
