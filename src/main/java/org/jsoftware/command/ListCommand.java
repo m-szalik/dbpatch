@@ -31,8 +31,11 @@ public class ListCommand extends AbstractListCommand<Patch> {
                 sb.append('P');
             }
             if (p.getDbState() == AbstractPatch.DbState.NOT_AVAILABLE) {
-                if (patchesToApply.contains(p)) sb.append('+');
-                else sb.append('-');
+                if (patchesToApply.contains(p)) {
+                    sb.append('+');
+                } else {
+                    sb.append('-');
+                }
             }
             sb.append(' ').append(p.getName());
             for (int a = p.getName().length(); a < SPACES; a++) {

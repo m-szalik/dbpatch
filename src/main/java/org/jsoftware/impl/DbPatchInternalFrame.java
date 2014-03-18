@@ -28,9 +28,9 @@ import java.util.List;
 @SuppressWarnings("serial")
 public class DbPatchInternalFrame extends JInternalFrame implements MouseListener, InternalFrameListener {
     private final static ResultDisplay resultDisplay = new ResultDisplay();
-    private List<Patch> patches;
-    private DbManager dbManager;
-    private JTable table;
+    private final List<Patch> patches;
+    private final DbManager dbManager;
+    private final JTable table;
 
 
     public DbPatchInternalFrame(final ConfigurationEntry ce) throws SQLException, IOException, DuplicatePatchNameException {
@@ -50,7 +50,9 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
             final DateFormat df = DateFormat.getInstance();
 
             public Object getValueAt(int rowIndex, int columnIndex) {
-                if (rowIndex >= patches.size()) return null;
+                if (rowIndex >= patches.size()) {
+                    return null;
+                }
                 Patch patch = patches.get(rowIndex);
                 AbstractPatch p;
                 if (patch.getDbState() == AbstractPatch.DbState.COMMITTED) {

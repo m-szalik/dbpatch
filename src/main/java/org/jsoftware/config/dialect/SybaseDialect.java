@@ -17,10 +17,10 @@ public class SybaseDialect extends DefaultDialect {
 
 
     @Override
-    public void checkAndCreateStruct(Connection con) throws SQLException {
+    public void checkAndCreateStructure(Connection con) throws SQLException {
         boolean autoCommit = con.getAutoCommit();
         con.setAutoCommit(true);
-        ResultSet rs = null;
+        ResultSet rs;
         try {
             rs = con.getMetaData().getTables(null, null, DBPATCH_TABLE_NAME, null);
             boolean tableFound = rs.next();

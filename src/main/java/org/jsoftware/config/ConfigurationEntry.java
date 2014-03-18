@@ -108,9 +108,13 @@ public class ConfigurationEntry implements Serializable {
         HashSet<Extension> exs = new HashSet<Extension>();
         for (String ext : extensions.split(",")) {
             ext = ext.trim();
-            if (ext.length() == 0) continue;
+            if (ext.length() == 0) {
+                continue;
+            }
             Extension extension = availableExtensions.get(ext);
-            if (extension == null) throw new IllegalArgumentException("Can not find extension for \"" + ext + "\"");
+            if (extension == null) {
+                throw new IllegalArgumentException("Can not find extension for \"" + ext + "\"");
+            }
             exs.add(extension);
         }
         this.extensions = exs;

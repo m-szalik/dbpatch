@@ -23,6 +23,16 @@ public class LogFactory {
 
     public static void initMaven(final org.apache.maven.plugin.logging.Log mLog) {
         instance = new Log() {
+
+            @Override
+            public void trace(String msg, Throwable e) {
+                if (e == null) {
+                    mLog.debug(msg);
+                } else {
+                    mLog.debug(msg, e);
+                }
+            }
+
             public void warn(String msg) {
                 mLog.warn(msg);
             }
@@ -69,6 +79,11 @@ public class LogFactory {
  */
 class LogLocalImpl implements Log {
     Level currentLevel;
+
+    @Override
+    public void trace(String msg, Throwable e) {
+        log(Level.TRACE, msg, e);
+    }
 
     public void debug(String msg) {
         log(Level.DEBUG, msg, null);

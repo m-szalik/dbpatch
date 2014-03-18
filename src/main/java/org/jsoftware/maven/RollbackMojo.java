@@ -4,7 +4,7 @@ import org.jsoftware.command.RollbackCommand;
 
 
 /**
- * Rollabck patch or patches
+ * Roll-back patch or patches
  *
  * @author szalik
  * @goal rollback

@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author szalik
  */
-public abstract class AbstractListCommand<P extends AbstractPatch> extends AbstractSingleConfDbPatchCommand {
+abstract class AbstractListCommand<P extends AbstractPatch> extends AbstractSingleConfDbPatchCommand {
     static final int SPACES = 46;
 
     /**
@@ -33,7 +33,7 @@ public abstract class AbstractListCommand<P extends AbstractPatch> extends Abstr
 
     abstract protected List<P> generateList(List<Patch> inList) throws IOException, SQLException, DuplicatePatchNameException;
 
-    public List<P> getList() throws DuplicatePatchNameException, SQLException, IOException {
+    List<P> getList() throws DuplicatePatchNameException, SQLException, IOException {
         return generateList(generatePatchListAll());
     }
 

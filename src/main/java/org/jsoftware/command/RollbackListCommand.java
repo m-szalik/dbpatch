@@ -34,9 +34,15 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
         for (Patch p : inList) {
             getConfigurationEntry().getPatchParser().parse(p, getConfigurationEntry());
             sb.append('\t');
-            if (p.getDbState() == AbstractPatch.DbState.COMMITTED) sb.append('*');
-            if (p.getDbState() == AbstractPatch.DbState.IN_PROGRESS) sb.append('P');
-            if (p.getDbState() == AbstractPatch.DbState.NOT_AVAILABLE) sb.append(' ');
+            if (p.getDbState() == AbstractPatch.DbState.COMMITTED) {
+                sb.append('*');
+            }
+            if (p.getDbState() == AbstractPatch.DbState.IN_PROGRESS) {
+                sb.append('P');
+            }
+            if (p.getDbState() == AbstractPatch.DbState.NOT_AVAILABLE) {
+                sb.append(' ');
+            }
             sb.append(' ').append(p.getName());
             for (int a = p.getName().length(); a < SPACES; a++) {
                 sb.append(' ');

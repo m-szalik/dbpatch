@@ -148,7 +148,7 @@ public class DefaultDialect implements Dialect {
         }
     }
 
-    public void checkAndCreateStruct(Connection con) throws SQLException {
+    public void checkAndCreateStructure(Connection con) throws SQLException {
         con.setAutoCommit(true);
         ResultSet rs = con.getMetaData().getTables(null, null, DBPATCH_TABLE_NAME, null);
         boolean tableFound = rs.next();
@@ -190,8 +190,7 @@ public class DefaultDialect implements Dialect {
             stm = con.createStatement();
             rs = stm.executeQuery("SELECT now()");
             rs.next();
-            Timestamp ts = rs.getTimestamp(1);
-            return ts;
+            return rs.getTimestamp(1);
         } finally {
             CloseUtil.close(rs);
             CloseUtil.close(stm);
