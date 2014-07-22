@@ -4,7 +4,7 @@
 With [pom.xml](option1/pom.xml) only.
 
 ### Option 2
-With [pom.xml](option2/pom.xml) and [properties](/option2/dbpatch.properties) file.
+With [pom.xml](option2/pom.xml) and [dbpatch.properties](dbpatch.properties) file.
 
 ### Option 3
 Running without maven.
