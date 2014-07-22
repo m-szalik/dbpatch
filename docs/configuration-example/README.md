@@ -1,13 +1,14 @@
 ## Configuration examples
 
 ### Option 1
-With [pom.xml](option1/pom.xml) only.
+With [option1/pom.xml](option1/pom.xml) only.
 
 ### Option 2
-With [pom.xml](option2/pom.xml) and [dbpatch.properties](dbpatch.properties) file.
+With [option2/pom.xml](option2/pom.xml) and [dbpatch.properties](dbpatch.properties) file.
 
 ### Option 3
-Running without maven.
+Run as standalone java application with GUI.
+``java -jar option3/dbpatch.jar``
 
 
 ### Examples requirements
