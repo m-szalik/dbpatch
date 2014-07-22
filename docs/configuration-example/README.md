@@ -47,7 +47,7 @@ mydb.patchDirs=../example-sqls
 
 ### Option 3
 Run as standalone java application with GUI.  
-Configuration [dbpatch.properties](dbpatch.properties) file is required.  
+Configuration [dbpatch.properties](dbpatch.properties) file (as above) is required.  
 ``java -jar option3/dbpatch.jar``
 
 
