@@ -6,7 +6,6 @@ With [option1/pom.xml](option1/pom.xml) only.
  <plugin>
      <groupId>org.jsoftware</groupId>
      <artifactId>dbpatch</artifactId>
-     <version>3.3</version>
      <configuration>
          <conf>
              <driverClass>com.mysql.jdbc.Driver</driverClass>
@@ -21,8 +20,30 @@ With [option1/pom.xml](option1/pom.xml) only.
      </dependencies>
  </plugin>
 ```
+
 ### Option 2
 With [option2/pom.xml](option2/pom.xml) and [dbpatch.properties](dbpatch.properties) file.
+```xml
+ <plugin>
+     <groupId>org.jsoftware</groupId>
+     <artifactId>dbpatch</artifactId>
+     <configuration>
+         <configFile>../dbpatch.properties</configFile><!-- where to find config file -->
+         <selectedConfiguration>mydb</selectedConfiguration> <!-- selected profile - can be set by -Dmaven.dbpatch.configuration=XXX -->
+     </configuration>
+     <dependencies>
+          <!-- required jdbc driver here -->
+      </dependencies>
+ </plugin>
+```
+
+```
+mydb.driverClass=com.mysql.jdbc.Driver
+mydb.jdbcUri=jdbc:mysql://localhost/dbpatch_test
+mydb.username=dbpatch
+mydb.password=secret
+mydb.patchDirs=../example-sqls
+```
 
 ### Option 3
 Run as standalone java application with GUI.  
