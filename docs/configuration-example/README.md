@@ -37,7 +37,7 @@ With [option2/pom.xml](option2/pom.xml) and [dbpatch.properties](dbpatch.propert
  </plugin>
 ```
 
-```
+```properties
 mydb.driverClass=com.mysql.jdbc.Driver
 mydb.jdbcUri=jdbc:mysql://localhost/dbpatch_test
 mydb.username=dbpatch
