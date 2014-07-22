@@ -2,12 +2,31 @@
 
 ### Option 1
 With [option1/pom.xml](option1/pom.xml) only.
-
+```xml
+ <plugin>
+     <groupId>org.jsoftware</groupId>
+     <artifactId>dbpatch</artifactId>
+     <version>3.3</version>
+     <configuration>
+         <conf>
+             <driverClass>com.mysql.jdbc.Driver</driverClass>
+             <jdbcUri>jdbc:mysql://localhost/dbpatch_test</jdbcUri>
+             <username>dbpatch</username>     <!-- your database user -->
+             <password>${password}</password> <!-- set by pom property "password" -->
+             <patchDirs>../example-sqls</patchDirs> <!-- sql scripts location -->
+         </conf>
+     </configuration>
+     <dependencies>
+         <!-- required jdbc driver here -->
+     </dependencies>
+ </plugin>
+```
 ### Option 2
 With [option2/pom.xml](option2/pom.xml) and [dbpatch.properties](dbpatch.properties) file.
 
 ### Option 3
-Run as standalone java application with GUI.
+Run as standalone java application with GUI.  
+Configuration [dbpatch.properties](dbpatch.properties) file is required.  
 ``java -jar option3/dbpatch.jar``
 
 
