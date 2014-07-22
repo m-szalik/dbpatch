@@ -26,7 +26,7 @@
                         <jdbcUri>jdbc:mysql://localhost/dbpatch_test</jdbcUri>
                         <username>dbpatch</username>
                         <password>${password}</password> <!-- set by pom property "password" -->
-                        <patchDirs>../example-sqls</patchDirs>
+                        <patchDirs>../example-sqls</patchDirs> <!-- sql scripts location -->
                     </conf>
                 </configuration>
                 <dependencies>
