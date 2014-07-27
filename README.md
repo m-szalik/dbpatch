@@ -5,6 +5,8 @@ Maven dbpatch plugin
 **This plugin allows you to version database changes (sql patches) with maven. It can automaticly apply patches as well as execute roll-backs scripts.**
 _Whenever it is possible patches are executed in transactions, so you can be sure that your patch was applied correctly or none._
 
+[![video presentation](http://img.youtube.com/vi/hD5ACGfmkM4/0.jpg)](http://www.youtube.com/watch?v=hD5ACGfmkM4)
+
 #### Plugin goals:
  * dbpatch:help – help screen
  * dbpatch:help-parse – parse sql _(use dbpatch.file system property to indicate file to parse)_
