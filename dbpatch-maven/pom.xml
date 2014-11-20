@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.jsoftware</groupId>
+	<artifactId>dbpatch-maven-plugin</artifactId>
+	<packaging>maven-plugin</packaging>
+	<version>3.4-SNAPSHOT</version>
+	<name>Database patch Maven Mojo</name>
+
+    <parent>
+        <groupId>org.jsoftware</groupId>
+        <artifactId>dbpatch-parent</artifactId>
+        <version>3.4-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+	<dependencies>
+        <dependency>
+            <groupId>org.jsoftware</groupId>
+            <artifactId>dbpatch-core</artifactId>
+            <version>3.4-SNAPSHOT</version>
+        </dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>3.0</version>
+		</dependency>
+	</dependencies>
+
+</project>
