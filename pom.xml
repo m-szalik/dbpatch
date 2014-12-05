@@ -34,7 +34,7 @@
 
     <modules>
         <module>dbpatch-core</module>
-        <module>dbpatch-maven</module>
+        <module>dbpatch-maven-plugin</module>
     </modules>
 
     <!--
