@@ -21,42 +21,8 @@ public class LogFactory {
         instance = l;
     }
 
-    public static void initMaven(final org.apache.maven.plugin.logging.Log mLog) {
-        instance = new Log() {
-
-            @Override
-            public void trace(String msg, Throwable e) {
-                if (e == null) {
-                    mLog.debug(msg);
-                } else {
-                    mLog.debug(msg, e);
-                }
-            }
-
-            public void warn(String msg) {
-                mLog.warn(msg);
-            }
-
-            public void info(String msg) {
-                mLog.info(msg);
-            }
-
-            public void fatal(String msg) {
-                mLog.error(msg);
-            }
-
-            public void debug(String msg) {
-                mLog.debug(msg);
-            }
-
-            public void warn(String msg, Throwable e) {
-                mLog.warn(msg, e);
-            }
-
-            public void fatal(String msg, Throwable e) {
-                mLog.error(msg, e);
-            }
-        };
+    public static void init(Log log) {
+        instance = log;
     }
 
     private LogFactory() {

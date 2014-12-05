@@ -1,10 +1,10 @@
 package org.jsoftware.config;
 
-import org.codehaus.plexus.util.StringUtils;
 import org.jsoftware.config.dialect.DefaultDialect;
 import org.jsoftware.config.dialect.DialectFinder;
 import org.jsoftware.impl.DirectoryPatchScanner;
 import org.jsoftware.impl.NamePatchScanner;
+import org.jsoftware.impl.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
