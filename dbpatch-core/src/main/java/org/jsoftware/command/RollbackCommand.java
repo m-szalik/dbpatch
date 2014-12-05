@@ -1,9 +1,8 @@
 package org.jsoftware.command;
 
-import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.util.StringUtils;
 import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.RollbackPatch;
+import org.jsoftware.impl.StringUtils;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -26,10 +25,10 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
         String dStop = System.getProperty("maven.dbpatch.stop");
         String dSingle = System.getProperty("maven.dbpatch.single");
         if (StringUtils.isBlank(dSingle) && StringUtils.isBlank(dStop)) {
-            throw new MojoExecutionException("Missing property 'maven.dbpatch.single' or 'maven.dbpatch.stop'!");
+            throw new CommandFailureException("Missing property 'maven.dbpatch.single' or 'maven.dbpatch.stop'!");
         }
         if (!StringUtils.isBlank(dSingle) && !StringUtils.isBlank(dStop)) {
-            throw new MojoExecutionException("Both properties 'maven.dbpatch.single' and 'maven.dbpatch.stop' are set!");
+            throw new CommandFailureException("Both properties 'maven.dbpatch.single' and 'maven.dbpatch.stop' are set!");
         }
         String pnOrg = StringUtils.isBlank(dSingle) ? dStop : dSingle;
         String pn = AbstractPatch.normalizeName(pnOrg);
@@ -53,7 +52,7 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
             }
         }
         if (!found) {
-            throw new MojoExecutionException("Cannot find patch by name '" + pnOrg + "'");
+            throw new CommandFailureException("Cannot find patch by name '" + pnOrg + "'");
         }
 
         try {
@@ -63,7 +62,7 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
                     if (p.isMissing()) {
                         String msg = "Missing or empty rollback file for patch " + p.getName();
                         log.fatal(msg);
-                        throw new MojoExecutionException(msg);
+                        throw new CommandFailureException(msg);
                     } else {
                         log.info("Executing rollback for " + p.getName() + " - " + p.getFile().getName());
                         manager.rollback(p);

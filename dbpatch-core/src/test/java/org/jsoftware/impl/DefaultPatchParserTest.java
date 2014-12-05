@@ -1,6 +1,6 @@
 package org.jsoftware.impl;
 
-import junit.framework.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -24,8 +24,8 @@ public class DefaultPatchParserTest {
     public void parse() throws IOException {
         DefaultPatchParser parser = new DefaultPatchParser();
         List<PatchStatement> list = parser.parse(getClass().getResourceAsStream("input.txt"), null).getStatements();
-        Assert.assertEquals(6, countStatements(list, true));
-        Assert.assertEquals(4, countStatements(list, false));
+        assertEquals(6, countStatements(list, true));
+        assertEquals(4, countStatements(list, false));
     }
 
 
@@ -36,8 +36,8 @@ public class DefaultPatchParserTest {
 //		for(PatchStatement ps : list) {
 //			System.out.println(ps.isExecutable() + "  " + ps.toString());
 //		}
-        Assert.assertEquals(4, countStatements(list, true));
-        Assert.assertEquals(3, countStatements(list, false));
+        assertEquals(4, countStatements(list, true));
+        assertEquals(3, countStatements(list, false));
     }
 
     @Test
@@ -45,16 +45,16 @@ public class DefaultPatchParserTest {
         DefaultPatchParser parser = new DefaultPatchParser();
         ByteArrayInputStream bais = new ByteArrayInputStream("INSERT INTO a (\"ab;c\\\"d\", 'za;p\\'o')".getBytes());
         List<PatchStatement> list = parser.parse(bais, null).getStatements();
-        Assert.assertEquals(1, countStatements(list, true));
-        Assert.assertEquals("INSERT INTO a (\"ab;c\\\"d\", 'za;p\\'o')", list.get(0).getCode());
+        assertEquals(1, countStatements(list, true));
+        assertEquals("INSERT INTO a (\"ab;c\\\"d\", 'za;p\\'o')", list.get(0).getCode());
     }
 
     @Test
     public void comments() throws IOException {
         DefaultPatchParser parser = new DefaultPatchParser();
         List<PatchStatement> list = parser.parse(getClass().getResourceAsStream("input-comments.txt"), null).getStatements();
-        Assert.assertEquals(4, countStatements(list, true));
-        Assert.assertEquals(3, countStatements(list, false));
+        assertEquals(4, countStatements(list, true));
+        assertEquals(3, countStatements(list, false));
     }
 
 }
