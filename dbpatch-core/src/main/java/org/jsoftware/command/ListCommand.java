@@ -2,6 +2,7 @@ package org.jsoftware.command;
 
 import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.ApplyStrategy;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.config.Patch;
 
 import java.io.IOException;
@@ -14,6 +15,10 @@ import java.util.List;
  * @author szalik
  */
 public class ListCommand extends AbstractListCommand<Patch> {
+
+    public ListCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
 
     @Override
     protected List<Patch> generateList(List<Patch> inList) throws IOException {

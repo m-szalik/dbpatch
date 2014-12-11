@@ -1,6 +1,7 @@
 package org.jsoftware.impl;
 
 import org.jsoftware.config.ConfigurationEntry;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.log.Log;
 import org.jsoftware.log.LogFactory;
 

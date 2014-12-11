@@ -2,6 +2,7 @@ package org.jsoftware.command;
 
 import org.jsoftware.config.AbstractConfigurationParser;
 import org.jsoftware.config.ConfigurationEntry;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.impl.InteractivePanel;
 
 import java.util.Collection;
@@ -13,6 +14,10 @@ import java.util.Collection;
  * @author szalik
  */
 public class InteractiveCommand extends AbstractCommand {
+
+    public InteractiveCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
 
     public void execute() throws CommandExecutionException, CommandFailureException {
         try {

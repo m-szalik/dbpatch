@@ -1,9 +1,6 @@
 package org.jsoftware.impl;
 
-import org.jsoftware.config.AbstractPatch;
-import org.jsoftware.config.ConfigurationEntry;
-import org.jsoftware.config.Patch;
-import org.jsoftware.config.RollbackPatch;
+import org.jsoftware.config.*;
 import org.jsoftware.log.LogFactory;
 
 import javax.swing.*;

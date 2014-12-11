@@ -3,6 +3,7 @@ package org.jsoftware;
 import org.jsoftware.command.*;
 import org.jsoftware.config.AbstractConfigurationParser;
 import org.jsoftware.config.ConfigurationEntry;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.impl.InteractivePanel;
 import org.jsoftware.log.LogFactory;
 
@@ -20,7 +21,8 @@ import java.util.Collection;
 public class DbPatch {
 
     public static void main(String[] args) throws ParseException, IOException, CommandFailureException, CommandExecutionException {
-        LogFactory.initLocal();
+        EnvSettings envSettings = EnvSettings.standalone();
+        LogFactory.initLocal(envSettings);
         File confFile;
 
         if (args.length > 1) {
@@ -39,8 +41,8 @@ public class DbPatch {
         } else { // mojo (text) mode
             AbstractCommand command = argToCommand(args[0]);
             if (command == null) {
-                System.err.println("Arg 1 must be mojo name, arg 2 can be configuration file.");
-                new HelpCommand().execute();
+                System.err.println("Arg 1 must be command name, arg 2 can be configuration file.");
+                new HelpCommand(envSettings).execute();
             } else {
                 LogFactory.getInstance().debug("Lunching text mode - " + command + ".");
                 command.setConfigFile(confFile);
@@ -50,23 +52,24 @@ public class DbPatch {
     }
 
     private static AbstractCommand argToCommand(String mojoArg) {
+        EnvSettings envSettings = EnvSettings.standalone();
         if ("help".equalsIgnoreCase(mojoArg)) {
-            return new HelpCommand();
+            return new HelpCommand(envSettings);
         }
         if ("help-parse".equalsIgnoreCase(mojoArg)) {
-            return new HelpParseCommand();
+            return new HelpParseCommand(envSettings);
         }
         if ("interactive".equalsIgnoreCase(mojoArg)) {
-            return new InteractiveCommand();
+            return new InteractiveCommand(envSettings);
         }
         if ("list".equalsIgnoreCase(mojoArg)) {
-            return new ListCommand();
+            return new ListCommand(envSettings);
         }
         if ("patch".equalsIgnoreCase(mojoArg)) {
-            return new PatchCommand();
+            return new PatchCommand(envSettings);
         }
         if ("skip-errors".equalsIgnoreCase(mojoArg)) {
-            return new SkipErrorsCommand();
+            return new SkipErrorsCommand(envSettings);
         }
         return null;
     }

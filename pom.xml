@@ -35,6 +35,7 @@
     <modules>
         <module>dbpatch-core</module>
         <module>dbpatch-maven-plugin</module>
+        <module>dbpatch-gradle-plugin</module>
     </modules>
 
     <!--

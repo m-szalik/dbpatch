@@ -1,6 +1,7 @@
 package org.jsoftware.command;
 
 import org.jsoftware.config.ConfigurationEntry;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.log.LogFactory;
 
 import java.io.File;
@@ -11,14 +12,15 @@ import java.io.File;
  * @author szalik
  */
 public abstract class AbstractCommand {
-
+    protected final org.jsoftware.log.Log log = LogFactory.getInstance();
+    protected final EnvSettings envSettings;
     private File configFile;
-
     private ConfigurationEntry conf;
-
     protected File directory;
 
-    protected org.jsoftware.log.Log log = LogFactory.getInstance();
+    protected AbstractCommand(EnvSettings envSettings) {
+        this.envSettings = envSettings;
+    }
 
     public void setConfigFile(File configFile) {
         this.configFile = configFile;
@@ -36,7 +38,7 @@ public abstract class AbstractCommand {
         if (configFile != null) {
             return configFile;
         }
-        String cFile = System.getProperty("dbpatch.configFile");
+        String cFile = System.getProperty(envSettings.getDbPatchFile());
         if (cFile != null) {
             return new File(cFile);
         } else {

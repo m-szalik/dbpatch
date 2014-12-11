@@ -2,6 +2,7 @@ package org.jsoftware.command;
 
 import org.jsoftware.config.AbstractConfigurationParser;
 import org.jsoftware.config.ConfigurationEntry;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.impl.ConsoleDbManagerPasswordCallback;
 import org.jsoftware.impl.DbManager;
 import org.jsoftware.log.LogFactory;
@@ -20,13 +21,17 @@ public abstract class AbstractSingleConfDbPatchCommand extends AbstractCommand {
     protected ConfigurationEntry configurationEntry;
     protected DbManager manager;
 
+    public AbstractSingleConfDbPatchCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
+
 
     public void setSelectedConfiguration(String selectedConfiguration) {
         this.selectedConfiguration = selectedConfiguration;
     }
 
     public void execute() throws CommandExecutionException, CommandFailureException {
-        String configurationProperty = System.getProperty("maven.dbpatch.configuration");
+        String configurationProperty = System.getProperty(envSettings.getDbPatchConfiguration());
         if (configurationProperty != null && configurationProperty.trim().length() > 0) {
             LogFactory.getInstance().info("Using profile \"" + configurationProperty.trim() + "\".");
             selectedConfiguration = configurationProperty.trim();
@@ -44,7 +49,7 @@ public abstract class AbstractSingleConfDbPatchCommand extends AbstractCommand {
             if (cfgFile != null) {
                 Collection<ConfigurationEntry> conf = AbstractConfigurationParser.discoverConfiguration(getConfigFile());
                 if (selectedConfiguration == null) {
-                    throw new CommandFailureException(this, "configuration missing - selectedConfiguration not set", "Please set maven.dbpatch.configuration property.");
+                    throw new CommandFailureException(this, "configuration missing - selectedConfiguration not set", "Please set " + envSettings.getDbPatchConfiguration() + " property.");
                 }
                 ConfigurationEntry confEntry = null;
                 for (ConfigurationEntry ce : conf) {

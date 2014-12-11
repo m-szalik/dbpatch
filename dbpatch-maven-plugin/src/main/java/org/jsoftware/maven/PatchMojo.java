@@ -3,6 +3,7 @@ package org.jsoftware.maven;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.jsoftware.command.PatchCommand;
+import org.jsoftware.config.EnvSettings;
 
 
 /**
@@ -14,7 +15,7 @@ import org.jsoftware.command.PatchCommand;
 public class PatchMojo extends CommandSingleConfMojoAdapter<PatchCommand> {
 
     protected PatchMojo() {
-        super(new PatchCommand());
+        super(new PatchCommand(EnvSettings.maven()));
     }
 
     @Override

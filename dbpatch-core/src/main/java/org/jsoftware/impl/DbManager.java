@@ -1,9 +1,6 @@
 package org.jsoftware.impl;
 
-import org.jsoftware.config.AbstractPatch;
-import org.jsoftware.config.ConfigurationEntry;
-import org.jsoftware.config.Patch;
-import org.jsoftware.config.RollbackPatch;
+import org.jsoftware.config.*;
 import org.jsoftware.config.dialect.Dialect;
 import org.jsoftware.config.dialect.PatchExecutionResult;
 import org.jsoftware.impl.extension.Extension;
@@ -21,12 +18,13 @@ import java.util.List;
 public class DbManager {
     private final ConfigurationEntry ce;
     private final Dialect dialect;
-    private final Log log = LogFactory.getInstance();
+    private final Log log;
     private final List<Extension> extensions;
     private Connection c;
 
 
     public DbManager(ConfigurationEntry ce) throws SQLException {
+        this.log = LogFactory.getInstance();
         this.ce = ce;
         this.extensions = new LinkedList<Extension>(ce.getExtensions());
         this.dialect = ce.getDialect();

@@ -4,7 +4,7 @@
 	<artifactId>dbpatch-core</artifactId>
 	<packaging>jar</packaging>
 	<version>3.4-SNAPSHOT</version>
-	<name>Database patch - core</name>
+	<name>Database patch - core / standalone</name>
 
     <parent>
         <groupId>org.jsoftware</groupId>

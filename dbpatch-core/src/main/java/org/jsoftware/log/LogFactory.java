@@ -1,5 +1,7 @@
 package org.jsoftware.log;
 
+import org.jsoftware.config.EnvSettings;
+
 import java.io.PrintStream;
 
 /**
@@ -10,10 +12,10 @@ import java.io.PrintStream;
 public class LogFactory {
     private static Log instance;
 
-    public static void initLocal() {
+    public static void initLocal(EnvSettings envSettings) {
         LogLocalImpl l = new LogLocalImpl();
         l.currentLevel = Level.DEBUG;
-        String logStr = System.getProperty("maven.dbpatch.log");
+        String logStr = System.getProperty(envSettings.getLogLevel());
         if (logStr != null && logStr.trim().length() > 0) {
             logStr = logStr.trim().toUpperCase();
             l.currentLevel = Level.valueOf(logStr);
@@ -31,7 +33,7 @@ public class LogFactory {
 
     public static Log getInstance() {
         if (instance == null) {
-            initLocal();
+            initLocal(EnvSettings.standalone());
         }
         return instance;
     }

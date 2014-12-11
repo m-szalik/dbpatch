@@ -1,6 +1,7 @@
 package org.jsoftware.command;
 
 import org.jsoftware.config.AbstractPatch;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.impl.StringUtils;
 
@@ -16,19 +17,23 @@ import java.util.List;
 public class RollbackCommand extends RollbackListCommand implements CommandSuccessIndicator {
     private boolean success;
 
+    public RollbackCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     protected void executeInternal() throws Exception {
         success = false;
         List<RollbackPatch> patches = getList();
         List<RollbackPatch> patchesFiltered = new LinkedList<RollbackPatch>();
-        String dStop = System.getProperty("maven.dbpatch.stop");
-        String dSingle = System.getProperty("maven.dbpatch.single");
+        String dStop = System.getProperty(envSettings.getDbPatchStop());
+        String dSingle = System.getProperty(envSettings.getDbPatchSingle());
         if (StringUtils.isBlank(dSingle) && StringUtils.isBlank(dStop)) {
-            throw new CommandFailureException("Missing property 'maven.dbpatch.single' or 'maven.dbpatch.stop'!");
+            throw new CommandFailureException("Missing property '" + envSettings.getDbPatchSingle() + "' or '" + envSettings.getDbPatchStop() + "'!");
         }
         if (!StringUtils.isBlank(dSingle) && !StringUtils.isBlank(dStop)) {
-            throw new CommandFailureException("Both properties 'maven.dbpatch.single' and 'maven.dbpatch.stop' are set!");
+            throw new CommandFailureException("Both properties '" + envSettings.getDbPatchSingle() + "' and '" + envSettings.getDbPatchStop() + "' are set!");
         }
         String pnOrg = StringUtils.isBlank(dSingle) ? dStop : dSingle;
         String pn = AbstractPatch.normalizeName(pnOrg);

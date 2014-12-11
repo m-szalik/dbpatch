@@ -1,5 +1,6 @@
 package org.jsoftware.command;
 
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.impl.CloseUtil;
 
 import java.io.BufferedReader;
@@ -14,6 +15,10 @@ import java.io.InputStreamReader;
  * @author szalik
  */
 public class HelpCommand extends AbstractCommand {
+
+    public HelpCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
 
     public void execute() throws CommandExecutionException {
         InputStream in = getClass().getResourceAsStream("/dbpatch-help.txt");

@@ -1,6 +1,7 @@
 package org.jsoftware.maven;
 
 import org.jsoftware.command.InteractiveCommand;
+import org.jsoftware.config.EnvSettings;
 
 
 /**
@@ -12,6 +13,6 @@ import org.jsoftware.command.InteractiveCommand;
 public class InteractiveMojo extends CommandMojoAdapter<InteractiveCommand> {
 
     protected InteractiveMojo() {
-        super(new InteractiveCommand());
+        super(new InteractiveCommand(EnvSettings.maven()));
     }
 }

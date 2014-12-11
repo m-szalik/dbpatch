@@ -50,10 +50,6 @@ public class ConfigurationEntry implements Serializable {
     private String rollbackSuffix = "*.rollback";
 
 
-    public ConfigurationEntry() {
-        this("maven:pom.xml");
-    }
-
     ConfigurationEntry(String id) {
         this.id = id;
         dialect = new DefaultDialect();

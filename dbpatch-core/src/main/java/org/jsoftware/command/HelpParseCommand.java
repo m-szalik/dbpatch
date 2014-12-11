@@ -1,5 +1,6 @@
 package org.jsoftware.command;
 
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.impl.CloseUtil;
 import org.jsoftware.impl.DefaultPatchParser;
 import org.jsoftware.impl.PatchParser.ParseResult;
@@ -17,10 +18,15 @@ import java.io.IOException;
  */
 public class HelpParseCommand extends AbstractCommand {
 
+    public HelpParseCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
+
+
     public void execute() throws CommandExecutionException, CommandFailureException {
-        String file = System.getProperty("maven.dbpatch.file");
+        String file = System.getProperty(envSettings.getDbPatchFile());
         if (file == null) {
-            throw new CommandFailureException("Set system property \"maven.dbpatch.file\" to file you want to parse.");
+            throw new CommandFailureException("Set system property \"" + envSettings.getDbPatchFile() + "\" to file you want to parse.");
         }
         File f = new File(file);
         if (!f.exists()) {

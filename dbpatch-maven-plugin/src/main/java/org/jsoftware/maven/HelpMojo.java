@@ -1,6 +1,7 @@
 package org.jsoftware.maven;
 
 import org.jsoftware.command.HelpCommand;
+import org.jsoftware.config.EnvSettings;
 
 
 /**
@@ -12,6 +13,6 @@ import org.jsoftware.command.HelpCommand;
 public class HelpMojo extends CommandMojoAdapter<HelpCommand> {
 
     protected HelpMojo() {
-        super(new HelpCommand());
+        super(new HelpCommand(EnvSettings.maven()));
     }
 }

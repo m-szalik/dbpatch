@@ -1,5 +1,6 @@
 package org.jsoftware.command;
 
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.impl.CloseUtil;
 
 import java.sql.*;
@@ -10,6 +11,10 @@ import java.sql.*;
  * @author szalik
  */
 public class SkipErrorsCommand extends AbstractSingleConfDbPatchCommand {
+
+    public SkipErrorsCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
 
     @Override
     protected void executeInternal() throws Exception {
