@@ -1,6 +1,7 @@
 package org.jsoftware.maven;
 
 import org.jsoftware.command.ListCommand;
+import org.jsoftware.config.EnvSettings;
 
 
 /**
@@ -13,6 +14,6 @@ public class ListMojo extends CommandSingleConfMojoAdapter<ListCommand> {
 
 
     protected ListMojo() {
-        super(new ListCommand());
+        super(new ListCommand(EnvSettings.maven()));
     }
 }

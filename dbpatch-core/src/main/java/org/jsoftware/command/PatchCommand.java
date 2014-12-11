@@ -1,5 +1,6 @@
 package org.jsoftware.command;
 
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.config.Patch;
 
 import java.util.List;
@@ -12,6 +13,10 @@ import java.util.List;
  */
 public class PatchCommand extends ListCommand implements CommandSuccessIndicator {
     private boolean success;
+
+    public PatchCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
 
     @SuppressWarnings("unchecked")
     @Override

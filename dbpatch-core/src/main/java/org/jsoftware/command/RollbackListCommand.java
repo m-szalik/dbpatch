@@ -1,6 +1,7 @@
 package org.jsoftware.command;
 
 import org.jsoftware.config.AbstractPatch;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.RollbackPatch;
 import org.jsoftware.impl.CloseUtil;
@@ -23,6 +24,10 @@ import java.util.List;
  */
 public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
     protected boolean output = true;
+
+    public RollbackListCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
 
     @Override
     protected List<RollbackPatch> generateList(List<Patch> inListIn) throws IOException, SQLException, DuplicatePatchNameException {

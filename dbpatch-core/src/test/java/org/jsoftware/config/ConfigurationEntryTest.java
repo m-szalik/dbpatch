@@ -14,7 +14,7 @@ public class ConfigurationEntryTest {
 
     @Before
     public void setUp() throws Exception {
-        ce = new ConfigurationEntry();
+        ce = new ConfigurationEntry("test");
         ce.setJdbcUri("test");
         ce.setDriverClass("driver");
     }

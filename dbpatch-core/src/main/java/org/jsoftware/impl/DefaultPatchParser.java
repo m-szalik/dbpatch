@@ -2,6 +2,7 @@ package org.jsoftware.impl;
 
 import org.jsoftware.config.AbstractPatch;
 import org.jsoftware.config.ConfigurationEntry;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.impl.statements.CommentPatchStatement;
 import org.jsoftware.impl.statements.DisallowedSqlPatchStatement;
 import org.jsoftware.impl.statements.SqlPatchStatement;

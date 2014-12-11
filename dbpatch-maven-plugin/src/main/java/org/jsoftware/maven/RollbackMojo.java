@@ -1,6 +1,7 @@
 package org.jsoftware.maven;
 
 import org.jsoftware.command.RollbackCommand;
+import org.jsoftware.config.EnvSettings;
 
 
 /**
@@ -13,6 +14,6 @@ public class RollbackMojo extends CommandSingleConfMojoAdapter<RollbackCommand> 
 
 
     protected RollbackMojo() {
-        super(new RollbackCommand());
+        super(new RollbackCommand(EnvSettings.maven()));
     }
 }

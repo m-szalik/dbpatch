@@ -1,6 +1,7 @@
 package org.jsoftware.command;
 
 import org.jsoftware.config.AbstractPatch;
+import org.jsoftware.config.EnvSettings;
 import org.jsoftware.config.Patch;
 import org.jsoftware.config.PatchScanner;
 import org.jsoftware.impl.DuplicatePatchNameException;
@@ -17,6 +18,10 @@ import java.util.List;
  */
 abstract class AbstractListCommand<P extends AbstractPatch> extends AbstractSingleConfDbPatchCommand {
     static final int SPACES = 46;
+
+    public AbstractListCommand(EnvSettings envSettings) {
+        super(envSettings);
+    }
 
     /**
      * @return patches to apply

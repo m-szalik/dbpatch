@@ -9,11 +9,11 @@ Goals:
 	dbpatch:rollback        - rollback single patch or all patches (required property maven.dbpatch.single or maven.dbpatch.stop see below)
 	
 System properties:
-	maven.dbpatch.file		    - file to parse for help-parse goal
-	maven.dbpatch.configuration - selected configuration from properties file (see documentation)
-	maven.dbpatch.skip		    - skip dbpatch operations
-	maven.dbpatch.single        - single patch name to rollback
-	maven.dbpatch.stop          - patch name (inclusive) to stop on during rollback procedure
+	[dbpatch.file]		    - file to parse for help-parse goal
+	[dbpatch.configuration] - selected configuration from properties file (see documentation)
+	[dbpatch.skip]		    - skip dbpatch operations
+	[dbpatch.single]        - single patch name to rollback
+	[dbpatch.stop]          - patch name (inclusive) to stop on during rollback procedure
 
 	
 Patch statuses:
