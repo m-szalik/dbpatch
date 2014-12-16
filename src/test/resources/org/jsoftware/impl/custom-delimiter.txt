@@ -1,0 +1,9 @@
+declare
+    c int;
+begin
+    select count(*) into c from user_tables where table_name = 'TEST';
+    if c = 0 then
+        execute immediate 'CREATE TABLE TEST(ID NUMBER(19,0) PRIMARY KEY NOT NULL, NAME VARCHAR2(255), CODE VARCHAR2(255))';
+    end if;
+end;
+

@@ -32,7 +32,9 @@ public class HelpParseMojo extends AbstractMojo {
         if (!f.exists()) {
             throw new MojoFailureException("File " + f.getAbsolutePath() + " not found.");
         }
-        DefaultPatchParser parser = new DefaultPatchParser();
+        DefaultPatchParser parser = new DefaultPatchParser(
+                System.getProperty("maven.dbpatch.delimiter", DefaultPatchParser.DEFAULT_DELIMITER)
+        );
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(f);

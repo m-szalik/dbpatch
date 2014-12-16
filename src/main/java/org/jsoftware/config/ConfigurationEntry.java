@@ -43,11 +43,12 @@ public class ConfigurationEntry implements Serializable {
     private String patchDirs;
     private String rollbackDirs;
     private PatchScanner patchScanner;
-    private final PatchParser patchParser;
+    private PatchParser patchParser;
     private ApplyStrategy applyStarters;
     private Collection<Extension> extensions;
     private String patchEncoding;
     private String rollbackSuffix = "*.rollback";
+    private String delimiter;
 
 
     public ConfigurationEntry() {
@@ -58,7 +59,6 @@ public class ConfigurationEntry implements Serializable {
         this.id = id;
         dialect = new DefaultDialect();
         patchScanner = new DirectoryPatchScanner();
-        patchParser = new DefaultPatchParser();
         applyStarters = new MissingApplyStrategy();
         extensions = Collections.emptySet();
         patchEncoding = Charset.defaultCharset().name();
@@ -197,6 +197,14 @@ public class ConfigurationEntry implements Serializable {
         this.rollbackDirs = rollbackDirs;
     }
 
+    public String getDelimiter() {
+        return delimiter;
+    }
+
+    public void setDelimiter(String delimiter) {
+        this.delimiter = delimiter;
+    }
+
     public void validate() throws ParseException {
         checkNull(jdbcUri, "jdbcUri");
         checkNull(driverClass, "driverClass");
@@ -223,6 +231,9 @@ public class ConfigurationEntry implements Serializable {
                 dialect = new DefaultDialect();
             }
         }
+        patchParser = new DefaultPatchParser(
+                delimiter == null ? DefaultPatchParser.DEFAULT_DELIMITER : delimiter
+        );
     }
 
     private void checkNull(Object what, String key) throws ParseException {

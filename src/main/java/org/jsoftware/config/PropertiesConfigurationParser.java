@@ -86,6 +86,9 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
                 }
                 ce.setPatchScanner(scanner);
             }
+            if ("delimiter".equalsIgnoreCase(keys[1])) {
+                ce.setDelimiter(value);
+            }
         }
         return configs.values();
     }

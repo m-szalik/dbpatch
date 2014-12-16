@@ -50,11 +50,18 @@ public class DefaultPatchParserTest {
     }
 
     @Test
+    public void parsesWithDelimiter() throws IOException {
+        DefaultPatchParser parser = new DefaultPatchParser("\n");
+        List<PatchStatement> list = parser.parse(getClass().getResourceAsStream("custom-delimiter.txt"), null).getStatements();
+        Assert.assertEquals(7, countStatements(list, true));
+        Assert.assertEquals(1, countStatements(list, false));
+    }
+
+    @Test
     public void comments() throws IOException {
         DefaultPatchParser parser = new DefaultPatchParser();
         List<PatchStatement> list = parser.parse(getClass().getResourceAsStream("input-comments.txt"), null).getStatements();
         Assert.assertEquals(4, countStatements(list, true));
         Assert.assertEquals(3, countStatements(list, false));
     }
-
 }

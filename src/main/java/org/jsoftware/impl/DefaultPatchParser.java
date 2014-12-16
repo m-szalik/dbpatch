@@ -18,12 +18,17 @@ import java.util.*;
 public class DefaultPatchParser extends SimpleParser implements PatchParser {
     private enum PSTATE {sql, comment_line, comment_block, sql_block, inside_singlequot, inside_doublequot}
 
-    private static final String DEFAULT_DELIMITER = ";";
-    private final String delimiter = DEFAULT_DELIMITER;
+    public static final String DEFAULT_DELIMITER = ";";
+    private final String delimiter;
     private final Collection<String> disallowed;
 
     public DefaultPatchParser() {
-        super("--", "//", DEFAULT_DELIMITER, "\n", "/\\*", "\\*/", "\"", "'");
+        this(DEFAULT_DELIMITER);
+    }
+
+    public DefaultPatchParser(final String dlmtr) {
+        super("--", "//", dlmtr, "\n", "/\\*", "\\*/", "\"", "'");
+        this.delimiter = dlmtr;
         disallowed = new HashSet<String>();
         BufferedReader br = null;
         try {
