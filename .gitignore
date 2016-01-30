@@ -25,4 +25,5 @@ pom.xml.releaseBackup
 pom.xml.next
 release.properties
 
-
+# Gradle
+*/.gradle
