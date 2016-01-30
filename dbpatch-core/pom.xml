@@ -1,15 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.jsoftware</groupId>
 	<artifactId>dbpatch-core</artifactId>
 	<packaging>jar</packaging>
-	<version>3.4-SNAPSHOT</version>
 	<name>Database patch - core / standalone</name>
 
     <parent>
         <groupId>org.jsoftware</groupId>
         <artifactId>dbpatch-parent</artifactId>
-        <version>3.4-SNAPSHOT</version>
+        <version>4.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -28,7 +26,7 @@
 							<Version>${project.version}</Version>
 							<Build-Date>${maven.build.timestamp}</Build-Date> <!-- see property maven.build.timestamp.format -->
                             <Built-By>szalik</Built-By>
-                            <Main-Class>org.jsoftware.DbPatch</Main-Class>
+                            <Main-Class>org.jsoftware.dbpatch.DbPatch</Main-Class>
 						</manifestEntries>
 					</archive>
 				</configuration>
