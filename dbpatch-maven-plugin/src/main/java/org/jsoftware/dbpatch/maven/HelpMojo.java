@@ -13,6 +13,6 @@ import org.jsoftware.dbpatch.config.EnvSettings;
 public class HelpMojo extends CommandMojoAdapter<HelpCommand> {
 
     protected HelpMojo() {
-        super(new HelpCommand(EnvSettings.maven()));
+        super(new HelpCommand(EnvSettings.maven(), "dbpatch:", "maven."));
     }
 }

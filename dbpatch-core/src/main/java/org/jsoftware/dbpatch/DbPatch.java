@@ -50,7 +50,7 @@ public class DbPatch {
             AbstractCommand command = argToCommand(args[0]);
             if (command == null) {
                 System.err.println("Arg 1 must be command name, arg 2 can be configuration file.");
-                new HelpCommand(envSettings).execute();
+                new HelpCommand(envSettings, "", "").execute();
             } else {
                 LogFactory.getInstance().debug("Lunching text mode - " + command + ".");
                 command.setConfigFile(confFile);
@@ -62,7 +62,7 @@ public class DbPatch {
     private static AbstractCommand argToCommand(String mojoArg) {
         EnvSettings envSettings = EnvSettings.standalone();
         if ("help".equalsIgnoreCase(mojoArg)) {
-            return new HelpCommand(envSettings);
+            return new HelpCommand(envSettings, "", "");
         }
         if ("help-parse".equalsIgnoreCase(mojoArg)) {
             return new HelpParseCommand(envSettings);

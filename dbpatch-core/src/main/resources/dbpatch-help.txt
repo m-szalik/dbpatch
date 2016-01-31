@@ -1,19 +1,19 @@
 Goals:
-	dbpatch:help 		    - this help message
-	dbpatch:help-parse 	    - parse sql (see dbpatch.file system property)
-	dbpatch:list 		    - display list of patches (see patch statuses section)
-	dbpatch:patch 		    - patch database
-	dbpatch:interactive	    - interactive mode
-	dbpatch:skip-errors	    - mark patches "in progress" as committed
-	dbpatch:rollback-list   - list of rollback patches, check if there are any missing rollback patches
-	dbpatch:rollback        - rollback single patch or all patches (required property maven.dbpatch.single or maven.dbpatch.stop see below)
+	[prefix:task]help 		    - this help message
+	[prefix:task]help-parse 	    - parse sql (see dbpatch.file system property)
+	[prefix:task]list 		    - display list of patches (see patch statuses section)
+	[prefix:task]patch 		    - patch database
+	[prefix:task]interactive	    - interactive mode
+	[prefix:task]skip-errors	    - mark patches "in progress" as committed
+	[prefix:task]rollback-list   - list of rollback patches, check if there are any missing rollback patches
+	[prefix:task]rollback        - rollback single patch or all patches (required property maven.dbpatch.single or maven.dbpatch.stop see below)
 	
 System properties:
-	[dbpatch.file]		    - file to parse for help-parse goal
-	[dbpatch.configuration] - selected configuration from properties file (see documentation)
-	[dbpatch.skip]		    - skip dbpatch operations
-	[dbpatch.single]        - single patch name to rollback
-	[dbpatch.stop]          - patch name (inclusive) to stop on during rollback procedure
+	[[prefix:property]dbpatch.file]		    - file to parse for help-parse goal
+	[[prefix:property]dbpatch.configuration] - selected configuration from properties file (see documentation)
+	[[prefix:property]dbpatch.skip]		    - skip dbpatch operations
+	[[prefix:property]dbpatch.single]        - single patch name to rollback
+	[[prefix:property]dbpatch.stop]          - patch name (inclusive) to stop on during rollback procedure
 
 	
 Patch statuses:
