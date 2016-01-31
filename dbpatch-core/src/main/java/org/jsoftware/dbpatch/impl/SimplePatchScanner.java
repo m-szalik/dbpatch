@@ -46,7 +46,6 @@ public abstract class SimplePatchScanner implements PatchScanner {
         return list;
     }
 
-    @Override
     public File findRollbackFile(File baseDir, String[] paths, Patch patch) throws DuplicatePatchNameException, IOException {
         List<DirMask> dirMasks = parsePatchDirs(baseDir, paths);
         for (DirMask dm : dirMasks) {
@@ -124,6 +123,9 @@ class DirMask {
     private String mask = "*.sql";
 
     public DirMask(File dir) {
+        if (dir == null) {
+            throw new IllegalArgumentException("dir cannot be bull");
+        }
         this.dir = dir;
     }
 
