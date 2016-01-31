@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.jsoftware</groupId>
+	<groupId>org.jsoftware.dbpatch</groupId>
 	<artifactId>dbpatch-example</artifactId>
 	<version>4.0</version>
 	<packaging>pom</packaging>
@@ -10,9 +10,10 @@
 	<plugins>
             	<plugin> <!-- rest of the configuration is in parent pom -->
 	   		<groupId>org.jsoftware.dbpatch</groupId>
-    			<artifactId>dbpatch</artifactId>
+    			<artifactId>dbpatch-maven-plugin</artifactId>
 			<version>4.0</version>
     			<configuration>
+				<configFile>dbpatch.properties</configFile>
      				<selectedConfiguration>conf_01</selectedConfiguration> <!--  default database profile -->
 			</configuration>
  			<dependencies>
