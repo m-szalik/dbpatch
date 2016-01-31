@@ -1,7 +1,7 @@
 apply plugin: 'dbpatch'
 
 dbpatch {
-	configFile = "dbpatch.properties"
+	configFile = "../dbpatch.properties"
 	selectedConfiguration = "conf_01"
 }
 
