@@ -1,3 +1,0 @@
--- Roll back patch for 0010-create_user_table.sql
-
-DROP TABLE `users`;
