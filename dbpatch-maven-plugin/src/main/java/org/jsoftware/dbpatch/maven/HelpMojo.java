@@ -1,8 +1,8 @@
 package org.jsoftware.dbpatch.maven;
 
-import org.jsoftware.command.HelpCommand;
-import org.jsoftware.config.EnvSettings;
 
+import org.jsoftware.dbpatch.command.HelpCommand;
+import org.jsoftware.dbpatch.config.EnvSettings;
 
 /**
  * Display help

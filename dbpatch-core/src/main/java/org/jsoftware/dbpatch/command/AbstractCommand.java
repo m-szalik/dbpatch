@@ -2,7 +2,7 @@ package org.jsoftware.dbpatch.command;
 
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.config.EnvSettings;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.File;
 
@@ -12,7 +12,7 @@ import java.io.File;
  * @author szalik
  */
 public abstract class AbstractCommand {
-    protected final org.jsoftware.log.Log log = LogFactory.getInstance();
+    protected final org.jsoftware.dbpatch.log.Log log = LogFactory.getInstance();
     protected final EnvSettings envSettings;
     private File configFile;
     private ConfigurationEntry conf;

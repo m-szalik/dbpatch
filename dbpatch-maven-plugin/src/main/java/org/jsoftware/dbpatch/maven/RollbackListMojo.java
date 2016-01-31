@@ -1,8 +1,8 @@
 package org.jsoftware.dbpatch.maven;
 
-import org.jsoftware.command.RollbackListCommand;
-import org.jsoftware.config.EnvSettings;
 
+import org.jsoftware.dbpatch.command.RollbackListCommand;
+import org.jsoftware.dbpatch.config.EnvSettings;
 
 /**
  * Show list of roll-back patches

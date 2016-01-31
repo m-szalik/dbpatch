@@ -5,7 +5,7 @@ import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.config.EnvSettings;
 import org.jsoftware.dbpatch.impl.ConsoleDbManagerPasswordCallback;
 import org.jsoftware.dbpatch.impl.DbManager;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.File;
 import java.util.Collection;

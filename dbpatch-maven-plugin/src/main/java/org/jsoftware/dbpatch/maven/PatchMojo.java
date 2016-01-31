@@ -2,8 +2,8 @@ package org.jsoftware.dbpatch.maven;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.jsoftware.command.PatchCommand;
-import org.jsoftware.config.EnvSettings;
+import org.jsoftware.dbpatch.command.PatchCommand;
+import org.jsoftware.dbpatch.config.EnvSettings;
 
 
 /**
@@ -24,7 +24,7 @@ public class PatchMojo extends CommandSingleConfMojoAdapter<PatchCommand> {
         try {
             super.execute();
         } finally {
-            getPluginContext().put(getClass().getName() + "-uptodate", command.isSuccess());
+            getPluginContext().put(getClass().getName() + "-update", command.isSuccess());
         }
     }
 }

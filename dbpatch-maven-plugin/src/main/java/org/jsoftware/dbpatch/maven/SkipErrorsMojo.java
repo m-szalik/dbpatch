@@ -1,7 +1,8 @@
 package org.jsoftware.dbpatch.maven;
 
-import org.jsoftware.command.SkipErrorsCommand;
-import org.jsoftware.config.EnvSettings;
+
+import org.jsoftware.dbpatch.command.SkipErrorsCommand;
+import org.jsoftware.dbpatch.config.EnvSettings;
 
 /**
  * Mark patches &quot;in progress&quot; as committed.

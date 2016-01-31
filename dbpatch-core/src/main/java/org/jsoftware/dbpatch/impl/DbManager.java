@@ -1,6 +1,5 @@
 package org.jsoftware.dbpatch.impl;
 
-import org.jsoftware.config.*;
 import org.jsoftware.dbpatch.config.AbstractPatch;
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.config.Patch;
@@ -9,11 +8,16 @@ import org.jsoftware.dbpatch.config.dialect.Dialect;
 import org.jsoftware.dbpatch.config.dialect.PatchExecutionResult;
 import org.jsoftware.dbpatch.impl.extension.Extension;
 import org.jsoftware.dbpatch.impl.statements.DisallowedSqlPatchStatement;
-import org.jsoftware.log.Log;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.log.Log;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.IOException;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;

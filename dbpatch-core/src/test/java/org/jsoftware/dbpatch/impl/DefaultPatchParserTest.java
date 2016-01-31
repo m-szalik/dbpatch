@@ -1,11 +1,13 @@
 package org.jsoftware.dbpatch.impl;
 
-import static org.junit.Assert.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 
 public class DefaultPatchParserTest {

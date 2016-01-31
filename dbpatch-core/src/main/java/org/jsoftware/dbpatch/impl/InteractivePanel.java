@@ -1,8 +1,8 @@
 package org.jsoftware.dbpatch.impl;
 
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
-import org.jsoftware.log.Log;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.log.Log;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

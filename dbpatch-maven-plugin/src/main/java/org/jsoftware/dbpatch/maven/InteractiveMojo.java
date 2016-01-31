@@ -1,8 +1,8 @@
 package org.jsoftware.dbpatch.maven;
 
-import org.jsoftware.command.InteractiveCommand;
-import org.jsoftware.config.EnvSettings;
 
+import org.jsoftware.dbpatch.command.InteractiveCommand;
+import org.jsoftware.dbpatch.config.EnvSettings;
 
 /**
  * Runs interactive client from maven

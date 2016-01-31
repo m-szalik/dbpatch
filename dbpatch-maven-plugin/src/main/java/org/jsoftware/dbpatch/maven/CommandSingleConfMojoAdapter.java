@@ -1,7 +1,7 @@
 package org.jsoftware.dbpatch.maven;
 
-import org.jsoftware.command.AbstractSingleConfDbPatchCommand;
 
+import org.jsoftware.dbpatch.command.AbstractSingleConfDbPatchCommand;
 
 /**
  * @author szalik
