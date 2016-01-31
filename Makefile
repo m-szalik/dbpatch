@@ -1,8 +1,8 @@
 all:
-		mvn clean install
+		gradle build install
 fast:
-		mvn -Dmaven.test.skip=true install
+		gradle build install -x test
 test:
-		mvn test
+		gradle test
 clean:
-		mvn clean
+		gradle clean

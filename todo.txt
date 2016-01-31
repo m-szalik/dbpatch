@@ -1,6 +1,0 @@
-1. Generate proper pom.xml for maven plugin
-2. Generate plugin.xml using some gradle plugin for that
-3. Create / fix Readme.md
-4. Create how-to-use-example
-5. Inplement tasks of gradle plugin
-

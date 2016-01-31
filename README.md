@@ -1,31 +1,19 @@
-Maven dbpatch plugin
-====================
+Dbpatch
+========
 
-### Manage versioning of your databases with maven
-**This plugin allows you to version database changes (sql patches) with maven. It can automaticly apply patches as well as execute roll-backs scripts.**
-_Whenever it is possible patches are executed in transactions, so you can be sure that your patch was applied correctly or none._
+### Manage versioning of your databases with maven, gradle or standalone GUI application
 
 [![video presentation](http://img.youtube.com/vi/hD5ACGfmkM4/0.jpg)](http://www.youtube.com/watch?v=hD5ACGfmkM4)
 
-#### Plugin goals:
- * dbpatch:help – help screen
- * dbpatch:help-parse – parse sql _(use dbpatch.file system property to indicate file to parse)_
- * dbpatch:list – display list of patches
- * dbpatch:patch – patch database
- * dbpatch:rollback-list – check if there is a rollback file for each patch
- * dbpatch:rollback – rollback patch or multiple patches
- * dbpatch:interactive – interactive mode (GUI) – screen below
 
 #### Interactive mode
 This plugin can be executed as standard java program (java -jar [plugin-jar-file.jar](http://central.maven.org/maven2/org/jsoftware/dbpatch/))
 
 ![interactive mode screen shot](https://raw.github.com/m-szalik/dbpatch-maven-plugin/master/docs/dbpatch-interactive-screen.png)
 
-#### Bash completions for dbpatch plugin:
-Download [bash_completion](https://raw.github.com/m-szalik/dbpatch-maven-plugin/master/docs/bash_completion) and save it into your maven base directory **~/.m2**.
-
-#### Configuration
-For configuration example see [docs/configuration-example](./docs/configuration-example)
+#### Use with Gradle or Maven
+ * [Gradle plugin](https://raw.github.com/m-szalik/dbpatch/master/dbpatch-gradle-plugin)
+ * [Maven plugin](https://raw.github.com/m-szalik/dbpatch/master/dbpatch-maven-plugin)
 
 #### More info on Wiki
 https://github.com/m-szalik/dbpatch-maven-plugin/wiki
