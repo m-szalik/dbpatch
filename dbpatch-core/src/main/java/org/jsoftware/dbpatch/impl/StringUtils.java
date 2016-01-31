@@ -1451,7 +1451,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetter(str.charAt(i)) == false) {
+            if (!Character.isLetter(str.charAt(i))) {
                 return false;
             }
         }
@@ -1473,7 +1473,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isWhitespace(str.charAt(i)) == false)) {
+            if ((!Character.isWhitespace(str.charAt(i)))) {
                 return false;
             }
         }
@@ -1497,7 +1497,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isLetter(str.charAt(i)) == false) &&
+            if ((!Character.isLetter(str.charAt(i))) &&
                     (str.charAt(i) != ' ')) {
                 return false;
             }
@@ -1521,7 +1521,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isLetterOrDigit(str.charAt(i)) == false) {
+            if (!Character.isLetterOrDigit(str.charAt(i))) {
                 return false;
             }
         }
@@ -1545,7 +1545,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isLetterOrDigit(str.charAt(i)) == false) &&
+            if ((!Character.isLetterOrDigit(str.charAt(i))) &&
                     (str.charAt(i) != ' ')) {
                 return false;
             }
@@ -1568,7 +1568,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if (Character.isDigit(str.charAt(i)) == false) {
+            if (!Character.isDigit(str.charAt(i))) {
                 return false;
             }
         }
@@ -1592,7 +1592,7 @@ public class StringUtils {
         }
         int sz = str.length();
         for (int i = 0; i < sz; i++) {
-            if ((Character.isDigit(str.charAt(i)) == false) &&
+            if ((!Character.isDigit(str.charAt(i))) &&
                     (str.charAt(i) != ' ')) {
                 return false;
             }

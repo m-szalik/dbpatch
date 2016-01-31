@@ -29,7 +29,7 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
         super(envSettings);
     }
 
-    @Override
+
     protected List<RollbackPatch> generateList(List<Patch> inListIn) throws IOException, SQLException, DuplicatePatchNameException {
         List<Patch> missingRollback = new LinkedList<Patch>();
         List<RollbackPatch> rollbacks = new LinkedList<RollbackPatch>();
@@ -98,7 +98,7 @@ public class RollbackListCommand extends AbstractListCommand<RollbackPatch> {
         }
     }
 
-    @Override
+
     protected void executeInternal() throws Exception {
         getList();
     }

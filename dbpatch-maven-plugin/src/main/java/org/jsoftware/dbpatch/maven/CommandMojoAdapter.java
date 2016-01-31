@@ -49,7 +49,7 @@ public class CommandMojoAdapter<C extends AbstractCommand> extends AbstractMojo 
     }
 
 
-    @Override
+
     public void setLog(Log log) {
         super.setLog(log);
         if (log != null) {

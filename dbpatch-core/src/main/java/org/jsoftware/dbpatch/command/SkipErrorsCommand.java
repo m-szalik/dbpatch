@@ -16,7 +16,7 @@ public class SkipErrorsCommand extends AbstractSingleConfDbPatchCommand {
         super(envSettings);
     }
 
-    @Override
+
     protected void executeInternal() throws Exception {
         Connection connection = manager.getConnection();
         Statement statement = null;

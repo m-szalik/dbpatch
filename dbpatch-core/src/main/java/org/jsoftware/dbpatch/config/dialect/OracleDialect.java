@@ -13,7 +13,7 @@ import java.sql.*;
 public class OracleDialect extends DefaultDialect {
     private static final long serialVersionUID = -8744726190040823430L;
 
-    @Override
+
     public PatchExecutionResult executeStatement(Connection c, PatchStatement ps) {
         if (ps.getCode().toLowerCase().startsWith("set ")) {
             PatchExecutionResultImpl resultImpl = new PatchExecutionResultImpl(ps);

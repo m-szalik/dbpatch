@@ -100,22 +100,22 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
         }
     }
 
-    @Override
+
     public void beforePatchStatement(Connection connection, AbstractPatch patch, PatchStatement statement) {
 
     }
 
-    @Override
+
     public void afterPatchStatement(Connection connection, AbstractPatch patch, PatchExecutionResult result) {
 
     }
 
-    @Override
+
     public void beforeRollbackPatch(Connection connection, RollbackPatch patch) {
 
     }
 
-    @Override
+
     public void afterRollbackPatch(Connection connection, RollbackPatch patch, Exception ex) throws SQLException {
 
     }

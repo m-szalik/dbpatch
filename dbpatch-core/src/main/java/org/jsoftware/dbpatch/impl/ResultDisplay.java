@@ -48,22 +48,22 @@ public class ResultDisplay extends JEditorPane implements Extension {
         addText("<br />", null);
     }
 
-    @Override
+
     public void beforePatchStatement(Connection connection, AbstractPatch patch, PatchStatement statement) {
 
     }
 
-    @Override
+
     public void afterPatchStatement(Connection connection, AbstractPatch patch, PatchExecutionResult result) {
 
     }
 
-    @Override
+
     public void beforeRollbackPatch(Connection connection, RollbackPatch patch) {
 
     }
 
-    @Override
+
     public void afterRollbackPatch(Connection connection, RollbackPatch patch, Exception ex) throws SQLException {
         if (ex == null) {
             addInfo("com.rollbacking.done.ok", new Object[]{patch.getName(), patch.getFile().getName()});

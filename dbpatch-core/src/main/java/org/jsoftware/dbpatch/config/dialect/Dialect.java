@@ -16,7 +16,7 @@ import java.sql.Timestamp;
  * @author szalik
  */
 public interface Dialect extends Serializable {
-    static final String DBPATCH_TABLE_NAME = "db_patches";
+    String DBPATCH_TABLE_NAME = "db_patches";
 
     /**
      * It is recommended to be #DBPATCH_TABLE_NAME but can be customized if necessary

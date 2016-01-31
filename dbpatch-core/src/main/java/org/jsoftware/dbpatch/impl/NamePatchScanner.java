@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class NamePatchScanner extends SimplePatchScanner {
 
-    @Override
+
     protected void sortAll(List<Patch> allPatchList) {
         Collections.sort(allPatchList, new Comparator<Patch>() {
             public int compare(Patch o1, Patch o2) {
@@ -20,7 +20,7 @@ public class NamePatchScanner extends SimplePatchScanner {
         });
     }
 
-    @Override
+
     protected void sortDirectory(List<Patch> dirPatchList) {
     }
 

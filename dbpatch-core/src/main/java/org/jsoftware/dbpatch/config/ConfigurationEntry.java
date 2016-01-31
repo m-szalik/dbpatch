@@ -231,7 +231,7 @@ public class ConfigurationEntry implements Serializable {
         return patchDirs;
     }
 
-    @Override
+
     public String toString() {
         ToStringBuilder tsb = new ToStringBuilder();
         tsb.add("id", id);
@@ -258,7 +258,7 @@ class ToStringBuilder {
         return this;
     }
 
-    @Override
+
     public String toString() {
         return sb.toString();
     }

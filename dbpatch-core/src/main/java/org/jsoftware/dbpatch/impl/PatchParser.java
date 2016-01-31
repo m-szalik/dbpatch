@@ -12,7 +12,7 @@ import java.util.List;
  * <p>Splits Patches and RollbackPatches to PatchStatements</p>
  */
 public interface PatchParser {
-    public interface ParseResult {
+    interface ParseResult {
         List<PatchStatement> getStatements();
 
         int executableCount();

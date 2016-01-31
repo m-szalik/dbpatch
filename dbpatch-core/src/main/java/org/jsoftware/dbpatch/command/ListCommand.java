@@ -20,7 +20,7 @@ public class ListCommand extends AbstractListCommand<Patch> {
         super(envSettings);
     }
 
-    @Override
+
     protected List<Patch> generateList(List<Patch> inList) throws IOException {
         ApplyStrategy strategy = configurationEntry.getApplyStarters();
         log.debug("Apply strategy is " + strategy.getClass().getSimpleName() + ", configurationId:" + configurationEntry.getId());
@@ -55,7 +55,7 @@ public class ListCommand extends AbstractListCommand<Patch> {
     }
 
 
-    @Override
+
     protected void executeInternal() throws Exception {
         getList();
     }
