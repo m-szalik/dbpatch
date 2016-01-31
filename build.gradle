@@ -1,13 +1,7 @@
-apply plugin: 'maven-publish'
-
-
 buildscript {
 }
 
-repositories {
-    jcenter()
-    mavenCentral()
-}
+
 
 ext.libraries = [
         junit : ["junit:junit:4.12"],
@@ -16,5 +10,26 @@ ext.libraries = [
         commons_lang: ["org.apache.commons:commons-lang3:3.4"]
 ]
 
+allprojects {
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'java'
+    sourceCompatibility = 1.5
 
+    group = 'org.jsoftware.dbpatch'
+    version = '4.0'
+
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    publishing {
+        repositories {
+            maven {
+                url "/home/m2-repository"
+            }
+        }
+    }
+}
 
