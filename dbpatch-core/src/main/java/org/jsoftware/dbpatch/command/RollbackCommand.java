@@ -22,7 +22,7 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
     }
 
     @SuppressWarnings("unchecked")
-    @Override
+
     protected void executeInternal() throws Exception {
         success = false;
         List<RollbackPatch> patches = getList();
@@ -82,7 +82,7 @@ public class RollbackCommand extends RollbackListCommand implements CommandSucce
         }
     }
 
-    @Override
+
     public boolean isSuccess() {
         return success;
     }

@@ -12,8 +12,6 @@ import java.sql.SQLException;
  */
 public class ConsoleDbManagerPasswordCallback extends AbstractDbManagerCredentialsCallback {
 
-
-    @Override
     public String getUsername(ConfigurationEntry configurationEntry) throws SQLException {
         String defaultUsername = System.getProperty("user.name");
         System.out.print("Enter username for " + configurationEntry.getJdbcUri() + (defaultUsername != null ? "[" + defaultUsername + "]" : "") + ":");
@@ -31,7 +29,7 @@ public class ConsoleDbManagerPasswordCallback extends AbstractDbManagerCredentia
         }
     }
 
-    @Override
+
     protected String getPassword(SQLException lastSqlException, ConfigurationEntry configurationEntry) {
         if (lastSqlException != null) {
             System.out.println(lastSqlException.getLocalizedMessage());

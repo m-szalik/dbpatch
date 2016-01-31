@@ -16,7 +16,7 @@ public class SybaseDialect extends DefaultDialect {
     private static final Log logger = LogFactory.getInstance();
 
 
-    @Override
+
     public void checkAndCreateStructure(Connection con) throws SQLException {
         boolean autoCommit = con.getAutoCommit();
         con.setAutoCommit(true);

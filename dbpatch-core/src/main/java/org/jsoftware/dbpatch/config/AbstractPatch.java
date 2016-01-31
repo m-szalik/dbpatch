@@ -59,7 +59,7 @@ public abstract class AbstractPatch implements Serializable {
     }
 
     public void setDbDate(Date dbDate) {
-        this.dbDate = dbDate;
+        this.dbDate = dbDate == null ? null : new Date(dbDate.getTime());
     }
 
     public void setDbState(DbState dbState) {
@@ -67,7 +67,7 @@ public abstract class AbstractPatch implements Serializable {
     }
 
     public Date getDbDate() {
-        return dbDate;
+        return dbDate == null ? null : new Date(dbDate.getTime());
     }
 
     public DbState getDbState() {
@@ -76,7 +76,7 @@ public abstract class AbstractPatch implements Serializable {
 
     public abstract boolean canApply();
 
-    @Override
+
     public String toString() {
         return super.toString() + "-" + name;
     }

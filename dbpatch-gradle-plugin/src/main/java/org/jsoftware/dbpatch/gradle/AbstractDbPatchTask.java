@@ -47,7 +47,7 @@ abstract class CommandFactory<C extends AbstractCommand> {
 
     static <C extends AbstractCommand> CommandFactory<C> defaultFactory(final Class<C> clazz) {
         return new CommandFactory<C>() {
-            @Override
+
             C getCommand() {
                 try {
                     Constructor<C> constructor = clazz.getConstructor(EnvSettings.class);

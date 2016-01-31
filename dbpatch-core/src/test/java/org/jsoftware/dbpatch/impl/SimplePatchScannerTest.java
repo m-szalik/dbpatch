@@ -11,11 +11,11 @@ import java.util.List;
  */
 public class SimplePatchScannerTest {
     private final SimplePatchScanner simplePatchScanner = new SimplePatchScanner() {
-        @Override
+
         protected void sortDirectory(List<Patch> dirPatchList) {
         }
 
-        @Override
+
         protected void sortAll(List<Patch> allPatchList) {
         }
     };

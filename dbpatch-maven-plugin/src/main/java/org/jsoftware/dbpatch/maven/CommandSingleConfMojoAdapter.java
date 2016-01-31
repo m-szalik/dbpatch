@@ -25,7 +25,7 @@ public abstract class CommandSingleConfMojoAdapter<T extends AbstractSingleConfD
         this.selectedConfiguration = selectedConfiguration;
     }
 
-    @Override
+
     protected void setup(AbstractSingleConfDbPatchCommand command) {
         command.setSelectedConfiguration(selectedConfiguration);
     }

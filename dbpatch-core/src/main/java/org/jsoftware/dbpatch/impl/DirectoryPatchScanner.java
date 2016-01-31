@@ -15,7 +15,7 @@ public class DirectoryPatchScanner extends SimplePatchScanner implements Seriali
     private static final long serialVersionUID = 2156150612939870399L;
 
 
-    @Override
+
     protected void sortDirectory(List<Patch> dirPatchList) {
         Collections.sort(dirPatchList, new Comparator<Patch>() {
             public int compare(Patch o1, Patch o2) {
@@ -25,7 +25,7 @@ public class DirectoryPatchScanner extends SimplePatchScanner implements Seriali
     }
 
 
-    @Override
+
     protected void sortAll(List<Patch> allPatchList) {
     }
 

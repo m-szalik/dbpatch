@@ -121,7 +121,7 @@ public class DefaultDialect implements Dialect {
         }
     }
 
-    @Override
+
     public void removePatchInfo(Connection con, RollbackPatch p) throws SQLException {
         PreparedStatement ps = null;
         try {
@@ -133,7 +133,7 @@ public class DefaultDialect implements Dialect {
         }
     }
 
-    @Override
+
     public boolean checkIfPatchIsCommitted(Connection con, AbstractPatch patch) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;

@@ -29,7 +29,7 @@ public class SimpleParserCallbackContext {
         return input.substring(startp, endp);
     }
 
-    @Override
+
     public String toString() {
         return getClass().getSimpleName() + "[" + startp + "," + endp + "]";
     }

@@ -19,7 +19,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
     private enum PSTATE {sql, comment_line, comment_block, sql_block, inside_singlequot, inside_doublequot}
 
     private static final String DEFAULT_DELIMITER = ";";
-    private final String delimiter = DEFAULT_DELIMITER;
+    private static final String delimiter = DEFAULT_DELIMITER;
     private final Collection<String> disallowed;
 
     public DefaultPatchParser() {

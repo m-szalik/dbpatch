@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  */
 public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 
-    @Override
+
     public Collection<ConfigurationEntry> parse(InputStream input) throws IOException, ParseException {
         Properties p = new Properties();
         p.load(input);

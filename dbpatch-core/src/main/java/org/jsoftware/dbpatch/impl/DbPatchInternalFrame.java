@@ -129,7 +129,7 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
             }
         };
         table = new JTable(tableModel) {
-            @Override
+
             public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
                 Component c = super.prepareRenderer(renderer, row, column);
                 if (c instanceof JComponent) {

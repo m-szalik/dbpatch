@@ -1,6 +1,5 @@
 package org.jsoftware.dbpatch.gradle;
 
-import org.jsoftware.dbpatch.command.AbstractCommand;
 import org.jsoftware.dbpatch.command.HelpCommand;
 import org.jsoftware.dbpatch.config.EnvSettings;
 
@@ -11,9 +10,8 @@ import org.jsoftware.dbpatch.config.EnvSettings;
 public class HelpTask extends AbstractDbPatchTask<HelpCommand> {
 
     public HelpTask() {
-        super(new CommandFactory() {
-            @Override
-            AbstractCommand getCommand() {
+        super(new CommandFactory<HelpCommand>() {
+            HelpCommand getCommand() {
                 return new HelpCommand(EnvSettings.gradle(), "dbpatch-", "gradle.");
             }
         }, "Displays a help message.");

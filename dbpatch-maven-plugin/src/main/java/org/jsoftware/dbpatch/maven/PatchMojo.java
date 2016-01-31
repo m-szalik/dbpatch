@@ -18,7 +18,7 @@ public class PatchMojo extends CommandSingleConfMojoAdapter<PatchCommand> {
         super(new PatchCommand(EnvSettings.maven()));
     }
 
-    @Override
+
     @SuppressWarnings("unchecked")
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {

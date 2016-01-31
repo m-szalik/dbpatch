@@ -19,7 +19,7 @@ public class PatchCommand extends ListCommand implements CommandSuccessIndicator
     }
 
     @SuppressWarnings("unchecked")
-    @Override
+
     protected void executeInternal() throws Exception {
         List<Patch> patchesToApply = getList();
         success = false;
@@ -35,7 +35,7 @@ public class PatchCommand extends ListCommand implements CommandSuccessIndicator
     }
 
 
-    @Override
+
     public boolean isSuccess() {
         return success;
     }

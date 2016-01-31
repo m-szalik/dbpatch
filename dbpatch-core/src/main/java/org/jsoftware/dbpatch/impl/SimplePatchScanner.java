@@ -25,12 +25,15 @@ public abstract class SimplePatchScanner implements PatchScanner {
         for (DirMask dm : dirMasks) {
             log.debug("Scan for patches " + dm.getDir().getAbsolutePath() + " with " + dm.getMask());
             LinkedList<Patch> dirList = new LinkedList<Patch>();
+            notADirectoryCheck(dm.getDir());
             File[] fList = dm.getDir().listFiles(new WildcardMaskFileFilter(dm.getMask()));
-            for (File f : fList) {
-                Patch p = new Patch();
-                p.setFile(f);
-                p.setName(AbstractPatch.normalizeName(f.getName()));
-                dirList.add(p);
+            if (fList != null) {
+                for (File f : fList) {
+                    Patch p = new Patch();
+                    p.setFile(f);
+                    p.setName(AbstractPatch.normalizeName(f.getName()));
+                    dirList.add(p);
+                }
             }
             sortDirectory(dirList);
             for (Patch patch1 : dirList) {
@@ -51,16 +54,24 @@ public abstract class SimplePatchScanner implements PatchScanner {
         for (DirMask dm : dirMasks) {
             log.debug("Scan for rollback of '" + patch.getName() + "' " + dm.getDir().getAbsolutePath() + " with " + dm.getMask());
             File[] fList = dm.getDir().listFiles(new WildcardMaskFileFilter(dm.getMask()));
-            for (File f : fList) {
-                String rn = AbstractPatch.normalizeName(f.getName());
-                if (rn.equals(patch.getName())) {
-                    return f;
+            notADirectoryCheck(dm.getDir());
+            if (fList != null) {
+                for (File f : fList) {
+                    String rn = AbstractPatch.normalizeName(f.getName());
+                    if (rn.equals(patch.getName())) {
+                        return f;
+                    }
                 }
             }
         }
         return null;
     }
 
+    private void notADirectoryCheck(File dir) throws IOException {
+        if (! dir.isDirectory()) {
+            throw new IOException(dir.getAbsolutePath() + " is not a directory.");
+        }
+    }
 
     protected abstract void sortDirectory(List<Patch> dirPatchList);
 
@@ -147,7 +158,7 @@ class DirMask {
         return mask;
     }
 
-    @Override
+
     public String toString() {
         return "(" + dir.getAbsolutePath() + ":" + getMask() + ")";
     }
