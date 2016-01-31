@@ -48,7 +48,6 @@ public class LogFactory {
 class LogLocalImpl implements Log {
     Level currentLevel;
 
-    @Override
     public void trace(String msg, Throwable e) {
         log(Level.TRACE, msg, e);
     }

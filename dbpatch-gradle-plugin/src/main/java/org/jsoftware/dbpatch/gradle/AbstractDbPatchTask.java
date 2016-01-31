@@ -8,6 +8,7 @@ import org.jsoftware.dbpatch.command.CommandExecutionException;
 import org.jsoftware.dbpatch.command.CommandFailureException;
 import org.jsoftware.dbpatch.config.EnvSettings;
 
+import java.io.File;
 import java.lang.reflect.Constructor;
 
 abstract class AbstractDbPatchTask<C extends AbstractCommand> extends DefaultTask {
@@ -27,6 +28,11 @@ abstract class AbstractDbPatchTask<C extends AbstractCommand> extends DefaultTas
         }
         C command = commandFactory.getCommand();
         command.setConfigFile(dbpatchExt.getConfigFile());
+        File baseDir = dbpatchExt.getBaseDir();
+        if (baseDir == null) {
+            baseDir = getProject().getProjectDir();
+        }
+        command.setDirectory(baseDir);
         if (command instanceof AbstractSingleConfDbPatchCommand) {
             AbstractSingleConfDbPatchCommand singleConfDbPatchCommand = (AbstractSingleConfDbPatchCommand) command;
             singleConfDbPatchCommand.setSelectedConfiguration(dbpatchExt.getSelectedConfiguration());
