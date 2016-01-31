@@ -16,7 +16,7 @@ Dbpatch-gradle-plugin
 For configuration example see [how-to-use-example](how-to-use-example)
 
 #### More info on Wiki
-https://github.com/m-szalik/dbpatch/wiki/gradle
+https://github.com/m-szalik/dbpatch/wiki/Gradle
 
 #### License
 Apache License 2.0
