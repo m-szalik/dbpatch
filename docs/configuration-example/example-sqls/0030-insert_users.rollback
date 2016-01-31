@@ -1,6 +1,0 @@
--- Rollback patch for 0030-insert_users.sql
-
-DELETE FROM users WHERE first_name='John' AND last_name='Schmidt';
-DELETE FROM users WHERE first_name='Ann' AND last_name='Jones';
-
-
