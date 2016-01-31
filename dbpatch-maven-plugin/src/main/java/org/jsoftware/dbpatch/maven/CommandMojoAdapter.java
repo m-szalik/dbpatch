@@ -8,7 +8,6 @@ import org.apache.maven.plugin.logging.Log;
 import org.jsoftware.dbpatch.command.AbstractCommand;
 import org.jsoftware.dbpatch.command.CommandExecutionException;
 import org.jsoftware.dbpatch.command.CommandFailureException;
-import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.File;
@@ -58,7 +57,6 @@ public class CommandMojoAdapter<C extends AbstractCommand> extends AbstractMojo 
         }
     }
 
-    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         Log log = getLog();
         if (System.getProperty("maven.dbpatch.skip") != null) {

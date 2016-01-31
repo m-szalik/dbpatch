@@ -50,7 +50,7 @@ public class ConfigurationEntry implements Serializable {
     private String rollbackSuffix = "*.rollback";
 
 
-    ConfigurationEntry(String id) {
+    protected ConfigurationEntry(String id) {
         this.id = id;
         dialect = new DefaultDialect();
         patchScanner = new DirectoryPatchScanner();

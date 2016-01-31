@@ -1,32 +1,32 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.jsoftware</groupId>
+    <groupId>org.jsoftware.dbpatch</groupId>
     <artifactId>dbpatch-conf-op1</artifactId>
     <packaging>pom</packaging>
-    <version>1.0</version>
+    <version>4.0</version>
 
-    <name>Database patch configuration example - option 1</name>
-    <url>https://github.com/m-szalik/dbpatch-maven-plugin/wiki/Configuration#wiki-option-1-with-pomxml-only</url>
+    <name>Database patch maven configuration example - option 1</name>
+    <url>https://github.com/m-szalik/dbpatch/wiki/Maven</url>
     <description>Configuration example with pom.xml only.</description>
 
     <properties>
-        <password>secret</password>
+        <password>test</password>
     </properties>
 
 
     <build>
         <plugins>
             <plugin>
-                <groupId>org.jsoftware</groupId>
-                <artifactId>dbpatch</artifactId>
-                <version>3.3</version>
+                <groupId>org.jsoftware.dbpatch</groupId>
+                <artifactId>dbpatch-maven-plugin</artifactId>
+                <version>4.0</version>
                 <configuration>
                     <conf>
                         <driverClass>com.mysql.jdbc.Driver</driverClass>
-                        <jdbcUri>jdbc:mysql://localhost/dbpatch_test</jdbcUri>
-                        <username>dbpatch</username>
+                        <jdbcUri>jdbc:mysql://localhost/example_db</jdbcUri>
+                        <username>test</username>
                         <password>${password}</password> <!-- set by pom property "password" -->
-                        <patchDirs>../example-sqls</patchDirs> <!-- sql scripts location -->
+                        <patchDirs>../../sql</patchDirs> <!-- sql scripts location -->
                     </conf>
                 </configuration>
                 <dependencies>
