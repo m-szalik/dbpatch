@@ -1,5 +1,6 @@
-package org.jsoftware.dbpatch.config;
+package org.jsoftware.dbpatch;
 
+import org.jsoftware.dbpatch.config.AbstractPatch;
 import org.junit.Test;
 
 /**

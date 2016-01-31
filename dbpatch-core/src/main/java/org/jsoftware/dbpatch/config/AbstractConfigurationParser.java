@@ -1,8 +1,8 @@
 package org.jsoftware.dbpatch.config;
 
 import org.jsoftware.dbpatch.impl.CloseUtil;
-import org.jsoftware.log.Log;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.log.Log;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.*;
 import java.text.ParseException;

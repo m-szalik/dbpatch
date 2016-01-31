@@ -5,7 +5,7 @@ import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.impl.statements.CommentPatchStatement;
 import org.jsoftware.dbpatch.impl.statements.DisallowedSqlPatchStatement;
 import org.jsoftware.dbpatch.impl.statements.SqlPatchStatement;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.log.LogFactory;
 import org.jsoftware.dbpatch.simpleparser.SimpleParser;
 import org.jsoftware.dbpatch.simpleparser.SimpleParserCallback;
 import org.jsoftware.dbpatch.simpleparser.SimpleParserCallbackContext;

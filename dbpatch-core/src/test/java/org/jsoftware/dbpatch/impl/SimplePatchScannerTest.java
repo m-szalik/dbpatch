@@ -33,8 +33,11 @@ public class SimplePatchScannerTest {
     @Test
     public void testScan() throws Exception {
         File dir = new File(".").getCanonicalFile();
-        List<Patch> result = simplePatchScanner.scan(dir, new String[]{"*.xml"});
+        if (dir.getAbsolutePath().endsWith("dbpatch-core")) {
+            dir = dir.getParentFile();
+        }
+        List<Patch> result = simplePatchScanner.scan(dir, new String[]{"*.md"});
         File f = result.get(0).getFile();
-        org.junit.Assert.assertTrue(f.getAbsolutePath().endsWith(".xml"));
+        org.junit.Assert.assertTrue(f.getAbsolutePath().endsWith(".md"));
     }
 }

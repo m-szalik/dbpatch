@@ -8,7 +8,7 @@ import org.jsoftware.dbpatch.impl.DirectoryPatchScanner;
 import org.jsoftware.dbpatch.impl.PatchParser;
 import org.jsoftware.dbpatch.impl.extension.Extension;
 import org.jsoftware.dbpatch.impl.extension.TkExtensionAndStrategy;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.File;
 import java.io.Serializable;

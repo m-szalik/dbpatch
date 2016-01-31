@@ -1,14 +1,15 @@
 package org.jsoftware.dbpatch.maven;
 
+
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
-import org.jsoftware.command.AbstractCommand;
-import org.jsoftware.command.CommandExecutionException;
-import org.jsoftware.command.CommandFailureException;
-import org.jsoftware.config.ConfigurationEntry;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.command.AbstractCommand;
+import org.jsoftware.dbpatch.command.CommandExecutionException;
+import org.jsoftware.dbpatch.command.CommandFailureException;
+import org.jsoftware.dbpatch.config.ConfigurationEntry;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.File;
 
@@ -86,7 +87,7 @@ public class CommandMojoAdapter<C extends AbstractCommand> extends AbstractMojo 
     }
 }
 
-class MavenLog implements org.jsoftware.log.Log {
+class MavenLog implements org.jsoftware.dbpatch.log.Log {
     private final org.apache.maven.plugin.logging.Log mLog;
 
     MavenLog(Log mLog) {

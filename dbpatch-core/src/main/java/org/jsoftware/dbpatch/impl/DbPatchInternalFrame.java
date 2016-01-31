@@ -1,11 +1,10 @@
 package org.jsoftware.dbpatch.impl;
 
-import org.jsoftware.config.*;
 import org.jsoftware.dbpatch.config.AbstractPatch;
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.config.Patch;
 import org.jsoftware.dbpatch.config.RollbackPatch;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import javax.swing.*;
 import javax.swing.event.InternalFrameEvent;

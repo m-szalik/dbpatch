@@ -1,6 +1,5 @@
 package org.jsoftware.dbpatch;
 
-import org.jsoftware.command.*;
 import org.jsoftware.dbpatch.command.AbstractCommand;
 import org.jsoftware.dbpatch.command.CommandExecutionException;
 import org.jsoftware.dbpatch.command.CommandFailureException;
@@ -14,7 +13,7 @@ import org.jsoftware.dbpatch.config.AbstractConfigurationParser;
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.config.EnvSettings;
 import org.jsoftware.dbpatch.impl.InteractivePanel;
-import org.jsoftware.log.LogFactory;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;

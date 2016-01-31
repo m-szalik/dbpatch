@@ -4,10 +4,10 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugin.logging.Log;
-import org.jsoftware.impl.CloseUtil;
-import org.jsoftware.impl.DefaultPatchParser;
-import org.jsoftware.impl.PatchParser.ParseResult;
-import org.jsoftware.impl.PatchStatement;
+import org.jsoftware.dbpatch.impl.CloseUtil;
+import org.jsoftware.dbpatch.impl.DefaultPatchParser;
+import org.jsoftware.dbpatch.impl.PatchParser;
+import org.jsoftware.dbpatch.impl.PatchStatement;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,7 +36,7 @@ public class HelpParseMojo extends AbstractMojo {
         FileInputStream fis = null;
         try {
             fis = new FileInputStream(f);
-            ParseResult pr = parser.parse(fis, null);
+            PatchParser.ParseResult pr = parser.parse(fis, null);
             log.info("Statements count: " + pr.executableCount());
             for (PatchStatement ps : pr.getStatements()) {
                 log.info("{ " + ps + " }");
