@@ -1,14 +1,22 @@
-apply plugin: 'org.jsoftware.dbatch:dbpatch-gradle-plugin:4.0'
+apply plugin: 'dbpatch'
+
+dbpatch {
+	configFile = "dbpatch.properties"
+	selectedConfiguration = "conf_01"
+}
 
 buildscript {
 
     repositories {
-        jcenter()
         mavenCentral()
-        maven {
-            url "/home/m2-repository"
-        }
+        mavenLocal()
+    }
+
+    dependencies { 
+	    classpath 'org.jsoftware.dbpatch:dbpatch-gradle-plugin:4.0'
+	    classpath 'mysql:mysql-connector-java:5.1.21'
     }
 }
+
 
 

@@ -1,13 +1,5 @@
 description = 'Dbpatch :: maven-plugin'
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            artifactId 'dbpatch'
-            from components.java
-        }
-    }
-}
 
 dependencies {
     compile project(":dbpatch-core")

@@ -1,13 +1,5 @@
 description = 'Dbpatch :: gradle-plugin'
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
-    }
-}
-
 
 dependencies {
     compile project(":dbpatch-core")

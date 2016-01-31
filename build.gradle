@@ -12,7 +12,6 @@ ext.libraries = [
 
 allprojects {
     apply plugin: 'maven'
-    apply plugin: 'maven-publish'
     apply plugin: 'java'
     sourceCompatibility = 1.5
 
@@ -20,16 +19,9 @@ allprojects {
     version = '4.0'
 
     repositories {
-        jcenter()
         mavenCentral()
+        mavenLocal()
     }
 
-    publishing {
-        repositories {
-            maven {
-                url "/home/m2-repository"
-            }
-        }
-    }
 }
 
