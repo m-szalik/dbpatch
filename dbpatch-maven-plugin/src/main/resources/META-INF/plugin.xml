@@ -1,0 +1,412 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <name>Database patch Maven Mojo</name>
+  <description>Manage your database patches with maven.</description>
+  <groupId>org.jsoftware.dbpatch</groupId>
+  <artifactId>dbpatch</artifactId>
+  <version>4.0</version>
+  <goalPrefix>dbpatch</goalPrefix>
+  <isolatedRealm>false</isolatedRealm>
+  <inheritedByDefault>true</inheritedByDefault>
+  <mojos>
+    <mojo>
+      <goal>rollback</goal>
+      <description>Rollabck patch or patches</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <executePhase>process-resources</executePhase>
+      <implementation>org.jsoftware.maven.RollbackMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters>
+        <parameter>
+          <name>conf</name>
+          <type>org.jsoftware.config.ConfigurationEntry</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Daatabase and patch configuration</description>
+        </parameter>
+        <parameter>
+          <name>configFile</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Configuration file</description>
+        </parameter>
+        <parameter>
+          <name>directory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Project directory</description>
+        </parameter>
+        <parameter>
+          <name>selectedConfiguration</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Chosen configuration. Use with property &amp;quot;configFile&amp;quot;.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <directory implementation="java.io.File" default-value="${basedir}"/>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>help</goal>
+      <description>Display help</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <implementation>org.jsoftware.maven.HelpMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters>
+        <parameter>
+          <name>conf</name>
+          <type>org.jsoftware.config.ConfigurationEntry</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Daatabase and patch configuration</description>
+        </parameter>
+        <parameter>
+          <name>configFile</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Configuration file</description>
+        </parameter>
+        <parameter>
+          <name>directory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Project directory</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <directory implementation="java.io.File" default-value="${basedir}"/>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>interactive</goal>
+      <description>Runs interactive client from maven</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <implementation>org.jsoftware.maven.InteractiveMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters>
+        <parameter>
+          <name>conf</name>
+          <type>org.jsoftware.config.ConfigurationEntry</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Daatabase and patch configuration</description>
+        </parameter>
+        <parameter>
+          <name>configFile</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Configuration file</description>
+        </parameter>
+        <parameter>
+          <name>directory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Project directory</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <directory implementation="java.io.File" default-value="${basedir}"/>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>rollback-list</goal>
+      <description>Show list of rollabck patches</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <executePhase>process-resources</executePhase>
+      <implementation>org.jsoftware.maven.RollbackListMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters>
+        <parameter>
+          <name>conf</name>
+          <type>org.jsoftware.config.ConfigurationEntry</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Daatabase and patch configuration</description>
+        </parameter>
+        <parameter>
+          <name>configFile</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Configuration file</description>
+        </parameter>
+        <parameter>
+          <name>directory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Project directory</description>
+        </parameter>
+        <parameter>
+          <name>selectedConfiguration</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Chosen configuration. Use with property &amp;quot;configFile&amp;quot;.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <directory implementation="java.io.File" default-value="${basedir}"/>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>help-parse</goal>
+      <description>Display parsed patch</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <implementation>org.jsoftware.maven.HelpParseMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters/>
+    </mojo>
+    <mojo>
+      <goal>list</goal>
+      <description>Show list of patches</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <executePhase>process-resources</executePhase>
+      <implementation>org.jsoftware.maven.ListMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters>
+        <parameter>
+          <name>conf</name>
+          <type>org.jsoftware.config.ConfigurationEntry</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Daatabase and patch configuration</description>
+        </parameter>
+        <parameter>
+          <name>configFile</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Configuration file</description>
+        </parameter>
+        <parameter>
+          <name>directory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Project directory</description>
+        </parameter>
+        <parameter>
+          <name>selectedConfiguration</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Chosen configuration. Use with property &amp;quot;configFile&amp;quot;.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <directory implementation="java.io.File" default-value="${basedir}"/>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>patch</goal>
+      <description>Runs auto-patch mode</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <executePhase>process-resources</executePhase>
+      <implementation>org.jsoftware.maven.PatchMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters>
+        <parameter>
+          <name>conf</name>
+          <type>org.jsoftware.config.ConfigurationEntry</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Daatabase and patch configuration</description>
+        </parameter>
+        <parameter>
+          <name>configFile</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Configuration file</description>
+        </parameter>
+        <parameter>
+          <name>directory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Project directory</description>
+        </parameter>
+        <parameter>
+          <name>selectedConfiguration</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Chosen configuration. Use with property &amp;quot;configFile&amp;quot;.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <directory implementation="java.io.File" default-value="${basedir}"/>
+      </configuration>
+    </mojo>
+    <mojo>
+      <goal>skip-errors</goal>
+      <description>Mark patches &amp;quot;in progress&amp;quot; as committed.</description>
+      <requiresDirectInvocation>false</requiresDirectInvocation>
+      <requiresProject>true</requiresProject>
+      <requiresReports>false</requiresReports>
+      <aggregator>false</aggregator>
+      <requiresOnline>false</requiresOnline>
+      <inheritedByDefault>true</inheritedByDefault>
+      <executePhase>process-resources</executePhase>
+      <implementation>org.jsoftware.maven.SkipErrorsMojo</implementation>
+      <language>java</language>
+      <instantiationStrategy>per-lookup</instantiationStrategy>
+      <executionStrategy>once-per-session</executionStrategy>
+      <threadSafe>false</threadSafe>
+      <parameters>
+        <parameter>
+          <name>conf</name>
+          <type>org.jsoftware.config.ConfigurationEntry</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Daatabase and patch configuration</description>
+        </parameter>
+        <parameter>
+          <name>configFile</name>
+          <type>java.io.File</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Configuration file</description>
+        </parameter>
+        <parameter>
+          <name>directory</name>
+          <type>java.io.File</type>
+          <required>true</required>
+          <editable>false</editable>
+          <description>Project directory</description>
+        </parameter>
+        <parameter>
+          <name>selectedConfiguration</name>
+          <type>java.lang.String</type>
+          <required>false</required>
+          <editable>true</editable>
+          <description>Chosen configuration. Use with property &amp;quot;configFile&amp;quot;.</description>
+        </parameter>
+      </parameters>
+      <configuration>
+        <directory implementation="java.io.File" default-value="${basedir}"/>
+      </configuration>
+    </mojo>
+  </mojos>
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <type>jar</type>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-model</artifactId>
+      <type>jar</type>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <type>jar</type>
+      <version>2.0.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-artifact</artifactId>
+      <type>jar</type>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-inject-plexus</artifactId>
+      <type>jar</type>
+      <version>1.4.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-component-annotations</artifactId>
+      <type>jar</type>
+      <version>1.5.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-classworlds</artifactId>
+      <type>jar</type>
+      <version>2.2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-inject-bean</artifactId>
+      <type>jar</type>
+      <version>1.4.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.sonatype.sisu</groupId>
+      <artifactId>sisu-guice</artifactId>
+      <type>jar</type>
+      <version>2.1.7</version>
+    </dependency>
+  </dependencies>
+</plugin>

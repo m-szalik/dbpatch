@@ -1,7 +1,4 @@
 apply plugin:'application'
-apply plugin: 'maven'
-apply plugin: 'java'
-sourceCompatibility = 1.5
 
 description = 'Dbpatch :: core / standalone'
 
@@ -13,10 +10,14 @@ jar {
     }
 }
 
-repositories {
-    jcenter()
-    mavenCentral()
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
 }
+
 
 dependencies {
     testCompile libraries.junit

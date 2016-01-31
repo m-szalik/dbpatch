@@ -1,15 +1,12 @@
-apply plugin: 'maven'
-apply plugin: 'java'
-sourceCompatibility = 1.5
-
 description = 'Dbpatch :: maven-plugin'
 
-buildscript {
-}
-
-repositories {
-    jcenter()
-    mavenCentral()
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId 'dbpatch'
+            from components.java
+        }
+    }
 }
 
 dependencies {

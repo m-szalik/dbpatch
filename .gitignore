@@ -27,3 +27,6 @@ release.properties
 
 # Gradle
 */.gradle
+.gradle/
+*/build/
+build/
