@@ -7,7 +7,7 @@ Dbpatch
 
 
 #### Interactive mode
-This plugin can be executed as standard java program (java -jar [plugin-jar-file.jar](http://central.maven.org/maven2/org/jsoftware/dbpatch/))
+This plugin can be executed as standard java program (java -jar [dbpatch-latest.jar](https://github.com/m-szalik/dbpatch/wiki/releases/dbpatch-latest.jar))
 
 ![interactive mode screen shot](https://github.com/m-szalik/dbpatch/wiki/resources/dbpatch-interactive-screen.png)
 

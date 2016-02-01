@@ -8,6 +8,8 @@
 # 6. Increase/enter version number and add "SNAPSHOT suffix
 # 7. Build
 # 8. Commit
+# 9: Upload latest shadowJar to github wiki repository
+
 
 # functions:
 function replaceVersion {
@@ -59,6 +61,8 @@ git tag "dbpatch-$vesion_rel"
 # 5:
 gradleBuild clean build shadowJar
 gradle clean build shadowJar uploadArchives
+SJAR="/tmp/dbpatch-$version_rel.jar"
+cp "dbpatch-app/build/libs/dbpatch-$version_rel.jar" "$SJAR"
 
 # 6:
 replaceVersion $version_new
@@ -69,4 +73,18 @@ gradleBuild clean build shadowJar
 # 8:
 git add build.gradle
 git commit -m "Snapshot $vesion_new"
+
+# 9:
+cdir=`pwd`
+cd /tmp
+git clone ssh://git@github.com/m-szalik/dbpatch.wiki.git
+cd dbpatch.wiki/releases
+mv "$SJAR" .
+ln "$SJAR" "dbpatch-latest.jar"
+git add releases
+git commit -m "Shadow jar for release $version_rel"
+cd "$cdir"
+
+# Done
+echo Push your changes on this repo and /tmp/dbpatch.wiki"
 
