@@ -30,6 +30,9 @@ release.properties
 .gradle/
 */build/
 build/
+gradle/
+gradlew
+gradlew.bat
 
 # Others
 dbpatch-maven-plugin/pom.xml
