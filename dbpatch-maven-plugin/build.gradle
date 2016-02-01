@@ -11,7 +11,26 @@ task install(type:Exec, overwrite: true, dependsOn:'pluginDescriptor') {
     commandLine 'mvn', 'install'
 }
 
-task pluginDescriptor( type: Exec ) {
+task pluginDescriptor( type: Exec, dependsOn:'writePom') {
     commandLine 'mvn', '-e', '-B', 'org.apache.maven.plugins:maven-plugin-plugin:3.2:descriptor'
+}
 
+task writePom << { // pom.xml for mvn command
+    pom {
+        project {
+            packaging 'maven-plugin'
+
+        }
+    }.writeTo("$buildDir/../pom.xml")
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.project {
+                name 'Maven dbpatch plugin'
+                description 'Manage your database patches with Maven.'
+            } // /pom.project
+        } // /mavenDeployer
+    } // /repositories
 }

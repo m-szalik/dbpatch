@@ -1,13 +1,11 @@
 buildscript {
 }
 
-
-
 ext.libraries = [
-        junit : ["junit:junit:4.12"],
-        maven_api : ["org.apache.maven:maven-plugin-api:3.0"],
-        commons_io : ["commons-io:commons-io:2.4"],
-        commons_lang: ["org.apache.commons:commons-lang3:3.4"]
+    junit : ["junit:junit:4.12"],
+    maven_api : ["org.apache.maven:maven-plugin-api:3.0"],
+    commons_io : ["commons-io:commons-io:2.4"],
+    commons_lang: ["org.apache.commons:commons-lang3:3.4"]
 ]
 
 allprojects {
@@ -47,46 +45,44 @@ allprojects {
         options.tags = [ "readonly", "parameter", "goal", "required", "execute" ]
     }
 
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
-      }
-
-      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: ossrhUsername, password: ossrhPassword)
-      }
-
-      pom.project {
-        name 'Example Application'
-        packaging 'jar'
-        // optionally artifactId can be defined here 
-        description 'A application used as an example on how to set up pushing  its components to the Central Repository.'
-        url 'http://www.example.com/example-application'
-        scm {
-          connection 'scm:svn:http://foo.googlecode.com/svn/trunk/'
-          developerConnection 'scm:svn:https://foo.googlecode.com/svn/trunk/'
-          url 'http://foo.googlecode.com/svn/trunk/'
-        }
-        licenses {
-          license {
-            name 'The Apache License, Version 2.0'
-            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    uploadArchives {
+      repositories {
+        mavenDeployer {
+          beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+//          repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+//            authentication(userName: ossrhUsername, password: ossrhPassword)
+//          }
+          snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+            authentication(userName: ossrhUsername, password: ossrhPassword)
           }
-        }
-        developers {
-          developer {
-            id 'manfred'
-            name 'Manfred Moser'
-            email 'manfred@sonatype.com'
-          }
-        }
-      }
+          repository(url: "file:///tmp/s-repo")
+
+          pom.project {
+            url 'https://github.com/m-szalik/dbpatch'
+            inceptionYear '2011'
+            scm {
+              connection 'scm:git:https://github.com/m-szalik/dbpatch.git'
+              developerConnection 'scm:git:https://github.com/m-szalik/dbpatch.git'
+              url 'https://github.com/m-szalik/dbpatch.git'
+            }
+            licenses {
+              license {
+                name 'The Apache License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+              }
+            }
+            developers {
+              developer {
+                id 'm-szalik'
+                name 'Marek Szalik'
+                email 'szalik@jsoftware.org'
+              }
+            }
+          } // /pom.project
+        } // /mavenDeployer
+      } // /repositories
     }
-  }
 }
-}
+
+
 

@@ -8,3 +8,13 @@ dependencies {
 }
 
 
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.project {
+                name 'Gradle dbpatch plugin'
+                description 'Manage your database patches with Gradle.'
+            } // /pom.project
+        } // /mavenDeployer
+    } // /repositories
+}
