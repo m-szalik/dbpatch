@@ -1,17 +1,19 @@
 package org.jsoftware.dbpatch.impl;
 
+import org.apache.commons.io.FilenameUtils;
 import org.jsoftware.dbpatch.config.AbstractPatch;
 import org.jsoftware.dbpatch.config.Patch;
 import org.jsoftware.dbpatch.config.PatchScanner;
-import org.jsoftware.dbpatch.impl.commons.FilenameUtils;
 import org.jsoftware.dbpatch.log.Log;
-import org.jsoftware.dbpatch.log.LogFactory;;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+
+;
 
 /**
  * Abstract directory scanner that looks for patch files.
