@@ -25,4 +25,4 @@ Apache License 2.0
 In case of problems or questions contact me by [creating an issue](https://github.com/m-szalik/dbpatch/issues/new) on GitHub.
 
 #### Bash completions for dbpatch plugin:
-Download [bash_completion](https://raw.github.com/m-szalik/dbpatch/master/docs/bash_completion) and save it into your maven base directory **~/.m2**.
+Download [bash_completion](https://raw.github.com/m-szalik/dbpatch/master/others/bash_completion) and save it into your maven base directory **~/.m2**.
