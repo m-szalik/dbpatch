@@ -1,15 +1,17 @@
-apply plugin:'application'
+apply plugin: 'com.github.johnrengelman.shadow'
 
 description = 'Dbpatch :: standalone application'
 
-mainClassName = "org.jsoftware.dbpatch.app.DbPatch"
-
 jar {
     manifest {
-        attributes 'Main-Class':mainClassName
+        attributes("Implementation-Title": "DbPatch", "Implementation-Version": version, "Main-Class":"org.jsoftware.dbpatch.app.DbPatch")
     }
 }
 
+shadowJar {
+    baseName = 'dbpatch'
+    classifier = ''
+}
 
 dependencies {
     compile project(":dbpatch-core")
