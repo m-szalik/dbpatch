@@ -135,7 +135,7 @@ public class DbManager {
 
     /**
      * @param p rollback patch
-     * @throws SQLException
+     * @throws SQLException sql problem
      */
     public void rollback(final RollbackPatch p) throws SQLException {
         PatchStatementHolder h = new PatchStatementHolder();

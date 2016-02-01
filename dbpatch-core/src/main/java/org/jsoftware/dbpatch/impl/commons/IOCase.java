@@ -19,23 +19,7 @@ package org.jsoftware.dbpatch.impl.commons;
 
 import java.io.Serializable;
 
-/**
- * Enumeration of IO case sensitivity.
- * <p/>
- * Different filing systems have different rules for case-sensitivity.
- * Windows is case-insensitive, Unix is case-sensitive.
- * <p/>
- * This class captures that difference, providing an enumeration to
- * control how filename comparisons should be performed. It also provides
- * methods that use the enumeration to perform comparisons.
- * <p/>
- * Wherever possible, you should use the <code>check</code> methods in this
- * class to compare filenames.
- *
- * @author Stephen Colebourne
- * @version $Id: IOCase.java 1003647 2010-10-01 20:53:59Z niallp $
- * @since Commons IO 1.3
- */
+
 public final class IOCase implements Serializable {
 
     /**
@@ -48,18 +32,6 @@ public final class IOCase implements Serializable {
      */
     public static final IOCase INSENSITIVE = new IOCase("Insensitive", false);
 
-    /**
-     * The constant for case sensitivity determined by the current operating system.
-     * Windows is case-insensitive when comparing filenames, Unix is case-sensitive.
-     * <p/>
-     * <strong>Note:</strong> This only caters for Windows and Unix. Other operating
-     * systems (e.g. OSX and OpenVMS) are treated as case sensitive if they use the
-     * Unix file separator and case-insensitive if they use the Windows file separator
-     * (see {@link java.io.File#separatorChar}).
-     * <p/>
-     * If you derialize this constant of Windows, and deserialize on Unix, or vice
-     * versa, then the value of the case-sensitivity flag will change.
-     */
     public static final IOCase SYSTEM = new IOCase("System", !FilenameUtils.isSystemWindows());
 
     /**
@@ -146,7 +118,6 @@ public final class IOCase implements Serializable {
 
     /**
      * Compares two strings using the case-sensitivity rule.
-     * <p/>
      * This method mimics {@link String#compareTo} but takes case-sensitivity
      * into account.
      *
@@ -164,7 +135,6 @@ public final class IOCase implements Serializable {
 
     /**
      * Compares two strings using the case-sensitivity rule.
-     * <p/>
      * This method mimics {@link String#equals} but takes case-sensitivity
      * into account.
      *
@@ -182,7 +152,7 @@ public final class IOCase implements Serializable {
 
     /**
      * Checks if one string starts with another using the case-sensitivity rule.
-     * <p/>
+     
      * This method mimics {@link String#startsWith(String)} but takes case-sensitivity
      * into account.
      *
@@ -197,7 +167,6 @@ public final class IOCase implements Serializable {
 
     /**
      * Checks if one string ends with another using the case-sensitivity rule.
-     * <p/>
      * This method mimics {@link String#endsWith} but takes case-sensitivity
      * into account.
      *
@@ -214,7 +183,6 @@ public final class IOCase implements Serializable {
     /**
      * Checks if one string contains another starting at a specific index using the
      * case-sensitivity rule.
-     * <p/>
      * This method mimics parts of {@link String#indexOf(String, int)}
      * but takes case-sensitivity into account.
      *
@@ -240,7 +208,6 @@ public final class IOCase implements Serializable {
 
     /**
      * Checks if one string contains another at a specific index using the case-sensitivity rule.
-     * <p/>
      * This method mimics parts of {@link String#regionMatches(boolean, int, String, int, int)}
      * but takes case-sensitivity into account.
      *

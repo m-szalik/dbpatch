@@ -14,16 +14,20 @@ public interface PatchScanner extends Serializable {
 
     /**
      * @param directory base dir
-     * @param paths     to scan (add directory if not absolute)
+     * @param paths to scan (add directory if not absolute)
      * @return list of found patches
-     * @throws DuplicatePatchNameException
+     * @throws DuplicatePatchNameException when duplicated patch names were found
+     * @throws IOException io problem
      */
     List<Patch> scan(File directory, String[] paths) throws DuplicatePatchNameException, IOException;
 
     /**
+     * @param patch rollbacks for this patch
      * @param directory base dir
-     * @param paths     to scan (add directory if not absolute)
+     * @param paths to scan (add directory if not absolute)
      * @return null if no file was found
+     * @throws DuplicatePatchNameException when duplicated patch names were found
+     * @throws IOException io problem
      */
     File findRollbackFile(File directory, String[] paths, Patch patch) throws DuplicatePatchNameException, IOException;
 }
