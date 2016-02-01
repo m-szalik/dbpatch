@@ -6,3 +6,5 @@ test:
 		gradle test
 clean:
 		gradle clean
+standalone:
+		gradle clean shadowJar

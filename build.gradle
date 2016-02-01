@@ -1,5 +1,9 @@
 buildscript {
 }
+plugins {
+    id 'java' // or 'groovy' Must be explicitly applied
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
 
 ext.libraries = [
     junit : ["junit:junit:4.12"],
