@@ -12,6 +12,7 @@ import java.util.List;
 public interface ApplyStrategy {
 
     /**
+     * @param connection connection
      * @param patches all detected patches
      * @return list of patches to apply
      */

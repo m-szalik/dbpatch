@@ -31,7 +31,7 @@ public class CommandMojoAdapter<C extends AbstractCommand> extends AbstractMojo 
      * Daatabase and patch configuration
      *
      * @parameter
-     * @see ConfigurationEntry's fields
+     * @see ConfigurationEntry fields
      */
     protected ConfigurationEntry conf;
 
