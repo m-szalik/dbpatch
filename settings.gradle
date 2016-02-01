@@ -1,10 +1,12 @@
 rootProject.name = 'dbpatch'
 
 include ':dbpatch-core'
+include ':dbpatch-app'
 include ':dbpatch-gradle-plugin'
 include ':dbpatch-maven-plugin'
 
 
 project(':dbpatch-core').projectDir = "$rootDir/dbpatch-core" as File
+project(':dbpatch-app').projectDir = "$rootDir/dbpatch-app" as File
 project(':dbpatch-gradle-plugin').projectDir = "$rootDir/dbpatch-gradle-plugin" as File
 project(':dbpatch-maven-plugin').projectDir = "$rootDir/dbpatch-maven-plugin" as File

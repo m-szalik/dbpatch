@@ -1,4 +1,4 @@
-package org.jsoftware.dbpatch;
+package org.jsoftware.dbpatch.app;
 
 import org.jsoftware.dbpatch.command.AbstractCommand;
 import org.jsoftware.dbpatch.command.CommandExecutionException;

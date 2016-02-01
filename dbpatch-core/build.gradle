@@ -1,17 +1,19 @@
-apply plugin:'application'
-
-description = 'Dbpatch :: core / standalone'
-
-mainClassName = "org.jsoftware.dbpatch.DbPatch"
-
-jar {
-    manifest {
-        attributes 'Main-Class':mainClassName
-    }
-}
-
+description = 'Dbpatch :: core'
 
 
 dependencies {
     testCompile libraries.junit
 }
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.project {
+                name 'dbpatch core'
+                description 'Manage, versioning database'
+            } // /pom.project
+        } // /mavenDeployer
+    } // /repositories
+}
+
+

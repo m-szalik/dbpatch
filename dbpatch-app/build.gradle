@@ -1,0 +1,22 @@
+apply plugin:'application'
+
+description = 'Dbpatch :: standalone application'
+
+mainClassName = "org.jsoftware.dbpatch.app.DbPatch"
+
+jar {
+    manifest {
+        attributes 'Main-Class':mainClassName
+    }
+}
+
+
+dependencies {
+    compile project(":dbpatch-core")
+    testCompile libraries.junit
+}
+
+uploadArchives.enabled = false  // nothing to publish
+
+
+
