@@ -90,5 +90,5 @@ cd "$cdir"
 rm -fr "/tmp/dbpatch.wiki"
 
 # Done
-echo Push your changes on remote repo"
+echo "Push your changes (master branch and tags) on remote repo"
 
