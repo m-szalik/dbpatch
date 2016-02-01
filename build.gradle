@@ -1,5 +1,6 @@
 buildscript {
 }
+
 plugins {
     id 'java' // or 'groovy' Must be explicitly applied
     id 'com.github.johnrengelman.shadow' version '1.2.2'
@@ -11,7 +12,7 @@ ext.libraries = [
     commons_io : ["commons-io:commons-io:2.4"]
 ]
 
-allprojects {
+subprojects {
     apply plugin: 'maven'
     apply plugin: 'java'
     apply plugin: 'signing'
@@ -52,14 +53,12 @@ allprojects {
       repositories {
         mavenDeployer {
           beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-//          repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-//            authentication(userName: ossrhUsername, password: ossrhPassword)
-//          }
+          repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+            authentication(userName: ossrhUsername, password: ossrhPassword)
+          }
           snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
             authentication(userName: ossrhUsername, password: ossrhPassword)
           }
-          repository(url: "file:///tmp/s-repo")
-
           pom.project {
             url 'https://github.com/m-szalik/dbpatch'
             inceptionYear '2011'
