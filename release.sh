@@ -55,8 +55,8 @@ gradleBuild clean build shadowJar
 
 # 4:
 git add build.gradle
-git commit -m "Release $vesion_rel"
-git tag "dbpatch-$vesion_rel"
+git commit -m "Release $version_rel"
+git tag "dbpatch-$version_rel"
 
 # 5:
 gradleBuild clean build shadowJar
@@ -72,7 +72,7 @@ gradleBuild clean build shadowJar
 
 # 8:
 git add build.gradle
-git commit -m "Snapshot $vesion_new"
+git commit -m "Snapshot $version_new"
 
 # 9:
 cdir=`pwd`
@@ -80,11 +80,15 @@ cd /tmp
 git clone ssh://git@github.com/m-szalik/dbpatch.wiki.git
 cd dbpatch.wiki/releases
 mv "$SJAR" .
-ln "$SJAR" "dbpatch-latest.jar"
-git add releases
+JAR_NAME=`basename "$SJAR"`
+lni -s "$SJAR_NAME" "dbpatch-latest.jar"
+git add .
 git commit -m "Shadow jar for release $version_rel"
+echo "Pushing wiki"
+git push origin master
 cd "$cdir"
+rm -fr "/tmp/dbpatch.wiki"
 
 # Done
-echo Push your changes on this repo and /tmp/dbpatch.wiki"
+echo Push your changes on remote repo"
 
