@@ -20,7 +20,7 @@ subprojects {
     sourceCompatibility = 1.5
 
     group = 'org.jsoftware.dbpatch'
-    version = '4.0'
+    version = '4.0-SNAPSHOT' // do not remove that comment (used by release.sh script)
 
     repositories {
         mavenCentral()
