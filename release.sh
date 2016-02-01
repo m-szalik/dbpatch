@@ -31,7 +31,7 @@ function gradleBuild {
 branch=`git branch |grep '^* '`
 if [ "$branch" != "* master" ]; then
     echo "Branch is not master!"
-#    exit 1
+    exit 1
 fi
 
 # 2:
