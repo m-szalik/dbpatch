@@ -9,7 +9,7 @@ Dbpatch
 #### Interactive mode
 This plugin can be executed as standard java program (java -jar [plugin-jar-file.jar](http://central.maven.org/maven2/org/jsoftware/dbpatch/))
 
-![interactive mode screen shot](https://raw.github.com/m-szalik/dbpatch-maven-plugin/master/docs/dbpatch-interactive-screen.png)
+![interactive mode screen shot](https://raw.github.com/m-szalik/dbpatch-maven-plugin/master/others/dbpatch-interactive-screen.png)
 
 #### How to use it with Maven or Gradle
  * [Configuration examples](https://raw.github.com/m-szalik/dbpatch/master/how-to-use-example)
