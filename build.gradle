@@ -41,8 +41,10 @@ version = '4.1-SNAPSHOT' // do not remove that comment (used by release.sh scrip
       archives javadocJar, sourcesJar
     }
 
-    signing {
-      sign configurations.archives
+    if (project.properties.containsKey("signing.secretKeyRingFile")) {
+	signing {
+	      sign configurations.archives
+	}
     }
 
     javadoc {
