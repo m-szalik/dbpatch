@@ -1,4 +1,4 @@
 language: java
 jdk:
   - openjdk6
-script: gradle check -PossrhUsername=none -PossrhPassword=none 
+script: gradle check 
