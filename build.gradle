@@ -49,41 +49,43 @@ version = '4.1-SNAPSHOT' // do not remove that comment (used by release.sh scrip
         options.tags = [ "readonly", "parameter", "goal", "required", "execute" ]
     }
 
-    uploadArchives {
-      repositories {
-        mavenDeployer {
-          beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-          repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
-          }
-          snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-            authentication(userName: ossrhUsername, password: ossrhPassword)
-          }
-          pom.project {
-            url 'https://github.com/m-szalik/dbpatch'
-            inceptionYear '2011'
-            scm {
-              connection 'scm:git:https://github.com/m-szalik/dbpatch.git'
-              developerConnection 'scm:git:https://github.com/m-szalik/dbpatch.git'
-              url 'https://github.com/m-szalik/dbpatch.git'
-            }
-            licenses {
-              license {
-                name 'The Apache License, Version 2.0'
-                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-              }
-            }
-            developers {
-              developer {
-                id 'm-szalik'
-                name 'Marek Szalik'
-                email 'szalik@jsoftware.org'
-              }
-            }
-          } // /pom.project
-        } // /mavenDeployer
-      } // /repositories
-    }
+    if (project.properties.containsKey("ossrhUsername")) {
+	    uploadArchives {
+	      repositories {
+        	mavenDeployer {
+	          beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+        	  repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+	            authentication(userName: ossrhUsername, password: ossrhPassword)
+        	  }
+	          snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+	            authentication(userName: ossrhUsername, password: ossrhPassword)
+        	  }
+	          pom.project {
+        	    url 'https://github.com/m-szalik/dbpatch'
+	            inceptionYear '2011'
+        	    scm {
+	              connection 'scm:git:https://github.com/m-szalik/dbpatch.git'
+        	      developerConnection 'scm:git:https://github.com/m-szalik/dbpatch.git'
+	              url 'https://github.com/m-szalik/dbpatch.git'
+        	    }
+	            licenses {
+        	      license {
+	                name 'The Apache License, Version 2.0'
+	                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+	              }
+        	    }
+	            developers {
+        	      developer {
+	                id 'm-szalik'
+        	        name 'Marek Szalik'
+                	email 'szalik@jsoftware.org'
+	              }
+        	    }
+	          } // /pom.project
+        	} // /mavenDeployer
+	      } // /repositories
+    	}
+   } // if
 }
 
 
