@@ -1,6 +1,8 @@
 Dbpatch
 ========
 
+[![Join the chat at https://gitter.im/m-szalik/dbpatch](https://badges.gitter.im/m-szalik/dbpatch.svg)](https://gitter.im/m-szalik/dbpatch?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ### Manage versioning of your databases with maven, gradle or standalone GUI application
 
 [![video presentation](http://img.youtube.com/vi/hD5ACGfmkM4/0.jpg)](http://www.youtube.com/watch?v=hD5ACGfmkM4)
