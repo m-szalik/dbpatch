@@ -36,3 +36,4 @@ gradlew.bat
 
 # Others
 dbpatch-maven-plugin/pom.xml
+tests/*
