@@ -3,6 +3,7 @@ Dbpatch
 
 [![Join the chat at https://gitter.im/m-szalik/dbpatch](https://badges.gitter.im/m-szalik/dbpatch.svg)](https://gitter.im/m-szalik/dbpatch?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/m-szalik/dbpatch.svg?branch=master)](https://travis-ci.org/m-szalik/dbpatch)
+[![codecov.io](https://codecov.io/github/m-szalik/dbpatch/coverage.svg?branch=master)](https://codecov.io/github/m-szalik/dbpatch?branch=master)
 
 ### Manage versioning of your databases with maven, gradle or standalone GUI application
 
