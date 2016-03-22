@@ -9,7 +9,8 @@ plugins {
 ext.libraries = [
     junit : ["junit:junit:4.12"],
     maven_api : ["org.apache.maven:maven-plugin-api:3.3.9"],
-    commons_io : ["commons-io:commons-io:2.4"]
+    commons_io : ["commons-io:commons-io:2.4"],
+    hsql_db : ["org.hsqldb:hsqldb:2.3.3"]
 ]
 
 subprojects {
