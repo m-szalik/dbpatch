@@ -19,7 +19,7 @@ public class DialectFinder {
     }
 
     private static Dialect createDialect(String dialectName) {
-        String value = "org.jsoftware.config.dialect." + dialectName;
+        String value = "org.jsoftware.dbpatch.config.dialect." + dialectName;
         if (!value.endsWith("Dialect")) {
             value = value + "Dialect";
         }
@@ -27,9 +27,11 @@ public class DialectFinder {
             Class<?> cl = Class.forName(value);
             return (Dialect) cl.newInstance();
         } catch (ClassNotFoundException e) {
-            throw new IllegalArgumentException("Can not find class " + value + " for dialect " + dialectName);
+            IllegalArgumentException ex = new IllegalArgumentException("Can not find class " + value + " for dialect " + dialectName);
+            ex.initCause(e);
+            throw ex;
         } catch (Exception e) {
-            throw new RuntimeException("Can not instance dialect " + value);
+            throw new RuntimeException("Can not instance dialect " + value, e);
         }
     }
 
@@ -42,6 +44,9 @@ public class DialectFinder {
         }
         if (cl.contains("sybase")) {
             return createDialect("Sybase");
+        }
+        if (cl.contains("hsqldb")) {
+            return createDialect("Hsql");
         }
         return null;
     }
