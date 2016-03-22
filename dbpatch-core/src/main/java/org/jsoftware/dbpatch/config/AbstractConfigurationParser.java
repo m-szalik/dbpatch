@@ -13,7 +13,7 @@ import java.util.Collection;
  */
 public abstract class AbstractConfigurationParser {
 
-    public static Collection<ConfigurationEntry> discoverConfiguration(Object confFile) throws ParseException, IOException {
+    public static Collection<ConfigurationEntry> discoverConfiguration(File confFile) throws ParseException, IOException {
         final Log log = LogFactory.getInstance();
         InputStream input = null;
         try {
@@ -28,12 +28,11 @@ public abstract class AbstractConfigurationParser {
                     input = new FileInputStream(f);
                 }
             } else {
-                File file = (File) confFile;
-                if (!file.exists()) {
-                    throw new FileNotFoundException(file.getAbsolutePath());
+                if (!confFile.exists()) {
+                    throw new FileNotFoundException(confFile.getAbsolutePath());
                 }
-                log.debug("Configuration found - " + file.getPath());
-                input = new FileInputStream(file);
+                log.debug("Configuration found - " + confFile.getPath());
+                input = new FileInputStream(confFile);
             }
             AbstractConfigurationParser parser = new PropertiesConfigurationParser();
             Collection<ConfigurationEntry> conf = parser.parse(input);
