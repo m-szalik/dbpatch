@@ -1,4 +1,4 @@
-package org.jsoftware.dbpatch.impl;
+package org.jsoftware.dbpatch.impl.gui;
 
 import java.text.MessageFormat;
 import java.util.Locale;

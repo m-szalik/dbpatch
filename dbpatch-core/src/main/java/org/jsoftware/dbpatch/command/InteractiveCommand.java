@@ -3,7 +3,7 @@ package org.jsoftware.dbpatch.command;
 import org.jsoftware.dbpatch.config.AbstractConfigurationParser;
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.config.EnvSettings;
-import org.jsoftware.dbpatch.impl.InteractivePanel;
+import org.jsoftware.dbpatch.impl.gui.InteractivePanel;
 
 import java.util.Collection;
 

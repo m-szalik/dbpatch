@@ -3,8 +3,8 @@ package org.jsoftware.dbpatch.command;
 import org.jsoftware.dbpatch.config.AbstractConfigurationParser;
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.config.EnvSettings;
-import org.jsoftware.dbpatch.impl.ConsoleDbManagerPasswordCallback;
 import org.jsoftware.dbpatch.impl.DbManager;
+import org.jsoftware.dbpatch.impl.gui.ConsoleDbManagerPasswordCallback;
 import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.File;
@@ -18,13 +18,15 @@ import java.util.Collection;
  */
 public abstract class AbstractSingleConfDbPatchCommand extends AbstractCommand {
     private String selectedConfiguration;
-    protected ConfigurationEntry configurationEntry;
     protected DbManager manager;
 
     public AbstractSingleConfDbPatchCommand(EnvSettings envSettings) {
         super(envSettings);
     }
 
+    void setManager(DbManager manager) {
+        this.manager = manager;
+    }
 
     public void setSelectedConfiguration(String selectedConfiguration) {
         this.selectedConfiguration = selectedConfiguration;

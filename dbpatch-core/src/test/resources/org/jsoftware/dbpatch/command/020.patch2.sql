@@ -1,0 +1,1 @@
+INSERT INTO tab (ID) VALUES (3);

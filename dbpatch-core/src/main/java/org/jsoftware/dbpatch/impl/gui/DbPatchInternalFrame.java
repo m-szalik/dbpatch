@@ -1,9 +1,12 @@
-package org.jsoftware.dbpatch.impl;
+package org.jsoftware.dbpatch.impl.gui;
 
 import org.jsoftware.dbpatch.config.AbstractPatch;
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.config.Patch;
 import org.jsoftware.dbpatch.config.RollbackPatch;
+import org.jsoftware.dbpatch.impl.CloseUtil;
+import org.jsoftware.dbpatch.impl.DbManager;
+import org.jsoftware.dbpatch.impl.DuplicatePatchNameException;
 import org.jsoftware.dbpatch.log.LogFactory;
 
 import javax.swing.*;

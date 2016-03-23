@@ -12,7 +12,7 @@ import org.jsoftware.dbpatch.command.SkipErrorsCommand;
 import org.jsoftware.dbpatch.config.AbstractConfigurationParser;
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.config.EnvSettings;
-import org.jsoftware.dbpatch.impl.InteractivePanel;
+import org.jsoftware.dbpatch.impl.gui.InteractivePanel;
 import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.io.File;
@@ -50,7 +50,7 @@ public class DbPatch {
             AbstractCommand command = argToCommand(args[0]);
             if (command == null) {
                 System.err.println("Arg 1 must be command name, arg 2 can be configuration file.");
-                new HelpCommand(envSettings, "", "").execute();
+                HelpCommand.helpCommandStandalone().execute();
             } else {
                 LogFactory.getInstance().debug("Lunching text mode - " + command + ".");
                 command.setConfigFile(confFile);
@@ -62,7 +62,7 @@ public class DbPatch {
     private static AbstractCommand argToCommand(String mojoArg) {
         EnvSettings envSettings = EnvSettings.standalone();
         if ("help".equalsIgnoreCase(mojoArg)) {
-            return new HelpCommand(envSettings, "", "");
+            return HelpCommand.helpCommandStandalone();
         }
         if ("help-parse".equalsIgnoreCase(mojoArg)) {
             return new HelpParseCommand(envSettings);

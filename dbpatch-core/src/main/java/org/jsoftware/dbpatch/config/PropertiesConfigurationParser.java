@@ -1,6 +1,5 @@
 package org.jsoftware.dbpatch.config;
 
-import org.jsoftware.dbpatch.config.dialect.DefaultDialect;
 import org.jsoftware.dbpatch.config.dialect.DialectFinder;
 import org.jsoftware.dbpatch.impl.DirectoryPatchScanner;
 import org.jsoftware.dbpatch.impl.NamePatchScanner;
@@ -35,7 +34,6 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
             ConfigurationEntry ce = configs.get(keys[0]);
             if (ce == null) {
                 ce = new ConfigurationEntry(keys[0]);
-                ce.setDialectInstance(new DefaultDialect());
                 configs.put(keys[0], ce);
             }
             String value = me.getValue().toString();

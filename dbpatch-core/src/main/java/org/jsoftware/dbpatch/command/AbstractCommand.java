@@ -15,7 +15,7 @@ public abstract class AbstractCommand {
     protected final org.jsoftware.dbpatch.log.Log log = LogFactory.getInstance();
     protected final EnvSettings envSettings;
     private File configFile;
-    private ConfigurationEntry conf;
+    protected ConfigurationEntry configurationEntry;
     protected File directory;
 
     protected AbstractCommand(EnvSettings envSettings) {
@@ -27,7 +27,7 @@ public abstract class AbstractCommand {
     }
 
     public void setConf(ConfigurationEntry conf) {
-        this.conf = conf;
+        this.configurationEntry = conf;
     }
 
     public void setDirectory(File directory) {
@@ -47,7 +47,7 @@ public abstract class AbstractCommand {
     }
 
     public ConfigurationEntry getConf() {
-        return conf;	/* findBugs ok - unwritten field (maven writes it) */
+        return configurationEntry;	/* findBugs ok - unwritten field (maven writes it) */
     }
 
 

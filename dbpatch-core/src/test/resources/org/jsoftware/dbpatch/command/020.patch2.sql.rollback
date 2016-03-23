@@ -1,0 +1,1 @@
+DELETE FROM tab WHERE ID = 3;

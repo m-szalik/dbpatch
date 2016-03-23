@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Sorts patches by name from all directories
+ * @author szalik
  */
 public class NamePatchScanner extends SimplePatchScanner {
 

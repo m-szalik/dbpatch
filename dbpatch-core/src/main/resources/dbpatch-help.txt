@@ -1,4 +1,4 @@
-Goals:
+[commands-title]:
 	[prefix:task]help 		    - this help message
 	[prefix:task]help-parse 	    - parse sql (see dbpatch.file system property)
 	[prefix:task]list 		    - display list of patches (see patch statuses section)

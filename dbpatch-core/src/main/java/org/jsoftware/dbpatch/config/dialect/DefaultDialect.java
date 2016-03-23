@@ -186,11 +186,14 @@ public class DefaultDialect implements Dialect {
     public Timestamp getNow(Connection con) throws SQLException {
         Statement stm = null;
         ResultSet rs = null;
+        String selectNow = "SELECT now()";
         try {
             stm = con.createStatement();
-            rs = stm.executeQuery("SELECT now()");
+            rs = stm.executeQuery(selectNow);
             rs.next();
             return rs.getTimestamp(1);
+        } catch (SQLException ex) {
+            throw new SQLException("Unable to fetch current timestamp by executing \"" + selectNow + "\".", ex);
         } finally {
             CloseUtil.close(rs);
             CloseUtil.close(stm);

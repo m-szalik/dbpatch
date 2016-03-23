@@ -1,9 +1,10 @@
-package org.jsoftware.dbpatch.impl;
+package org.jsoftware.dbpatch.impl.gui;
 
 import org.jsoftware.dbpatch.config.AbstractPatch;
 import org.jsoftware.dbpatch.config.Patch;
 import org.jsoftware.dbpatch.config.RollbackPatch;
 import org.jsoftware.dbpatch.config.dialect.PatchExecutionResult;
+import org.jsoftware.dbpatch.impl.PatchStatement;
 import org.jsoftware.dbpatch.impl.extension.Extension;
 
 import javax.swing.*;
