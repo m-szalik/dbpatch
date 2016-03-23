@@ -1,5 +1,5 @@
 all:
-		gradle build install
+		gradle build install shadowJar
 fast:
 		gradle build install -x test
 test:
