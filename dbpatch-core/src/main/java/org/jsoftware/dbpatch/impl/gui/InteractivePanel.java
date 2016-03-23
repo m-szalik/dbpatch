@@ -1,6 +1,7 @@
-package org.jsoftware.dbpatch.impl;
+package org.jsoftware.dbpatch.impl.gui;
 
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
+import org.jsoftware.dbpatch.impl.DuplicatePatchNameException;
 import org.jsoftware.dbpatch.log.Log;
 import org.jsoftware.dbpatch.log.LogFactory;
 

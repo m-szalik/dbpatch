@@ -8,7 +8,9 @@ import org.jsoftware.dbpatch.impl.PatchStatement;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
 
 
 /**
@@ -22,24 +24,29 @@ public class HelpParseCommand extends AbstractCommand {
         super(envSettings);
     }
 
-
+    @Override
     public void execute() throws CommandExecutionException, CommandFailureException {
         String file = System.getProperty(envSettings.getDbPatchFile());
         if (file == null) {
             throw new CommandFailureException("Set system property \"" + envSettings.getDbPatchFile() + "\" to file you want to parse.");
         }
-        File f = new File(file);
-        if (!f.exists()) {
-            throw new CommandFailureException("File " + f.getAbsolutePath() + " not found.");
+        execute(System.out, new File(file));
+    }
+
+    void execute(PrintStream out, File patchFile) throws CommandExecutionException, CommandFailureException {
+        if (!patchFile.exists()) {
+            CommandFailureException cfe = new CommandFailureException("File " + patchFile.getAbsolutePath() + " not found.");
+            cfe.initCause(new FileNotFoundException(patchFile.getAbsolutePath()));
+            throw cfe;
         }
         DefaultPatchParser parser = new DefaultPatchParser();
         FileInputStream fis = null;
         try {
-            fis = new FileInputStream(f);
+            fis = new FileInputStream(patchFile);
             ParseResult pr = parser.parse(fis, null);
-            log.info("Statements count: " + pr.executableCount());
+            out.append("Statements count: ").append(Integer.toString(pr.executableCount())).append('\n');
             for (PatchStatement ps : pr.getStatements()) {
-                log.info("{ " + ps + " }");
+                out.append('{').append(ps.toString()).append("}\n");
             }
         } catch (IOException e) {
             throw new CommandExecutionException("Exception", e);

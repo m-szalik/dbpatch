@@ -1,6 +1,7 @@
-package org.jsoftware.dbpatch.impl;
+package org.jsoftware.dbpatch.impl.gui;
 
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
+import org.jsoftware.dbpatch.impl.AbstractDbManagerCredentialsCallback;
 
 import java.io.BufferedReader;
 import java.io.IOException;

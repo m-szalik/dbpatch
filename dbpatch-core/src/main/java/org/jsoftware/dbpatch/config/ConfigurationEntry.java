@@ -52,7 +52,6 @@ public class ConfigurationEntry implements Serializable {
 
     protected ConfigurationEntry(String id) {
         this.id = id;
-        dialect = new DefaultDialect();
         patchScanner = new DirectoryPatchScanner();
         patchParser = new DefaultPatchParser();
         applyStarters = new MissingApplyStrategy();
