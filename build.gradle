@@ -10,7 +10,9 @@ ext.libraries = [
     junit : ["junit:junit:4.12"],
     maven_api : ["org.apache.maven:maven-plugin-api:3.3.9"],
     commons_io : ["commons-io:commons-io:2.4"],
-    hsql_db : ["org.hsqldb:hsqldb:2.3.3"]
+    hsql_db : ["org.hsqldb:hsqldb:2.3.3"],
+
+    jdbc_drivers : ['mysql:mysql-connector-java:5.1.38', 'org.postgresql:postgresql:9.4.1208.jre6', 'com.oracle:ojdbc14:10.2.0.4.0']
 ]
 
 subprojects {

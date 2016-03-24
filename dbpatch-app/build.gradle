@@ -15,6 +15,11 @@ shadowJar {
 
 dependencies {
     compile project(":dbpatch-core")
+
+    /* Drivers */
+    compile libraries.jdbc_drivers
+    compile libraries.hsql_db
+
     testCompile libraries.junit
 }
 
