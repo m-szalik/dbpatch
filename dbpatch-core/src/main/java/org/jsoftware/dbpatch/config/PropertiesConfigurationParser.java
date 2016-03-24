@@ -5,6 +5,7 @@ import org.jsoftware.dbpatch.impl.DirectoryPatchScanner;
 import org.jsoftware.dbpatch.impl.NamePatchScanner;
 import org.jsoftware.dbpatch.impl.StringUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -21,7 +22,7 @@ import java.util.regex.Pattern;
 public class PropertiesConfigurationParser extends AbstractConfigurationParser {
 
 
-    public Collection<ConfigurationEntry> parse(InputStream input) throws IOException, ParseException {
+    public Collection<ConfigurationEntry> parse(File baseDir, InputStream input) throws IOException, ParseException {
         Properties p = new Properties();
         p.load(input);
         evaluatePropertyValuesInternal(p);
@@ -33,7 +34,7 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
             }
             ConfigurationEntry ce = configs.get(keys[0]);
             if (ce == null) {
-                ce = new ConfigurationEntry(keys[0]);
+                ce = new ConfigurationEntry(keys[0], baseDir);
                 configs.put(keys[0], ce);
             }
             String value = me.getValue().toString();

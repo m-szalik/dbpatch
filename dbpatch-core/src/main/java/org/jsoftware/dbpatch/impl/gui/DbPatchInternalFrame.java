@@ -38,7 +38,7 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
 
     public DbPatchInternalFrame(final ConfigurationEntry ce) throws SQLException, IOException, DuplicatePatchNameException {
         super("DbPatch - " + ce.getId(), true, true, true);
-        final File dir = new File(".");
+        final File dir = ce.getBaseDir();
         dbManager = new DbManager(ce);
         dbManager.init(new SwingDbManagerPasswordCallback(this));
         dbManager.addExtension(resultDisplay);

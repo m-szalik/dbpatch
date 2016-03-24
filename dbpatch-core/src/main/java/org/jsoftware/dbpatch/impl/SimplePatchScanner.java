@@ -90,7 +90,7 @@ public abstract class SimplePatchScanner implements PatchScanner {
             }
             // check if absolute path
             File fch = new File(s);
-            File f = fch.isAbsolute() ? fch : new File(basePath, s);
+            File f = fch.isAbsolute() ? fch : new File(basePath.getAbsoluteFile(), s);
             String absolute = f.getAbsolutePath();
             if (!absolute.contains("*") && !absolute.contains("?")) {
                 if (f.isDirectory()) {

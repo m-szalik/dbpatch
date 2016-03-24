@@ -68,7 +68,7 @@ public abstract class AbstractDbCommandTest {
         ByteArrayInputStream in = null;
         try {
             in = new ByteArrayInputStream(configuration.toString().getBytes());
-            Collection<ConfigurationEntry> configurationEntries = configurationParser.parse(in);
+            Collection<ConfigurationEntry> configurationEntries = configurationParser.parse(new File("."), in);
             configurationEntry = configurationEntries.iterator().next();
             configurationEntry.validate();
         } finally {

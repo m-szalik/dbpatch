@@ -16,6 +16,7 @@ public abstract class AbstractConfigurationParser {
     public static Collection<ConfigurationEntry> discoverConfiguration(File confFile) throws ParseException, IOException {
         final Log log = LogFactory.getInstance();
         InputStream input = null;
+        File baseDir = null;
         try {
             if (confFile == null) {
                 log.debug("Looking for dbpach.properties in classpath.");
@@ -26,6 +27,7 @@ public abstract class AbstractConfigurationParser {
                     File f = new File("dbpatch.properties");
                     log.debug("Resource dbpatch.properties " + (!f.exists() ? "not" : "") + " found in current directory.");
                     input = new FileInputStream(f);
+                    baseDir = new File(".");
                 }
             } else {
                 if (!confFile.exists()) {
@@ -33,9 +35,10 @@ public abstract class AbstractConfigurationParser {
                 }
                 log.debug("Configuration found - " + confFile.getPath());
                 input = new FileInputStream(confFile);
+                baseDir = confFile.getParentFile();
             }
             AbstractConfigurationParser parser = new PropertiesConfigurationParser();
-            Collection<ConfigurationEntry> conf = parser.parse(input);
+            Collection<ConfigurationEntry> conf = parser.parse(baseDir, input);
             for (ConfigurationEntry ce : conf) {
                 ce.validate();
             }
@@ -45,5 +48,5 @@ public abstract class AbstractConfigurationParser {
         }
     }
 
-    protected abstract Collection<ConfigurationEntry> parse(InputStream input) throws ParseException, IOException;
+    protected abstract Collection<ConfigurationEntry> parse(File baseDir, InputStream input) throws ParseException, IOException;
 }

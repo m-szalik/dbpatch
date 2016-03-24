@@ -35,6 +35,7 @@ public class ConfigurationEntry implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private final String id;
+    private final File baseDir;
     private String jdbcUri;
     private String driverClass;
     private String user;
@@ -50,8 +51,9 @@ public class ConfigurationEntry implements Serializable {
     private String rollbackSuffix = "*.rollback";
 
 
-    protected ConfigurationEntry(String id) {
+    protected ConfigurationEntry(String id, File baseDir) {
         this.id = id;
+        this.baseDir = baseDir;
         patchScanner = new DirectoryPatchScanner();
         patchParser = new DefaultPatchParser();
         applyStarters = new MissingApplyStrategy();
@@ -245,6 +247,13 @@ public class ConfigurationEntry implements Serializable {
 
     public boolean isInteractivePasswordAllowed() {
         return true; // TODO move it into configuration ????
+    }
+
+    /**
+     * @return base dir for patches - a dir of config file or project pom.xml or build.gradle
+     */
+    public File getBaseDir() {
+        return baseDir;
     }
 }
 
