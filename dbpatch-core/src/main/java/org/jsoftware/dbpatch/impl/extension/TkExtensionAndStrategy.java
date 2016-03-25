@@ -82,7 +82,6 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
     }
 
     public void afterPatching(Connection connection) {
-        // TODO release TK lock
     }
 
     public void beforePatch(Connection connection, Patch patch) {
