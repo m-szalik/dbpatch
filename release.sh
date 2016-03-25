@@ -83,6 +83,7 @@ mv "$SJAR" .
 JAR_NAME=`basename "$SJAR"`
 rm -f "dbpatch-latest.jar"
 ln "$SJAR_NAME" "dbpatch-latest.jar" # soft links are not supported well by gitHub
+cat _Sidebar.template | sed "s/{jar}/$SJAR_NAME/g" > _Sidebar.md
 git add .
 git commit -m "Shadow jar for release $version_rel"
 echo "Pushing wiki"
