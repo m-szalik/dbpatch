@@ -51,9 +51,15 @@ public class DbManager {
             try {
                 con = DriverManager.getConnection(ce.getJdbcUri(), ce.getUser(), password);
             } catch (SQLException e) {
-                password = dbManagerPasswordCallback.getPassword(e, tryNo, ce);
-                tryNo++;
-                continue;
+                // check if it's password or username problem
+                boolean passwordOrUsernameProblem = false;
+                if (passwordOrUsernameProblem) {
+                    password = dbManagerPasswordCallback.getPassword(e, tryNo, ce);
+                    tryNo++;
+                    continue;
+                } else {
+                    throw e;
+                }
             }
             break;
         } while (true);
@@ -71,7 +77,7 @@ public class DbManager {
         return c;
     }
 
-    public void updateStateObject(Patch p) throws SQLException {
+    public void updateStateObject(AbstractPatch p) throws SQLException {
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
@@ -87,6 +93,7 @@ public class DbManager {
                     p.setDbState(AbstractPatch.DbState.IN_PROGRESS);
                 }
             } else {
+                p.setDbDate(null);
                 p.setDbState(AbstractPatch.DbState.NOT_AVAILABLE);
             }
         } finally {
@@ -169,6 +176,8 @@ public class DbManager {
                 }
             });
             throw ex;
+        } finally {
+            updateStateObject(p);
         }
     }
 

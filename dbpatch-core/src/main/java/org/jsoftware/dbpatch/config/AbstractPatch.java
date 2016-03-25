@@ -31,8 +31,6 @@ public abstract class AbstractPatch implements Serializable {
     private String name;
     private int statementCount = -1;
     private File file;
-    private Date dbDate;
-    private DbState dbState;
 
     public String getName() {
         return name;
@@ -58,24 +56,15 @@ public abstract class AbstractPatch implements Serializable {
         this.file = file;
     }
 
-    public void setDbDate(Date dbDate) {
-        this.dbDate = dbDate == null ? null : new Date(dbDate.getTime());
-    }
+    public abstract void setDbDate(Date dbDate);
 
-    public void setDbState(DbState dbState) {
-        this.dbState = dbState;
-    }
+    public abstract void setDbState(DbState dbState);
 
-    public Date getDbDate() {
-        return dbDate == null ? null : new Date(dbDate.getTime());
-    }
+    public abstract Date getDbDate();
 
-    public DbState getDbState() {
-        return dbState;
-    }
+    public abstract DbState getDbState();
 
     public abstract boolean canApply();
-
 
     public String toString() {
         return super.toString() + "-" + name;
