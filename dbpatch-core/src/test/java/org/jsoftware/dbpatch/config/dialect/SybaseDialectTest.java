@@ -4,7 +4,7 @@ public class SybaseDialectTest extends AbstractDialectTest<DefaultDialect> {
 
     @Override
     protected DefaultDialect createDialect() {
-        return new DefaultDialect();
+        return new SybaseDialect();
     }
 
     @Override
