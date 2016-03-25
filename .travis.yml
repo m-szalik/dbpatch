@@ -3,7 +3,7 @@ language: java
 jdk:
   - oraclejdk7 
 
-script: gradle check
+script: gradle -S check
 
 before_script:
   - pip install --user codecov
