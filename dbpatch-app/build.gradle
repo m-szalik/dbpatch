@@ -20,7 +20,7 @@ dependencies {
     compile libraries.jdbc_drivers
     compile libraries.hsql_db
 
-    testCompile libraries.junit
+    testCompile libraries.test_libs
 }
 
 uploadArchives.enabled = false  // nothing to publish

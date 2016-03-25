@@ -4,7 +4,7 @@ description = 'Dbpatch :: maven-plugin'
 dependencies {
     compile project(":dbpatch-core")
     compile libraries.maven_api
-    testCompile libraries.junit
+    testCompile libraries.test_libs
 }
 
 task install(type:Exec, overwrite: true, dependsOn:'pluginDescriptor') {

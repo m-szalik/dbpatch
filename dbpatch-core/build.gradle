@@ -3,7 +3,7 @@ apply plugin: 'jacoco'
 
 dependencies {
     compile libraries.commons_io
-    testCompile libraries.junit
+    testCompile libraries.test_libs
     testCompile libraries.hsql_db
 }
 

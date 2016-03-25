@@ -7,10 +7,10 @@ plugins {
 }
 
 ext.libraries = [
-    junit : ["junit:junit:4.12"],
-    maven_api : ["org.apache.maven:maven-plugin-api:3.3.9"],
-    commons_io : ["commons-io:commons-io:2.4"],
-    hsql_db : ["org.hsqldb:hsqldb:2.3.3"],
+    test_libs : ['junit:junit:4.12', 'org.mockito:mockito-core:1.10.19'],
+    maven_api : ['org.apache.maven:maven-plugin-api:3.3.9'],
+    commons_io : ['commons-io:commons-io:2.4'],
+    hsql_db : ['org.hsqldb:hsqldb:2.3.3'],
 
     jdbc_drivers : ['mysql:mysql-connector-java:5.1.38', 'org.postgresql:postgresql:9.4.1208']
 ]
@@ -20,7 +20,9 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'signing'
 
+	targetCompatibility = 1.6
     sourceCompatibility = 1.6
+
     group = 'org.jsoftware.dbpatch'
 version = '4.1-SNAPSHOT' // do not remove that comment (used by release.sh script)
 
