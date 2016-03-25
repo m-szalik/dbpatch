@@ -1,7 +1,9 @@
 package org.jsoftware.dbpatch.config.dialect;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import java.sql.Connection;
@@ -11,13 +13,16 @@ import java.sql.Timestamp;
 
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public abstract class AbstractDialectTest<D extends Dialect> {
     protected D dialect;
+    protected Connection connection;
 
     @Before
     public void setUp() throws Exception {
+        connection = Mockito.mock(Connection.class);
         dialect = createDialect();
     }
 
@@ -28,7 +33,6 @@ public abstract class AbstractDialectTest<D extends Dialect> {
 
     @Test
     public void testTimestamp() throws Exception {
-        Connection connection = Mockito.mock(Connection.class);
         Statement statement = Mockito.mock(Statement.class);
         when(connection.createStatement()).thenReturn(statement);
         ResultSet resultSet = Mockito.mock(ResultSet.class);
@@ -37,12 +41,12 @@ public abstract class AbstractDialectTest<D extends Dialect> {
         when(resultSet.getTimestamp(anyInt())).thenReturn(timestamp);
         Timestamp ts = dialect.getNow(connection);
 
-//        Assert.assertSame(timestamp, ts);
-//        ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
-//        verify(statement).executeQuery(queryCaptor.capture());
-//        Assert.assertEquals(getCurrentTimestampSQL().toLowerCase(), queryCaptor.getValue().toLowerCase());
-//        verify(resultSet).close();
-//        verify(statement).close();
+        Assert.assertSame(timestamp, ts);
+        ArgumentCaptor<String> queryCaptor = ArgumentCaptor.forClass(String.class);
+        verify(statement).executeQuery(queryCaptor.capture());
+        Assert.assertEquals(getCurrentTimestampSQL().toLowerCase(), queryCaptor.getValue().toLowerCase());
+        verify(resultSet).close();
+        verify(statement).close();
     }
 
 }
