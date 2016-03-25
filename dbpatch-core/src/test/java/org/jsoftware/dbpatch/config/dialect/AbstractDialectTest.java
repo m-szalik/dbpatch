@@ -13,7 +13,7 @@ import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 
-abstract class AbstractDialectTest<D extends Dialect> {
+public abstract class AbstractDialectTest<D extends Dialect> {
     protected D dialect;
 
     @Before
