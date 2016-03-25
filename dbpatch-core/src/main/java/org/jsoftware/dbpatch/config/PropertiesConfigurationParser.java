@@ -59,6 +59,14 @@ public class PropertiesConfigurationParser extends AbstractConfigurationParser {
             if ("rollbackSuffix".equalsIgnoreCase(keys[1])) {
                 ce.setRollbackSuffix(value);
             }
+            if ("interactivePasswordAllowed".equalsIgnoreCase(keys[1])) {
+                if (("true".equalsIgnoreCase(value.trim())) || ("false".equalsIgnoreCase(value.trim()))) {
+                    boolean bool = Boolean.valueOf(value.trim());
+                    ce.setInteractivePasswordAllowed(bool);
+                } else {
+                    throw new IllegalArgumentException("Illegal value for property 'interactivePasswordAllowed'. Allowed values 'true' or 'false'.");
+                }
+            }
             if ("driverClass".equalsIgnoreCase(keys[1]) || "driver".equalsIgnoreCase(keys[1])) {
                 ce.setDriverClass(value);
             }

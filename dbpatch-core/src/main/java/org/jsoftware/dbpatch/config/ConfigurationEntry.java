@@ -49,7 +49,7 @@ public class ConfigurationEntry implements Serializable {
     private Collection<Extension> extensions;
     private String patchEncoding;
     private String rollbackSuffix = "*.rollback";
-
+    boolean interactivePasswordAllowed = true;
 
     protected ConfigurationEntry(String id, File baseDir) {
         this.id = id;
@@ -99,6 +99,10 @@ public class ConfigurationEntry implements Serializable {
 
     public void setRollbackSuffix(String rollbackSuffix) {
         this.rollbackSuffix = rollbackSuffix;
+    }
+
+    public void setInteractivePasswordAllowed(boolean interactivePasswordAllowed) {
+        this.interactivePasswordAllowed = interactivePasswordAllowed;
     }
 
     public void setExtensions(String extensions) {
@@ -246,7 +250,7 @@ public class ConfigurationEntry implements Serializable {
     }
 
     public boolean isInteractivePasswordAllowed() {
-        return true; // TODO move it into configuration ????
+        return interactivePasswordAllowed;
     }
 
     /**
