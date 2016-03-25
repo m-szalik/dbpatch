@@ -51,15 +51,9 @@ public class DbManager {
             try {
                 con = DriverManager.getConnection(ce.getJdbcUri(), ce.getUser(), password);
             } catch (SQLException e) {
-                // check if it's password or username problem
-                boolean passwordOrUsernameProblem = false;
-                if (passwordOrUsernameProblem) {
-                    password = dbManagerPasswordCallback.getPassword(e, tryNo, ce);
-                    tryNo++;
-                    continue;
-                } else {
-                    throw e;
-                }
+                password = dbManagerPasswordCallback.getPassword(e, tryNo, ce);
+                tryNo++;
+                continue;
             }
             break;
         } while (true);

@@ -6,7 +6,7 @@ public class RollbackCommandConf implements Serializable {
     private static final long serialVersionUID = -7838793234441198861L;
 
     public enum Action {
-        SINGLE, STOP_ON;
+        SINGLE, STOP_ON
     }
 
     private final Action action;

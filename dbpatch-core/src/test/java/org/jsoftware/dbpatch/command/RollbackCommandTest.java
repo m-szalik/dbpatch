@@ -16,7 +16,7 @@ public class RollbackCommandTest extends AbstractDbCommandTest {
         addPatchToATestContext("020.patch1", "020.patch2.sql.rollback");
         PatchCommand patchCommand = prepareCommand(PatchCommand.class);
         patchCommand.execute();
-        Assert.assertArrayEquals(new Integer[]{Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)}, dbValues());
+        Assert.assertArrayEquals(new Integer[]{1, 2, 3}, dbValues());
     }
 
 
@@ -29,7 +29,7 @@ public class RollbackCommandTest extends AbstractDbCommandTest {
     public void testRollbackCommandSingle() throws Exception {
         command.setRollbackCommandConf(new RollbackCommandConf(RollbackCommandConf.Action.SINGLE, "010.patch1"));
         command.execute();
-        Assert.assertArrayEquals(new Integer[]{ Integer.valueOf(3) }, dbValues());
+        Assert.assertArrayEquals(new Integer[]{3}, dbValues());
     }
 
     @Test

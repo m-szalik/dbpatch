@@ -8,6 +8,7 @@ import org.jsoftware.dbpatch.config.EnvSettings;
 import org.jsoftware.dbpatch.config.Patch;
 import org.jsoftware.dbpatch.config.PropertiesConfigurationParser;
 import org.jsoftware.dbpatch.impl.AbstractDbManagerCredentialsCallback;
+import org.jsoftware.dbpatch.impl.CloseUtil;
 import org.jsoftware.dbpatch.impl.DbManager;
 import org.jsoftware.dbpatch.impl.DbManagerCredentialsCallback;
 import org.jsoftware.dbpatch.impl.DefaultPatchParser;
@@ -72,7 +73,7 @@ public abstract class AbstractDbCommandTest {
             configurationEntry = configurationEntries.iterator().next();
             configurationEntry.validate();
         } finally {
-            in.close();
+            IOUtils.closeQuietly(in);
         }
     }
 
@@ -136,7 +137,7 @@ public abstract class AbstractDbCommandTest {
             }
             return result.toArray(new Integer[result.size()]);
         } finally {
-            rs.close();
+            CloseUtil.close(rs);
         }
     }
 

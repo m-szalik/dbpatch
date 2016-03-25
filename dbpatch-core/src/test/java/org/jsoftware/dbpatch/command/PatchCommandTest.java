@@ -11,7 +11,7 @@ public class PatchCommandTest extends AbstractDbCommandTest {
         addPatchToATestContext("001.init", "001.init.sql");
         addPatchToATestContext("010.patch1", "010.patch1.sql");
         command.execute();
-        Assert.assertArrayEquals(new Integer[]{Integer.valueOf(1), Integer.valueOf(2)}, dbValues());
+        Assert.assertArrayEquals(new Integer[]{1, 2}, dbValues());
     }
 
 }

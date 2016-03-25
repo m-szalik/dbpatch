@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-;
-
 /**
  * Abstract directory scanner that looks for patch files.
  */

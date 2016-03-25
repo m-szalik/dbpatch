@@ -5,7 +5,7 @@ import org.jsoftware.dbpatch.config.Patch;
 import org.jsoftware.dbpatch.config.RollbackPatch;
 import org.jsoftware.dbpatch.impl.CloseUtil;
 import org.jsoftware.dbpatch.impl.PatchStatement;
-import org.jsoftware.dbpatch.log.LogFactory;;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 import java.sql.*;
 

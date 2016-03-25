@@ -17,7 +17,7 @@ public class SkipErrorsCommandTest extends AbstractDbCommandTest {
             patchCommand.execute();
             Assert.fail("No exception");
         } catch (CommandExecutionException ex) {
-            Assert.assertArrayEquals(new Integer[]{Integer.valueOf(1), Integer.valueOf(2)}, dbValues());
+            Assert.assertArrayEquals(new Integer[]{1, 2}, dbValues());
         }
 
         SkipErrorsCommand skipErrorsCommand = prepareCommand(SkipErrorsCommand.class);
@@ -25,7 +25,7 @@ public class SkipErrorsCommandTest extends AbstractDbCommandTest {
 
         // patch again
         patchCommand.execute();
-        Assert.assertArrayEquals(new Integer[]{Integer.valueOf(1), Integer.valueOf(2), Integer.valueOf(3)}, dbValues());
+        Assert.assertArrayEquals(new Integer[]{1, 2, 3}, dbValues());
     }
 
 }

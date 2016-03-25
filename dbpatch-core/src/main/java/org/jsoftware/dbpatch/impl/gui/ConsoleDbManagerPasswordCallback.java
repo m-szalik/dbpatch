@@ -1,11 +1,13 @@
 package org.jsoftware.dbpatch.impl.gui;
 
+import org.apache.commons.io.IOUtils;
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.impl.AbstractDbManagerCredentialsCallback;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 
 /**
@@ -16,8 +18,9 @@ public class ConsoleDbManagerPasswordCallback extends AbstractDbManagerCredentia
     public String getUsername(ConfigurationEntry configurationEntry) throws SQLException {
         String defaultUsername = System.getProperty("user.name");
         System.out.print("Enter username for " + configurationEntry.getJdbcUri() + (defaultUsername != null ? "[" + defaultUsername + "]" : "") + ":");
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader br = null;
         try {
+            br = new BufferedReader(new InputStreamReader(System.in, Charset.defaultCharset().name()));
             String str = br.readLine();
             if (str == null || str.length() == 0) {
                 str = defaultUsername;
@@ -26,6 +29,7 @@ public class ConsoleDbManagerPasswordCallback extends AbstractDbManagerCredentia
         } catch (IOException e) {
             throw new RuntimeException("Cannot read username from console!", e);
         } finally {
+            IOUtils.closeQuietly(br);
             System.out.println();
         }
     }

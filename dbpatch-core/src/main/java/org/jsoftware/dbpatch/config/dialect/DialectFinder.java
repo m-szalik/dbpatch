@@ -1,7 +1,7 @@
 package org.jsoftware.dbpatch.config.dialect;
 
 import org.jsoftware.dbpatch.log.Log;
-import org.jsoftware.dbpatch.log.LogFactory;;
+import org.jsoftware.dbpatch.log.LogFactory;
 
 /**
  * It tries to autodetect database Dialect by parsing jdbc driver class name

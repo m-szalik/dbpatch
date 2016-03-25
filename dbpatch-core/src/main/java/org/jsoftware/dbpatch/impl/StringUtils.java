@@ -35,8 +35,8 @@ public class StringUtils {
             return text;
         }
 
-        StringBuffer buf = new StringBuffer(text.length());
-        int start = 0, end = 0;
+        StringBuilder buf = new StringBuilder(text.length());
+        int start = 0, end;
         while ((end = text.indexOf(repl, start)) != -1) {
             buf.append(text.substring(start, end)).append(with);
             start = end + repl.length();
