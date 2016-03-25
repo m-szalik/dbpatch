@@ -15,12 +15,10 @@ import static org.mockito.Mockito.when;
 
 abstract class AbstractDialectTest<D extends Dialect> {
     protected D dialect;
-    protected Connection connection;
 
     @Before
     public void setUp() throws Exception {
         dialect = createDialect();
-        connection = Mockito.mock(Connection.class);
     }
 
     protected abstract D createDialect();
@@ -30,6 +28,7 @@ abstract class AbstractDialectTest<D extends Dialect> {
 
     @Test
     public void testTimestamp() throws Exception {
+        Connection connection = Mockito.mock(Connection.class);
         Statement statement = Mockito.mock(Statement.class);
         when(connection.createStatement()).thenReturn(statement);
         ResultSet resultSet = Mockito.mock(ResultSet.class);
