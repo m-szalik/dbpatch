@@ -81,6 +81,7 @@ git clone ssh://git@github.com/m-szalik/dbpatch.wiki.git
 cd dbpatch.wiki/releases
 mv "$SJAR" .
 JAR_NAME=`basename "$SJAR"`
+rm -f "dbpatch-latest.jar"
 ln "$SJAR_NAME" "dbpatch-latest.jar" # soft links are not supported well by gitHub
 git add .
 git commit -m "Shadow jar for release $version_rel"
