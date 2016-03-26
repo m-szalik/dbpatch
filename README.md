@@ -20,11 +20,13 @@ This plugin can be executed as standard java program (java -jar [dbpatch-latest.
  * [Configuration examples](https://github.com/m-szalik/dbpatch/tree/master/how-to-use-example)
 
 #### Use with Gradle or Maven
- * [Gradle plugin](https://raw.github.com/m-szalik/dbpatch/master/dbpatch-gradle-plugin)
- * [Maven plugin](https://raw.github.com/m-szalik/dbpatch/master/dbpatch-maven-plugin)
+ * [Gradle plugin](https://github.com/m-szalik/dbpatch/blob/master/how-to-use-example/with-gradle/build.gradle)
+ * [Maven plugin](https://github.com/m-szalik/dbpatch/tree/master/how-to-use-example/with-maven)
 
-#### More info on Wiki
-https://github.com/m-szalik/dbpatch-maven-plugin/wiki
+#### More
+ * [Project wiki](https://github.com/m-szalik/dbpatch-maven-plugin/wiki)
+ * [Dbpatch for Maven in central maven repo ](http://search.maven.org/#search|ga|1|a%3A%22dbpatch-maven-plugin%22)
+ * [Dbpatch for Gradle in central maven repo ](http://search.maven.org/#search|ga|1|a%3A%22dbpatch-gradle-plugin%22)
 
 #### License
 Apache License 2.0

@@ -13,7 +13,7 @@ buildscript {
     }
 
     dependencies { 
-	    classpath 'org.jsoftware.dbpatch:dbpatch-gradle-plugin:4.0'
+	    classpath 'org.jsoftware.dbpatch:dbpatch-gradle-plugin:4.1'
 	    classpath 'mysql:mysql-connector-java:5.1.21'
     }
 }

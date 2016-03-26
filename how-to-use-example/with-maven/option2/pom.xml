@@ -14,7 +14,7 @@
             <plugin>
                 <groupId>org.jsoftware.dbpatch</groupId>
                 <artifactId>dbpatch-maven-plugin</artifactId>
-                <version>4.0</version>
+                <version>4.1</version>
                 <configuration>
                     <configFile>../../dbpatch.properties</configFile><!-- where to find config file -->
                     <selectedConfiguration>conf_01</selectedConfiguration> <!-- selected profile - can be set by -Dmaven.dbpatch.configuration=XXX -->
