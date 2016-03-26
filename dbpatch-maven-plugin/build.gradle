@@ -15,6 +15,11 @@ task pluginDescriptor( type: Exec, dependsOn:'writePom') {
     commandLine 'mvn', '-e', '-B', 'org.apache.maven.plugins:maven-plugin-plugin:3.2:descriptor'
 }
 
+task overridePackaging() {
+    uploadArchives.repositories.mavenDeployer.pom.packaging = 'maven-plugin'
+}
+
+
 task writePom << { // pom.xml for mvn command
     pom {
         project {
@@ -31,6 +36,10 @@ uploadArchives {
                 name 'Maven dbpatch plugin'
                 description 'Manage your database patches with Maven.'
             } // /pom.project
+            pom.packaging = 'maven-plugin'
         } // /mavenDeployer
     } // /repositories
 }
+
+uploadArchives.dependsOn('overridePackaging')
+build.dependsOn('pluginDescriptor')
