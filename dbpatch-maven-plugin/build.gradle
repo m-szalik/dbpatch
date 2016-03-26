@@ -38,9 +38,11 @@ uploadArchives {
     } // /repositories
 }
 
-def deployer = uploadArchives.repositories.mavenDeployer
-[deployer]*.pom*.whenConfigured {pom ->
-    pom.packaging = 'maven-plugin'
+if (project.properties.containsKey("ossrhUsername")) {
+    def deployer = uploadArchives.repositories.mavenDeployer
+    [deployer]*.pom*.whenConfigured { pom ->
+        pom.packaging = 'maven-plugin'
+    }
 }
 
 jar {
