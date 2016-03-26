@@ -11,20 +11,18 @@ task install(type:Exec, overwrite: true, dependsOn:'pluginDescriptor') {
     commandLine 'mvn', 'install'
 }
 
-task pluginDescriptor( type: Exec, dependsOn:'writePom') {
+task pluginDescriptor(type:Exec, dependsOn:'writePom') {
     commandLine 'mvn', '-e', '-B', 'org.apache.maven.plugins:maven-plugin-plugin:3.2:descriptor'
 }
 
-task overridePackaging() {
-    uploadArchives.repositories.mavenDeployer.pom.packaging = 'maven-plugin'
+task pluginDescriptorCleanup(type:Delete) {
+    delete file("pom.xml")
 }
-
 
 task writePom << { // pom.xml for mvn command
     pom {
         project {
             packaging 'maven-plugin'
-
         }
     }.writeTo("$buildDir/../pom.xml")
 }
@@ -36,10 +34,19 @@ uploadArchives {
                 name 'Maven dbpatch plugin'
                 description 'Manage your database patches with Maven.'
             } // /pom.project
-            pom.packaging = 'maven-plugin'
         } // /mavenDeployer
     } // /repositories
 }
 
-uploadArchives.dependsOn('overridePackaging')
-build.dependsOn('pluginDescriptor')
+def deployer = uploadArchives.repositories.mavenDeployer
+[deployer]*.pom*.whenConfigured {pom ->
+    pom.packaging = 'maven-plugin'
+}
+
+jar {
+    into('/META-INF') {
+        from fileTree('./target/classes/META-INF') {  }
+    }
+}
+jar.dependsOn('pluginDescriptor', 'pluginDescriptorCleanup')
+clean.dependsOn('pluginDescriptorCleanup')
