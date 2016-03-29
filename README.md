@@ -28,6 +28,9 @@ This plugin can be executed as standard java program (java -jar [dbpatch-latest.
  * [Dbpatch for Maven in central maven repo ](http://search.maven.org/#search|ga|1|a%3A%22dbpatch-maven-plugin%22)
  * [Dbpatch for Gradle in central maven repo ](http://search.maven.org/#search|ga|1|a%3A%22dbpatch-gradle-plugin%22)
 
+#### Requirements
+ * Java 6 or newer
+ 
 #### License
 Apache License 2.0
 
