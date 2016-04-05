@@ -19,7 +19,7 @@
             <plugin>
                 <groupId>org.jsoftware.dbpatch</groupId>
                 <artifactId>dbpatch-maven-plugin</artifactId>
-                <version>4.0</version>
+                <version>4.1</version>
                 <configuration>
                     <conf>
                         <driverClass>com.mysql.jdbc.Driver</driverClass>
