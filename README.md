@@ -5,6 +5,7 @@ Dbpatch
 [![Build Status](https://travis-ci.org/m-szalik/dbpatch.svg?branch=master)](https://travis-ci.org/m-szalik/dbpatch)
 [![codecov.io](https://codecov.io/github/m-szalik/dbpatch/coverage.svg?branch=master)](https://codecov.io/github/m-szalik/dbpatch?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/56e2d92edf573d00472cd2a3/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56e2d92edf573d00472cd2a3)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/cf7a3762e7854117a26a90cf49c8b2b2)](https://www.codacy.com/app/szalik/dbpatch)
 
 ### Manage versioning of your databases with maven, gradle or standalone GUI application
 
