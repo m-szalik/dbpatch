@@ -5,7 +5,7 @@ package org.jsoftware.dbpatch.impl;
  */
 public class StringUtils {
 
-    public StringUtils() {
+    private StringUtils() {
     }
 
 

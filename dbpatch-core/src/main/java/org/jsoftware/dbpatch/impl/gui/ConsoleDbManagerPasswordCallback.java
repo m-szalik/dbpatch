@@ -44,7 +44,7 @@ public class ConsoleDbManagerPasswordCallback extends AbstractDbManagerCredentia
         try {
             return br.readLine();
         } catch (IOException e) {
-            throw new RuntimeException("Cannot read password from console!", e);
+            throw new IllegalStateException("Cannot read password from console!", e);
         } finally {
             System.out.println();
         }

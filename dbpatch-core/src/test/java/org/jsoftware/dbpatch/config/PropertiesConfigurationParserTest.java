@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.Properties;
 
+import static org.junit.Assert.assertEquals;
+
 public class PropertiesConfigurationParserTest {
 
     @Test
@@ -12,7 +14,7 @@ public class PropertiesConfigurationParserTest {
         p.setProperty("a", "A");
         p.setProperty("b", "1${a}2");
         PropertiesConfigurationParser.evaluatePropertyValuesInternal(p);
-        org.junit.Assert.assertEquals("1A2", p.getProperty("b"));
+        assertEquals("1A2", p.getProperty("b"));
     }
 
 

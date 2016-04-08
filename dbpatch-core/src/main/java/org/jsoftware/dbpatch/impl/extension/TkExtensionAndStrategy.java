@@ -75,21 +75,18 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
             tabName = qm.iterator().next();
         }
         if (tabName == null) {
-            throw new RuntimeException("No tk table available. " + qm);
+            throw new IllegalStateException("No tk table available. " + qm);
         }
         return tabName;
     }
 
     public void beforePatching(Connection connection) {
-        // nothing to do here
     }
 
     public void afterPatching(Connection connection) {
-        // nothing to do here
     }
 
     public void beforePatch(Connection connection, Patch patch) {
-        // nothing to do here
     }
 
     public void afterPatch(Connection connection, Patch patch, Exception ex) throws SQLException {
@@ -106,22 +103,18 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
 
 
     public void beforePatchStatement(Connection connection, AbstractPatch patch, PatchStatement statement) {
-
     }
 
 
     public void afterPatchStatement(Connection connection, AbstractPatch patch, PatchExecutionResult result) {
-
     }
 
 
     public void beforeRollbackPatch(Connection connection, RollbackPatch patch) {
-
     }
 
 
     public void afterRollbackPatch(Connection connection, RollbackPatch patch, Exception ex) throws SQLException {
-
     }
 
 

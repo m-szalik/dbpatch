@@ -7,6 +7,7 @@ import org.jsoftware.dbpatch.config.RollbackPatch;
 import org.jsoftware.dbpatch.impl.CloseUtil;
 import org.jsoftware.dbpatch.impl.DbManager;
 import org.jsoftware.dbpatch.impl.DuplicatePatchNameException;
+import org.jsoftware.dbpatch.impl.OperationNotPossibleException;
 import org.jsoftware.dbpatch.log.LogFactory;
 
 import javax.swing.*;
@@ -188,7 +189,7 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
                         dbManager.rollback((RollbackPatch) patch);
                     }
                 } catch (SQLException e1) {
-                    throw new RuntimeException(e1);
+                    throw new OperationNotPossibleException(e1);
                 } finally {
                     try {
                         dbManager.endExecution();

@@ -86,7 +86,7 @@ public class CommandMojoAdapter<C extends AbstractCommand> extends AbstractMojo 
 }
 
 class MavenLog implements org.jsoftware.dbpatch.log.Log {
-    private final org.apache.maven.plugin.logging.Log mLog;
+    private final Log mLog;
 
     MavenLog(Log mLog) {
         this.mLog = mLog;

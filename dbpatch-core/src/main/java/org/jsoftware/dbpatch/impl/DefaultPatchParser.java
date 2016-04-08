@@ -106,11 +106,11 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
             String text = ctx.getTextBefore();
             buf.append(text);
             if (current == PSTATE.sql_block) {
-                if (!token.equals("--")) {
+                if (! "--".equals(token)) {
                     buf.append(token);
                 }
             } else {
-                if (token.equals("\n")) {
+                if ("\n".equals(token)) {
                     buf.append('\n');
                 }
             }

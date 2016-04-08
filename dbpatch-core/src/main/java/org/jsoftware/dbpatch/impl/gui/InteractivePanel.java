@@ -2,6 +2,7 @@ package org.jsoftware.dbpatch.impl.gui;
 
 import org.jsoftware.dbpatch.config.ConfigurationEntry;
 import org.jsoftware.dbpatch.impl.DuplicatePatchNameException;
+import org.jsoftware.dbpatch.impl.OperationNotPossibleException;
 import org.jsoftware.dbpatch.log.Log;
 import org.jsoftware.dbpatch.log.LogFactory;
 
@@ -109,7 +110,7 @@ public class InteractivePanel {
                         open(ce.getId());
                     } catch (Exception e1) {
                         JOptionPane.showMessageDialog(frame, e1.getLocalizedMessage(), Messages.msg("error.openConnection.title", ce.getId()), JOptionPane.ERROR_MESSAGE);
-                        throw new RuntimeException(e1);
+                        throw new OperationNotPossibleException(e1);
                     }
                 }
             });
