@@ -7,6 +7,8 @@ public enum Level {
     WARN(15),
     FATAL(20);
 
+    private final int priority;
+
     Level(int p) {
         priority = p;
     }
@@ -14,6 +16,4 @@ public enum Level {
     public int getPriority() {
         return priority;
     }
-
-    private final int priority;
 }

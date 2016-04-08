@@ -158,30 +158,15 @@ public class DefaultDialect implements Dialect {
             try {
                 stm = con.createStatement();
                 stm.execute("CREATE TABLE " + DBPATCH_TABLE_NAME + "(patch_name varchar(128), patch_date TIMESTAMP, patch_db_date TIMESTAMP)");
-                insertEmptyRow(con);
-            } catch (SQLException e) { /* ignore */ } finally {
+            } catch (SQLException e) {
+                LogFactory.getInstance().warn("Cannot create table " + DBPATCH_TABLE_NAME, e);
+            } finally {
                 CloseUtil.close(stm);
             }
-        }
-        try {
-            stm = con.createStatement();
-            rs = stm.executeQuery("SELECT patch_name FROM " + DBPATCH_TABLE_NAME + " WHERE patch_name IS NULL");
-            if (!rs.next()) {
-                insertEmptyRow(con);
-            }
-        } finally {
-            CloseUtil.close(rs);
-            CloseUtil.close(stm);
         }
         con.setAutoCommit(false);
     }
 
-    private void insertEmptyRow(Connection con) throws SQLException {
-//		Statement stm = con.createStatement();
-//		stm.execute("INSERT INTO " + DBPATCH_TABLE_NAME + "(patch_name, patch_date, patch_db_date) VALUES (NULL, NULL, NULL)");
-//		stm.close();
-//		con.commit();
-    }
 
     public Timestamp getNow(Connection con) throws SQLException {
         Statement stm = null;
