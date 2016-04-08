@@ -53,7 +53,7 @@ abstract class CommandFactory<C extends AbstractCommand> {
                     Constructor<C> constructor = clazz.getConstructor(EnvSettings.class);
                     return constructor.newInstance(EnvSettings.gradle());
                 } catch (ReflectiveOperationException e) {
-                    throw new RuntimeException(e);
+                    throw new AssertionError(e);
                 }
             }
         };

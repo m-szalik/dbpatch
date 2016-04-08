@@ -36,7 +36,9 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
             String tabName = detectTkTableName(con);
             stm = con.createStatement();
             rs = stm.executeQuery("SELECT patch_level FROM " + tabName);
-            rs.next();
+            if (! rs.next()) {
+                throw new IllegalStateException("No entries in 'patch_level' table.");
+            }
             int currentPatchLevel = rs.getInt(1);
             rs.close();
             LinkedList<Patch> patchesToApply = new LinkedList<Patch>();
@@ -47,7 +49,7 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
             }
             return patchesToApply;
         } catch (Exception e) {
-            throw new RuntimeException("Can not apply strategy.", e);
+            throw new IllegalStateException("Can not apply strategy.", e);
         } finally {
             CloseUtil.close(rs);
             CloseUtil.close(stm);
@@ -79,12 +81,15 @@ public class TkExtensionAndStrategy implements Extension, ApplyStrategy {
     }
 
     public void beforePatching(Connection connection) {
+        // nothing to do here
     }
 
     public void afterPatching(Connection connection) {
+        // nothing to do here
     }
 
     public void beforePatch(Connection connection, Patch patch) {
+        // nothing to do here
     }
 
     public void afterPatch(Connection connection, Patch patch, Exception ex) throws SQLException {

@@ -10,7 +10,8 @@ public class DialectFinder {
     private DialectFinder() {
     }
 
-    public static Dialect find(String value) {
+    public static Dialect find(String valueIn) {
+        String value = valueIn;
         value = value.trim().toLowerCase();
         if (value.length() == 0 || value.equalsIgnoreCase("default")) {
             return null;
@@ -31,7 +32,7 @@ public class DialectFinder {
             ex.initCause(e);
             throw ex;
         } catch (Exception e) {
-            throw new RuntimeException("Can not instance dialect " + value, e);
+            throw new AssertionError("Can not instance dialect " + value, e);
         }
     }
 

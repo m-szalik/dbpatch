@@ -29,7 +29,7 @@ public class RollbackPatch extends AbstractPatch {
 
 
     public void setFile(File file) {
-        throw new RuntimeException("DO NOT USE IT!");
+        throw new AssertionError("DO NOT USE IT! It shouldn't be invoked.");
     }
 
     @Override

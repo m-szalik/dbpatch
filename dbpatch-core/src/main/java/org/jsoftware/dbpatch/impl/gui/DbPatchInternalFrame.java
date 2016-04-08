@@ -161,7 +161,7 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
                 dbManager.updateStateObject(p);
                 table.setValueAt(p, i, 4);
             } catch (SQLException e) {
-                throw new RuntimeException(e);
+                throw new AssertionError(e);
             }
         }
         table.repaint();
@@ -201,20 +201,20 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
         }
     }
 
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(MouseEvent e) { // nothing to do here
     }
 
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(MouseEvent e) { // nothing to do here
     }
 
-    public void mouseEntered(MouseEvent e) {
+    public void mouseEntered(MouseEvent e) { // nothing to do here
     }
 
-    public void mouseExited(MouseEvent e) {
+    public void mouseExited(MouseEvent e) { // nothing to do here
     }
 
     // interface InternalFrameListener
-    public void internalFrameActivated(InternalFrameEvent e) {
+    public void internalFrameActivated(InternalFrameEvent e) { // nothing to do here
     }
 
     public void internalFrameClosed(InternalFrameEvent e) {
@@ -223,18 +223,18 @@ public class DbPatchInternalFrame extends JInternalFrame implements MouseListene
         }
     }
 
-    public void internalFrameClosing(InternalFrameEvent e) {
+    public void internalFrameClosing(InternalFrameEvent e) { // nothing to do here
     }
 
-    public void internalFrameDeactivated(InternalFrameEvent e) {
+    public void internalFrameDeactivated(InternalFrameEvent e) { // nothing to do here
     }
 
-    public void internalFrameDeiconified(InternalFrameEvent e) {
+    public void internalFrameDeiconified(InternalFrameEvent e) { // nothing to do here
     }
 
-    public void internalFrameIconified(InternalFrameEvent e) {
+    public void internalFrameIconified(InternalFrameEvent e) { // nothing to do here
     }
 
-    public void internalFrameOpened(InternalFrameEvent e) {
+    public void internalFrameOpened(InternalFrameEvent e) { // nothing to do here
     }
 }

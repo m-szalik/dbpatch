@@ -44,19 +44,19 @@ public class DbManager {
     }
 
     public void init(DbManagerCredentialsCallback dbManagerPasswordCallback) throws SQLException {
-        Connection con;
+        Connection con = null;
         int tryNo = 0;
         String password = ce.getPassword();
+        boolean connected = false;
         do {
             try {
                 con = DriverManager.getConnection(ce.getJdbcUri(), ce.getUser(), password);
+                connected = true;
             } catch (SQLException e) {
                 password = dbManagerPasswordCallback.getPassword(e, tryNo, ce);
                 tryNo++;
-                continue;
             }
-            break;
-        } while (true);
+        } while (! connected);
         if (con != null) {
             dialect.checkAndCreateStructure(con);
             con.setAutoCommit(false); // just for sure

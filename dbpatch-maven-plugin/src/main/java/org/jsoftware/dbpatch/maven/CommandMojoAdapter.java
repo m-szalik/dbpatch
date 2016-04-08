@@ -81,7 +81,7 @@ public class CommandMojoAdapter<C extends AbstractCommand> extends AbstractMojo 
     }
 
     protected void setup(C command) {
-
+        // nothing extra to do here
     }
 }
 

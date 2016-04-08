@@ -22,8 +22,11 @@ public class HsqlDialect extends DefaultDialect {
         try {
             stm = con.createStatement();
             rs = stm.executeQuery("VALUES (CURRENT_TIMESTAMP)");
-            rs.next();
-            return rs.getTimestamp(1);
+            if (rs.next()) {
+                return rs.getTimestamp(1);
+            } else {
+                throw new SQLException("No rows returned.");
+            }
         } finally {
             CloseUtil.close(rs);
             CloseUtil.close(stm);

@@ -96,7 +96,8 @@ public class ResultDisplay extends JEditorPane implements Extension {
         }
     }
 
-    private synchronized void addText(String text, String color) {
+    private synchronized void addText(String textIn, String color) {
+        String text = textIn;
         text = text.trim();
         if (text.length() > 0) {
             if (color != null) {

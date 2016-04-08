@@ -46,7 +46,9 @@ public class OracleDialect extends DefaultDialect {
         try {
             stm = con.createStatement();
             rs = stm.executeQuery("SELECT sysdate FROM dual");
-            rs.next();
+            if (! rs.next()) {
+                throw new SQLException("No rows returned.");
+            }
             return rs.getTimestamp(1);
         } finally {
             CloseUtil.close(rs);

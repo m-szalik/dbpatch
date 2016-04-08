@@ -60,8 +60,11 @@ public class SybaseDialect extends DefaultDialect {
         try {
             stm = con.createStatement();
             rs = stm.executeQuery("SELECT getDate()");
-            rs.next();
-            return rs.getTimestamp(1);
+            if (rs.next()) {
+                return rs.getTimestamp(1);
+            } else {
+                throw new SQLException("No rows returned.");
+            }
         } finally {
             CloseUtil.close(rs);
             CloseUtil.close(stm);

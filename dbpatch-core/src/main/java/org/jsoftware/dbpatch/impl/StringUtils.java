@@ -31,6 +31,7 @@ public class StringUtils {
     }
 
     public static String replace(String text, String repl, String with, int max) {
+        int m = max;
         if ((text == null) || (repl == null) || (with == null) || (repl.length() == 0)) {
             return text;
         }
@@ -41,7 +42,7 @@ public class StringUtils {
             buf.append(text.substring(start, end)).append(with);
             start = end + repl.length();
 
-            if (--max == 0) {
+            if (--m == 0) {
                 break;
             }
         }

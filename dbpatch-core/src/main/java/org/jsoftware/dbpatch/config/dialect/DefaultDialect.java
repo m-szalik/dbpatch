@@ -99,7 +99,7 @@ public class DefaultDialect implements Dialect {
             if (addRow) {
                 ps = con.prepareStatement("INSERT INTO " + DBPATCH_TABLE_NAME + " (patch_name,patch_date,patch_db_date) VALUES (?,?,NULL)");
                 ps.setString(1, patch.getName());
-                ps.setTimestamp(2, new java.sql.Timestamp(patch.getFile().lastModified()));
+                ps.setTimestamp(2, new Timestamp(patch.getFile().lastModified()));
                 ps.execute();
             }
             con.commit();

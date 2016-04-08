@@ -36,6 +36,7 @@ public abstract class AbstractDialectTest<D extends Dialect> {
         Statement statement = Mockito.mock(Statement.class);
         when(connection.createStatement()).thenReturn(statement);
         ResultSet resultSet = Mockito.mock(ResultSet.class);
+        when(resultSet.next()).thenReturn(true);
         when(statement.executeQuery(anyString())).thenReturn(resultSet);
         Timestamp timestamp = Mockito.mock(Timestamp.class);
         when(resultSet.getTimestamp(anyInt())).thenReturn(timestamp);

@@ -36,7 +36,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException("Can not load disallowed statements.", e);
+            throw new AssertionError("Can not load disallowed statements.", e);
         } finally {
             CloseUtil.close(br);
         }
@@ -114,7 +114,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
                     buf.append('\n');
                 }
             }
-            if (token.equals("\n") && current == PSTATE.comment_line) {
+            if ("\n".equals(token) && current == PSTATE.comment_line) {
                 String commentLine = text.toLowerCase().trim();
                 if (commentLine.startsWith("block") || commentLine.startsWith("statement")) {
                     changeTo(PSTATE.sql_block);
@@ -122,35 +122,35 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
                     changeTo(PSTATE.sql);
                 }
             }
-            if (token.equals("*/") && current == PSTATE.comment_block) {
+            if ("*/".equals(token) && current == PSTATE.comment_block) {
                 changeTo(PSTATE.sql);
             }
-            if (token.equals("--") && current == PSTATE.sql) {
+            if ("--".equals(token) && current == PSTATE.sql) {
                 changeTo(PSTATE.comment_line);
             }
-            if (token.equals("--") && current == PSTATE.sql_block) {
+            if ("--".equals(token) && current == PSTATE.sql_block) {
                 changeTo(PSTATE.comment_line);
             }
-            if (token.equals("//") && current == PSTATE.sql) {
+            if ("//".equals(token) && current == PSTATE.sql) {
                 changeTo(PSTATE.comment_line);
             }
-            if (token.equals("/*") && current == PSTATE.sql) {
+            if ("/*".equals(token) && current == PSTATE.sql) {
                 changeTo(PSTATE.comment_block);
             }
             if (token.equals(delimiter) && current == PSTATE.sql) {
                 changeTo(PSTATE.sql);
             }
 
-            if (token.equals("\"") || token.equals("'")) {
+            if ("\"".equals(token) || "'".equals(token)) {
                 boolean bslash = ctx.getTextBefore().endsWith("\\");
-                if (token.equals("\"")) {
+                if ("\"".equals(token)) {
                     if (current == PSTATE.sql) {
                         current = PSTATE.inside_doublequot;
                     } else if (current == PSTATE.inside_doublequot && !bslash) {
                         current = PSTATE.sql;
                     }
                 }
-                if (token.equals("'")) {
+                if ("'".equals(token)) {
                     if (current == PSTATE.sql) {
                         current = PSTATE.inside_singlequot;
                     } else if (current == PSTATE.inside_singlequot && !bslash) {
@@ -177,7 +177,7 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
                     sql = sql.substring(delimiter.length()).trim();
                 }
                 if (sql.equalsIgnoreCase("commit") || sql.equalsIgnoreCase("rollback")) {
-                    throw new RuntimeException("Illegal sql statement - " + sql);
+                    throw new IllegalStateException("Illegal sql statement - " + sql);
                 }
                 if (sql.length() > 2) {
                     stm = isAllowedStatement(sql) ? new SqlPatchStatement(sql) : new DisallowedSqlPatchStatement(sql);
@@ -200,8 +200,8 @@ public class DefaultPatchParser extends SimpleParser implements PatchParser {
     }
 
     private boolean isAllowedStatement(String sql) {
-        sql = sql.trim().toLowerCase();
-        return sql.length() <= 1 || !disallowed.contains(sql);
+        String sqlCode = sql.trim().toLowerCase();
+        return sqlCode.length() <= 1 || !disallowed.contains(sqlCode);
     }
 }
 

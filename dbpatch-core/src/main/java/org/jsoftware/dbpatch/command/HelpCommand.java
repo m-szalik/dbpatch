@@ -51,7 +51,8 @@ public class HelpCommand extends AbstractCommand {
         }
     }
 
-    private String replace(String text) {
+    private String replace(String textInput) {
+        String text = textInput;
         text = TASK_PREFIX_PATTERN.matcher(text).replaceAll(taskPrefix);
         text = PROPERTY_PREFIX_PATTERN.matcher(text).replaceAll(propertyPrefix);
         text = text.replace("[commands-title]", commandTitle);

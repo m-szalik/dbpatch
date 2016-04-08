@@ -49,7 +49,7 @@ public class ConfigurationEntry implements Serializable {
     private Collection<Extension> extensions;
     private String patchEncoding;
     private String rollbackSuffix = "*.rollback";
-    boolean interactivePasswordAllowed = true;
+    private boolean interactivePasswordAllowed = true;
 
     protected ConfigurationEntry(String id, File baseDir) {
         this.id = id;
@@ -78,8 +78,8 @@ public class ConfigurationEntry implements Serializable {
     }
 
     public void setApplyStarters(String applyStarters) {
-        applyStarters = applyStarters.toLowerCase().trim();
-        this.applyStarters = applyStrategies.get(applyStarters);
+        String str = applyStarters.toLowerCase().trim();
+        this.applyStarters = applyStrategies.get(str);
         if (this.applyStarters == null) {
             throw new IllegalArgumentException("Can not find applyStrategy for \"" + applyStarters + "\"");
         }

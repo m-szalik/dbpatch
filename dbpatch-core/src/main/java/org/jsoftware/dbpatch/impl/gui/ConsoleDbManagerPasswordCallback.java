@@ -27,7 +27,7 @@ public class ConsoleDbManagerPasswordCallback extends AbstractDbManagerCredentia
             }
             return str;
         } catch (IOException e) {
-            throw new RuntimeException("Cannot read username from console!", e);
+            throw new IllegalStateException("Cannot read username from console!", e);
         } finally {
             IOUtils.closeQuietly(br);
             System.out.println();
