@@ -12,7 +12,7 @@ ext.libraries = [
     commons_io : ['commons-io:commons-io:2.4'],
     hsql_db : ['org.hsqldb:hsqldb:2.3.3'],
 
-    jdbc_drivers : ['mysql:mysql-connector-java:5.1.38', 'org.postgresql:postgresql:9.4.1208']
+    jdbc_drivers : ['mysql:mysql-connector-java:6.0.2', 'org.postgresql:postgresql:9.4.1208']
 ]
 
 subprojects {
